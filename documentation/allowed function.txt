@@ -1,0 +1,118 @@
+All teh function we can use by subject.
+
+readline():
+char *readline (const char *prompt);
+
+DESCRIPTION:
+	readline will read a line from the terminal and return it, using
+	prompt as a prompt.  If prompt is NULL or the empty string, no
+	prompt is issued.  The line returned is allocated with malloc(3);
+	the caller must free it when finished.  The line returned has the
+	final newline removed, so only the text of the line remains.
+
+RETURN VALUE:
+	readline returns the text of the line read.  A blank line returns
+	the empty string.  If EOF is encountered while reading a line,
+	and the line is empty, NULL is returned.  If an EOF is read with
+	a non-empty line, it is treated as a newline.
+
+rl_clear_history():
+	The function rl_clear_history() is used in the GNU Readline library
+	to clear the entire history of stored input lines. This function
+	removes all entries from the input history, making the history empty.
+
+rl_on_new_line():
+	The function rl_on_new_line() is a function provided by the GNU Readline library.
+	Its purpose is to notify the Readline library that the application has completed
+	a new line of input.
+	When a user presses Enter after entering a line of input, thus completing a new line,
+	the application should call rl_on_new_line() to inform the Readline library that
+	the new line has been completed. This call is important because it allows Readline
+	to internally manage the handling of input lines, including updating the input
+	history, parsing the input lines, and managing any additional configurations.
+
+rl_replace_line():
+	The function rl_replace_line() is part of the GNU Readline library and is used to
+	replace the entire current input line displayed in the terminal with a new one.
+
+	Here's a breakdown of what it does:
+	1.- Replacement of the current line: When rl_replace_line() is called, it replaces
+		the entire content of the current input line displayed in the terminal with the
+		content provided as an argument to the function.
+	2.- Buffer manipulation: Internally, the Readline library manages a buffer containing
+		the current input line. rl_replace_line() modifies this buffer with the new input line.
+	3.- Redrawing the line: After replacing the line in the buffer, Readline redraws the
+		updated line in the terminal, so the user can see the changes.
+	4.- Cursor positioning: After redrawing the line, Readline adjusts the cursor position
+		to the end of the line, allowing the user to continue typing from that point.
+
+	In summary, rl_replace_line() is used to dynamically update the content of the current
+	input line displayed in the terminal while preserving the cursor position. It is
+	commonly used in interactive command-line applications where the input line needs
+	to be modified programmatically based on user input or application logic.
+
+rl_redisplay():
+	The function rl_redisplay() is a part of the GNU Readline library
+	and is used to redraw the current input line in the terminal.
+
+	Here's how it works:
+
+	1.- Redrawing the line: When rl_redisplay() is called, it redraws the current input
+		line in the terminal, reflecting any changes that may have occurred since the last display.
+		This includes modifications made programmatically or by the user.
+	2.- Cursor positioning: After redrawing the line, Readline ensures that the cursor
+		is positioned correctly according to the current input line's content. This ensures a
+		smooth and accurate display of the input line.
+	3.- Terminal interaction: rl_redisplay() interacts with the terminal to update the display,
+		ensuring that the changes made to the input line are reflected accurately on the screen.
+
+	In essence, rl_redisplay() serves as a way to update the display of the input line in the
+	terminal, ensuring that any modifications or updates are immediately visible to the user.
+	It is often used in conjunction with other functions in the Readline library to provide a
+	seamless and interactive command-line interface experience.
+
+add_history():
+	The function add_history() is part of the GNU Readline library and is used to add a new line of
+	input to the history list.
+
+	Here's how it works:
+
+	1.- Adding to the history: When add_history() is called, it adds the specified line of input
+		to the history list maintained by the Readline library.
+	2.- History management: Internally, Readline manages a history list that stores previously entered 
+		lines of input. add_history() appends the specified line to this list, allowing the user 
+		to recall and reuse it later.
+	3.- Optional maximum history size: The history list may have a maximum size configured, beyond 
+		which older entries are automatically discarded as new ones are added. This prevents the history
+		list from growing indefinitely and consuming excessive memory.
+	4.- Configuration: The behavior of add_history() and the history list itself can be customized 
+		using various configuration options provided by the Readline library.
+
+	In summary, add_history() is used to store a line of input in the history list maintained by the Readline
+	library, making it available for later retrieval and use. It is commonly used in interactive 
+	command-line applications to facilitate command recall and reuse by the user.
+
+wait3():
+	The wait3() function is a system call in Unix-like operating systems, including Linux.
+	It is used to wait for any child process to terminate and obtain status information about that process.
+
+	Here's how wait3() works:
+
+	1.- Waiting for a child process: When wait3() is called, the calling process will be 
+		suspended until one of its child processes terminates. If there are no child 
+		processes, wait3() returns immediately with an error.
+	2.- Status information: Upon termination of a child process, wait3() returns the 
+		process ID (PID) of the terminated child and fills a struct rusage with resource 
+		usage statistics for that child process. This structure includes information such 
+		as CPU time, memory usage, and I/O statistics.
+	3.- Options: wait3() allows specifying options to control its behavior. For example, 
+		you can specify the WNOHANG option to return immediately if no child processes have terminated.
+	4.- Error handling: If an error occurs during the execution of wait3(), it returns 
+		-1 and sets the global variable errno to indicate the specific error condition.
+	In summary, wait3() is a system call used by parent processes to wait for child 
+	processes to terminate and obtain information about their resource usage. It is a 
+	fundamental mechanism for managing concurrent processes in Unix-like operating systems.
+
+wait4():
+	Same as wait3() but it waits for a SPECIFIC child process to terminate.
+
