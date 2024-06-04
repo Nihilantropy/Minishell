@@ -116,3 +116,224 @@ wait3():
 wait4():
 	Same as wait3() but it waits for a SPECIFIC child process to terminate.
 
+signal():
+	The signal() function in C is used to set up a signal handler 
+	for a specific signal. Signals are software interrupts delivered 
+	to a process to notify it of a particular event. Here's how signal() works:
+
+	1.- Signal handler setup: When you call signal(), you specify 
+		the signal you want to handle and the function to be called 
+		(the signal handler) when that signal occurs.
+	2.- Signal handling: When the specified signal is raised (e.g., by 
+		the operating system or another process), the signal handler 
+		function is called to handle the signal. Inside the signal handler, 
+		you can perform any necessary actions, such as cleanup, logging, 
+		or modifying program behavior.
+	3.- Default behavior: Some signals have default actions 
+		associated with them, such as terminating the process (SIGTERM) 
+		or ignoring the signal (SIG_IGN). By setting up a signal handler 
+		using signal(), you can override the default behavior and provide 
+		custom handling for the signal.
+	4.- Reentrancy: Signal handlers should be designed to be reentrant, 
+		meaning they can safely be called recursively or from multiple 
+		contexts simultaneously. This is important for ensuring correct 
+		behavior in multi-threaded or asynchronous environments.
+
+	Here's a simple example of using signal() to set up a signal 
+	handler for the SIGINT signal (sent when the user presses Ctrl+C):
+
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <signal.h>
+
+	// Signal handler function
+	void sigint_handler(int signum) {
+		printf("Caught SIGINT, exiting...\n");
+		exit(signum);
+	}
+
+	int main() {
+		// Set up signal handler for SIGINT
+		signal(SIGINT, sigint_handler);
+
+		printf("Press Ctrl+C to send SIGINT...\n");
+
+		// Infinite loop
+		while (1) {
+			// Do some work
+		}
+
+		return 0;
+	}
+
+	In this example, when the user presses Ctrl+C, the SIGINT 
+	signal is sent to the process, and the sigint_handler() 
+	function is called to handle the signal, printing a message 
+	and exiting the program.
+
+sigaction();
+	The sigaction() function in C is used to examine and 
+	change the action taken by a process on receipt of a 
+	specific signal. Unlike the older signal() function, 
+	sigaction() provides more control and flexibility over 
+	signal handling.
+
+	Here's how sigaction() works:
+
+	1.- Signal handling setup: sigaction() allows you to 
+		specify a signal and provide a struct sigaction object 
+		containing information about how the signal should be handled. 
+		This structure includes a pointer to the signal handler 
+		function, flags to control behavior, and other signal-related information.
+	2.- Signal handler function: You specify a signal handler 
+		function that will be called when the specified signal occurs. 
+		This function must have a specific signature, taking an integer 
+		signal number as an argument and returning void.
+	3.- Setting up signal handling: By calling sigaction(), you can 
+		specify the desired action for a particular signal. This action 
+		may include ignoring the signal, executing a custom signal handler 
+		function, or using the default behavior.
+	4.- Control over signal handling: Unlike signal(), which may 
+		reset the signal handler to its default behavior after a signal 
+		occurs, sigaction() allows you to specify whether the signal 
+		handler should remain installed or be reset to its default 
+		behavior after handling a signal.
+	5.- Error handling: If sigaction() encounters an error, it 
+		returns -1 and sets the global variable errno to indicate the 
+		specific error condition.
+
+	Here's a simple example of using sigaction() to set up a 
+	signal handler for the SIGINT signal (sent when the user presses Ctrl+C):
+
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <signal.h>
+
+	// Signal handler function
+	void sigint_handler(int signum) {
+		printf("Caught SIGINT, exiting...\n");
+		exit(signum);
+	}
+
+	int main() {
+		struct sigaction sa;
+
+		// Set up signal handler for SIGINT
+		sa.sa_handler = sigint_handler;
+		sigemptyset(&sa.sa_mask);
+		sa.sa_flags = 0;
+
+		if (sigaction(SIGINT, &sa, NULL) == -1) {
+			perror("sigaction");
+			exit(EXIT_FAILURE);
+		}
+
+		printf("Press Ctrl+C to send SIGINT...\n");
+
+		// Infinite loop
+		while (1) {
+			// Do some work
+		}
+
+		return 0;
+	}
+
+	In this example, sigaction() is used to set up a signal handler 
+	for SIGINT. The sa_handler member of the struct sigaction is 
+	set to the signal handler function sigint_handler(). The sa_flags member 
+	is set to 0, indicating default behavior. Finally, sigaction() is 
+	called to install the signal handler for SIGINT.
+
+sigemptyset();
+	The sigemptyset() function is a part of the signal handling 
+	facilities provided by the C standard library. It's typically 
+	used to initialize a signal set to be empty, meaning it contains no signals.
+
+	Here's how sigemptyset() works:
+
+	1.- Initialization: When you call sigemptyset(), you pass it a 
+		pointer to a sigset_t object, which represents a set of signals. 
+		The function initializes this set to be empty.
+	2.- Signal set manipulation: After sigemptyset() is called, the 
+		signal set pointed to by the argument will contain no signals. 
+		It will be ready to have specific signals added to it using functions like sigaddset().
+	3.- Usage with sigaction(): sigemptyset() is often used in 
+		conjunction with the sigaction() function, where you may 
+		need to specify which signals should be blocked or unblocked 
+		during the execution of a signal handler. Before modifying the 
+		signal set using functions like sigaddset() or sigdelset(), it's 
+		common to call sigemptyset() to initialize the set.
+	4.- Here's a simple example demonstrating the usage of sigemptyset():
+
+	#include <stdio.h>
+	#include <signal.h>
+
+	int main() {
+		sigset_t set;
+
+		// Initialize the signal set to be empty
+		if (sigemptyset(&set) == -1) {
+			perror("sigemptyset");
+			return 1;
+		}
+
+		// Now 'set' contains no signals
+
+		return 0;
+	}
+
+	In this example, sigemptyset() is called to initialize 
+	the set variable to be an empty signal set. After this call, 
+	set will not contain any signals, and it can be manipulated 
+	further using other signal set functions.
+
+sigaddset();
+	The sigaddset() function is used to add a specific 
+	signal to a signal set. This function is part of the 
+	signal handling facilities provided by the C standard library.
+
+	Here's how sigaddset() works:
+
+	1.- Signal set modification: When you call sigaddset(), 
+		you pass it a pointer to a sigset_t object representing a 
+		set of signals and the signal number you want to add to the set.
+	2.- Adding a signal: The function modifies the signal set pointed 
+		to by the argument by adding the specified signal to it.
+	3.- Usage with other functions: sigaddset() is commonly used in 
+		conjunction with other signal set manipulation functions, such 
+		as sigemptyset() to initialize an empty set or sigdelset() to 
+		remove a signal from a set.
+	4.- Signal set operations: After using sigaddset(), you can use the 
+		modified signal set in other signal-related functions. For example, 
+		you might use the modified signal set with sigprocmask() to block or 
+		unblock specific signals.
+	
+	Here's a simple example demonstrating the usage of sigaddset():
+
+	#include <stdio.h>
+	#include <signal.h>
+
+	int main() {
+		sigset_t set;
+
+		// Initialize an empty signal set
+		if (sigemptyset(&set) == -1) {
+			perror("sigemptyset");
+			return 1;
+		}
+
+		// Add SIGINT (Ctrl+C) to the signal set
+		if (sigaddset(&set, SIGINT) == -1) {
+			perror("sigaddset");
+			return 1;
+		}
+
+		// Now 'set' contains SIGINT
+
+		return 0;
+	}
+
+	In this example, sigaddset() is called to add the SIGINT signal 
+	(usually generated by pressing Ctrl+C) to the set variable, which 
+	represents a signal set. After this call, the set variable will 
+	contain the SIGINT signal, which can be used for further signal-related operations.
