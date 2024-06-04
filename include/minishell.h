@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:54:01 by crea              #+#    #+#             */
-/*   Updated: 2024/05/06 15:54:01 by crea             ###   ########.fr       */
+/*   Updated: 2024/06/04 21:47:34 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 # include <sys/types.h>
 # include "messages.h"
 # include "../libft/include/libft.h"
-# include "../ft_printf/include/ft_printf.h"
 
 #endif
+

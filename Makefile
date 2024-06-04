@@ -18,18 +18,14 @@ RM			= rm -f
 INC 		= -I$(MINISHELL_HEAD) -I$(LIBFT_DIR)
 
 # Compilation rule for the program
-$(NAME):	$(OBJS) $(LIBFT) $(PRINTF_LIB)
+$(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME)
 
 
 # Rule to compile object files
-%.o:		%.c	$(MINISHELL_HEAD)
-			$(CC) -c $< $(CFLAGS) -o $@ $(INC)
-
-# Rule to make libft
-$(LIBFT):	
+%.o:		%.c
 			$(MAKE) -C $(LIBFT_DIR)
-
+			$(CC) -c $< $(CFLAGS) -o $@ $(INC)
 
 all:		$(NAME)
 
