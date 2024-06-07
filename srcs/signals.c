@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 17:07:44 by crea              #+#    #+#             */
-/*   Updated: 2024/02/05 14:43:16 by crea             ###   ########.fr       */
+/*   Created: 2024/06/07 16:50:45 by crea              #+#    #+#             */
+/*   Updated: 2024/06/07 16:50:45 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-int	ft_toupper(int c)
+void	sigint_handler(int signum)
 {
-	if (c >= 'a' && c <= 'z')
-		c -= 32;
-	return (c);
+	struct sigaction sa;
+    sa.sa_handler = handle_sigint;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    sigaction(SIGINT, &sa, NULL);
 }

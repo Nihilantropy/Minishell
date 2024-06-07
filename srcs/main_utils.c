@@ -1,20 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 17:07:44 by crea              #+#    #+#             */
-/*   Updated: 2024/02/05 14:43:16 by crea             ###   ########.fr       */
+/*   Created: 2024/06/07 16:17:46 by crea              #+#    #+#             */
+/*   Updated: 2024/06/07 16:17:46 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-int	ft_toupper(int c)
+void	free_matrix(char **matrix)
 {
-	if (c >= 'a' && c <= 'z')
-		c -= 32;
-	return (c);
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+}
+
+void	free_shell(t_shell *shell)
+{
+	free_matrix(shell->matrix);
+	//free_matrix(shell->env);
+}
+
+void	print_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		printf("matrix[%d]: %s\n", i, matrix[i]);
+		i++;
+	}
 }

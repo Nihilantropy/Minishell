@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 17:07:44 by crea              #+#    #+#             */
-/*   Updated: 2024/02/05 14:43:16 by crea             ###   ########.fr       */
+/*   Created: 2024/06/07 12:34:41 by crea              #+#    #+#             */
+/*   Updated: 2024/06/07 12:34:41 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-int	ft_toupper(int c)
+void	init_shell(t_shell *shell)
 {
-	if (c >= 'a' && c <= 'z')
-		c -= 32;
-	return (c);
+	shell->line = NULL;
+	shell->matrix = NULL;
+	shell->env = NULL;
+	shell->history = NULL;
 }

@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 17:07:44 by crea              #+#    #+#             */
-/*   Updated: 2024/02/05 14:43:16 by crea             ###   ########.fr       */
+/*   Created: 2024/06/07 16:12:46 by crea              #+#    #+#             */
+/*   Updated: 2024/06/07 16:12:46 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-int	ft_toupper(int c)
+void	parse_args(t_shell *shell)
 {
-	if (c >= 'a' && c <= 'z')
-		c -= 32;
-	return (c);
+	shell->line = get_next_line(STDIN_FILENO);
+	shell->matrix = ft_split(shell->line, ' ');
+	free(shell->line);
+	return ;
 }

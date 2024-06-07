@@ -55,7 +55,7 @@ void	ft_putstr_fd(char *str, int fd);
 void	ft_putendl_fd(char *str, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
-/* LIBFT BONUS */
+/* LIBFT BONUS 
 typedef struct s_list
 {
 	void			*content;
@@ -70,7 +70,19 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+*/
 
+/* get_next_line */
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+typedef struct s_list
+{
+	char			*data;
+	struct s_list	*next;
+}			t_list;
+char	*get_next_line(int fd);
 
 /* PLUS */
 int		ft_putchar(char c);
@@ -79,5 +91,6 @@ void	ft_putnl(void);
 void	ft_exit_error(char *error);
 void	ft_exit_success(char *success);
 int		ft_isdigit_str(char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

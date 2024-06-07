@@ -12,9 +12,34 @@
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv)
+int main()
 {
-	if (argc < 1)
-		ft_exit_error(ERR_NBR_ARG);
-	printf("Hi there! Is minishell! %s\n", argv[1]);
+	t_shell		shell;
+
+	init_shell(&shell);
+	signal_handler(1);
+	if (isatty(STDIN_FILENO))
+	{
+		printf("Input from terminal.\n");
+		while (1)
+		{
+			printf("minishell$ ");
+			parse_args(&shell);
+			if (!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 4))
+			{
+				printf("exit\n");
+				break ;
+			}
+			else
+			{
+				print_matrix(shell.matrix);
+			}
+		}
+		
+	}
+	else
+	{
+		printf("Input from file.\n");
+	}
+	return 0;
 }
