@@ -26,9 +26,9 @@
 
 typedef struct s_history
 {
-	char				*line;
+	char				*data;
+	int					index;
 	struct s_history	*next;
-	struct s_history	*prev;
 }						t_history;
 
 typedef struct s_shell
@@ -49,6 +49,15 @@ void	init_shell(t_shell *shell);
 
 /* parser */
 void	parse_args(t_shell *shell);
+
+/* signal handler */
+void	signal_handler(void);
+void	handle_sigint(int sig);
+void	handle_eof(void);
+void	sigint_handler(int signum);
+
+/* history */
+void	handle_history(t_shell *shell);
 
 #endif
 

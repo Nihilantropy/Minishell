@@ -3,7 +3,7 @@ NAME		= minishell
 MINISHELL_DIR	= ./srcs
 MINISHELL_HEAD	= ./include
 
-SRCS		= main.c main_utils.c init_shell.c parser.c
+SRCS		= main.c main_utils.c init_shell.c parser.c signals.c history.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 
@@ -19,7 +19,7 @@ INC 		= -I$(MINISHELL_HEAD) -I$(LIBFT_DIR)
 
 # Compilation rule for the program
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
 
 
 # Rule to compile object files

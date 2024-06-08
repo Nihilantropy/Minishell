@@ -12,11 +12,31 @@
 
 #include "../include/minishell.h"
 
+void	signal_handler(void)
+{
+	sigint_handler(SIGINT);
+}
+
+
+void	handle_sigint(int sig)
+{
+	(void)sig;
+	printf("\n");
+}
+
+void	handle_eof(void)
+{
+	printf("EOF\n");
+	exit(EXIT_SUCCESS);
+}
+
 void	sigint_handler(int signum)
 {
 	struct sigaction sa;
-    sa.sa_handler = handle_sigint;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGINT, &sa, NULL);
+
+	(void)signum;
+	sa.sa_handler = handle_sigint;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
 }

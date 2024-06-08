@@ -17,18 +17,17 @@ int main()
 	t_shell		shell;
 
 	init_shell(&shell);
-	signal_handler(1);
+	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
 		printf("Input from terminal.\n");
 		while (1)
 		{
-			printf("minishell$ ");
 			parse_args(&shell);
 			if (!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 4))
 			{
-				printf("exit\n");
-				break ;
+				printf("exit command called\n");
+				exit(EXIT_SUCCESS);
 			}
 			else
 			{

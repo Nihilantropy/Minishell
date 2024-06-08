@@ -14,8 +14,18 @@
 
 void	parse_args(t_shell *shell)
 {
-	shell->line = get_next_line(STDIN_FILENO);
-	shell->matrix = ft_split(shell->line, ' ');
-	free(shell->line);
+	shell->line = readline("minishell$");
+	if (!shell->line)
+		handle_eof();
+	if (shell->line && (shell->line[0]))
+	{
+		handle_history(shell);
+		shell->matrix = ft_split(shell->line, ' ');
+	}
+	else
+	{
+		shell->matrix = NULL;
+		free(shell->line);
+	}
 	return ;
 }
