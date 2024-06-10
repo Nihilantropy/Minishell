@@ -19,14 +19,26 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "messages.h"
 # include "../libft/include/libft.h"
 
+typedef	enum e_bool
+{
+	false,
+	true
+}	t_bool;
+
 typedef struct s_shell
 {
 	int			fd;
+	t_bool		here_doc;
+	int			pipes_nbr;
+	int			index;
+	int			last_index;
+	int			limiter_index;
 	char		*line;
 	char		**matrix;
 	char		**env;
@@ -51,6 +63,17 @@ void	sigint_handler(int signum);
 
 /* history */
 void	handle_history(t_shell *shell);
+
+/* executor */
+void	executor(t_shell *shell, char **envp);
+void	exe_cmd(t_shell *shell, char *command, char **envp);
+char	*find_cmd_path(t_shell *shell, char *command);
+
+/* executor pipe */
+int		ft_here_doc(t_shell *shell, char **envp);
+void	ft_pipex(t_shell *shell, char **envp);
+void	process_child(t_shell *shell, char *command, char **envp);
+void	process_parent(t_shell *shell, char *command, char **envp);
 
 #endif
 

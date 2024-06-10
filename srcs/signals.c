@@ -29,7 +29,7 @@ void	handle_sigint(int sig)
 
 void	handle_eof(void)
 {
-	printf("EOF"); //remove
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
 

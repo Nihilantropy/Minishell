@@ -28,7 +28,7 @@ void	free_matrix(char **matrix)
 void	free_shell(t_shell *shell)
 {
 	free_matrix(shell->matrix);
-	//free_matrix(shell->env);
+	free_matrix(shell->env);
 }
 
 void	print_matrix(char **matrix)

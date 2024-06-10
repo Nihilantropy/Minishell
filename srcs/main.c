@@ -31,13 +31,16 @@ int main(int argc, char **argv, char **envp)
 		{
 			parse_args(&shell);
 			if (shell.matrix && 
-				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 4)))
+				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 5)))
 			{
-				printf("exit command called\n");
+				printf("exit\n");
 				exit(EXIT_SUCCESS);
 			}
+			else if (shell.matrix) {
+				print_matrix(shell.matrix);
+				executor(&shell, envp);
+			}
 		}
-		
 	}
 	else
 	{
