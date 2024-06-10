@@ -21,12 +21,15 @@ void	signal_handler(void)
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	printf("\nminishell$ ");
 }
 
 void	handle_eof(void)
 {
-	printf("EOF\n");
+	printf("EOF"); //remove
 	exit(EXIT_SUCCESS);
 }
 

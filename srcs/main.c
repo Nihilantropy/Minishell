@@ -12,11 +12,17 @@
 
 #include "../include/minishell.h"
 
-int main()
+int main(int argc, char **argv, char **envp)
 {
 	t_shell		shell;
 
-	init_shell(&shell);
+	if (argc != 1)
+	{
+		printf(ERR_NBR_ARG);
+		return (0);
+	}
+	(void)argv;
+	init_shell(&shell, envp);
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
@@ -24,14 +30,11 @@ int main()
 		while (1)
 		{
 			parse_args(&shell);
-			if (!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 4))
+			if (shell.matrix && 
+				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 4)))
 			{
 				printf("exit command called\n");
 				exit(EXIT_SUCCESS);
-			}
-			else
-			{
-				print_matrix(shell.matrix);
 			}
 		}
 		

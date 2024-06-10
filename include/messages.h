@@ -13,6 +13,6 @@
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
-# define ERR_NBR_ARG "Error. Incorrect number of argument.\n"
+# define ERR_NBR_ARG "Error. No argument should be provided.\n"
 
 #endif

@@ -24,19 +24,12 @@
 # include "messages.h"
 # include "../libft/include/libft.h"
 
-typedef struct s_history
-{
-	char				*data;
-	int					index;
-	struct s_history	*next;
-}						t_history;
-
 typedef struct s_shell
 {
+	int			fd;
 	char		*line;
 	char		**matrix;
 	char		**env;
-	t_history	*history;
 }				t_shell;
 
 /* main utils */
@@ -45,7 +38,7 @@ void	free_matrix(char **matrix);
 void	free_shell(t_shell *shell);
 
 /* init shell */
-void	init_shell(t_shell *shell);
+void	init_shell(t_shell *shell, char **envp);
 
 /* parser */
 void	parse_args(t_shell *shell);

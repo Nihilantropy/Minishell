@@ -14,18 +14,19 @@
 
 void	parse_args(t_shell *shell)
 {
-	shell->line = readline("minishell$");
+	shell->line = readline("minishell$ ");
 	if (!shell->line)
 		handle_eof();
-	if (shell->line && (shell->line[0]))
+	if (!shell->line[0])
 	{
-		handle_history(shell);
-		shell->matrix = ft_split(shell->line, ' ');
-	}
-	else
-	{
-		shell->matrix = NULL;
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 		free(shell->line);
+		return ;
 	}
+	handle_history(shell);
+	shell->matrix = ft_split(shell->line, ' ');
+	free(shell->line);
 	return ;
 }

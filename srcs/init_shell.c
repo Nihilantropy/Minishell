@@ -12,10 +12,24 @@
 
 #include "../include/minishell.h"
 
-void	init_shell(t_shell *shell)
+static char	**find_total_path(char **envp);
+
+void	init_shell(t_shell *shell, char **envp)
 {
+	shell->fd = STDIN_FILENO;
 	shell->line = NULL;
 	shell->matrix = NULL;
-	shell->env = NULL;
-	shell->history = NULL;
+	shell->env = find_total_path(envp);
+}
+
+static char	**find_total_path(char **envp)
+{
+	char	**total_path;
+	int		i;
+
+	i = 0;
+	while (!ft_strnstr(envp[i], "PATH=", 5))
+		i++;
+	total_path = ft_split(envp[i] + 5, ':');
+	return (total_path);
 }
