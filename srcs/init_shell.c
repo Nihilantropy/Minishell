@@ -25,6 +25,8 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->cmd.redir.here_doc = false;
 	shell->cmd.redir.limiter_index = 0;
 	shell->env = find_total_path(envp);
+	shell->fd_input = dup(STDIN_FILENO);
+	shell->fd_output = dup(STDOUT_FILENO);
 }
 
 static char	**find_total_path(char **envp)

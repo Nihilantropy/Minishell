@@ -17,7 +17,6 @@ void	signal_handler(void)
 	sigint_handler(SIGINT);
 }
 
-
 void	handle_sigint(int sig)
 {
 	(void)sig;

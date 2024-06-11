@@ -22,15 +22,17 @@ int main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	(void)argv;
-	init_shell(&shell, envp);
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
 		printf("Input from terminal.\n");
 		while (1)
 		{
+			dup2(shell.fd_input, STDIN_FILENO);
+			dup2(shell.fd_output, STDOUT_FILENO);
+			init_shell(&shell, envp);
 			parse_args(&shell);
-			if (shell.matrix && 
+			if (shell.matrix &&
 				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 5)))
 			{
 				printf("exit\n");
@@ -40,6 +42,7 @@ int main(int argc, char **argv, char **envp)
 				print_matrix(shell.matrix);
 				executor(&shell, envp);
 			}
+			free_matrix(shell.matrix);
 		}
 	}
 	else

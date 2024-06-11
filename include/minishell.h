@@ -55,6 +55,8 @@ typedef struct s_shell
 	char	*line;
 	char	**matrix;
 	char	**env;
+	int		fd_input;
+	int		fd_output;
 }			t_shell;
 
 /* main utils */

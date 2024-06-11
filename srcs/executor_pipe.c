@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*   By: mcantell <mcantell@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:57 by crea              #+#    #+#             */
-/*   Updated: 2024/06/10 15:18:57 by crea             ###   ########.fr       */
+/*   Updated: 2024/06/11 14:52:05 by mcantell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,28 @@ void	process_child(t_shell *shell, char *command, char **envp)
 
 void	process_parent(t_shell *shell, char *command, char **envp)
 {
-	exe_cmd(shell, command, envp);
+	char	*path;
+	char	**total_command;
+	pid_t	pid;
+
+	total_command = ft_split(command, ' ');
+	path = find_cmd_path(shell, total_command[0]);
+	if (!path)
+	{
+		free_matrix(total_command);
+		return ;
+	}
+	pid = fork();
+	if (pid == -1)
+		ft_exit_error(FORK_ERROR);
+	if (pid == 0)
+	{
+		execve(path, total_command, envp);
+		printf(ERROR_EXECVE);
+		exit (-142);
+	}
+	else
+		waitpid(pid, NULL, 0);
 }
 
 void	exe_cmd(t_shell *shell, char *command, char **envp)
@@ -57,7 +78,7 @@ void	exe_cmd(t_shell *shell, char *command, char **envp)
 	if (execve(path, total_command, envp) == -1)
 	{
 		printf(ERROR_EXECVE);
-		return ;
+		exit (-142);
 	}
 }
 
@@ -75,7 +96,7 @@ char	*find_cmd_path(t_shell *shell, char *command)
 		free(relative_path);
 		if (access(cmd_path, F_OK) == 0)
 		{
-			free_matrix(shell->env);
+			//free_matrix(shell->env);
 			return (cmd_path);
 		}
 		free(cmd_path);
