@@ -17,7 +17,6 @@ void	signal_handler(void)
 	sigint_handler(SIGINT);
 }
 
-
 void	handle_sigint(int sig)
 {
 	(void)sig;
@@ -29,7 +28,7 @@ void	handle_sigint(int sig)
 
 void	handle_eof(void)
 {
-	printf("exit\n");
+	printf("exit EOF\n");
 	exit(EXIT_SUCCESS);
 }
 

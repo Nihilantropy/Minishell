@@ -12,6 +12,7 @@
 
 #include "../include/minishell.h"
 
+static void	handle_enter(t_shell *shell);
 static void	count_pipes(t_shell *shell);
 
 void	parse_args(t_shell *shell)
@@ -21,10 +22,7 @@ void	parse_args(t_shell *shell)
 		handle_eof();
 	if (!shell->line[0])
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		free(shell->line);
+		handle_enter(shell);
 		return ;
 	}
 	handle_history(shell);
@@ -34,11 +32,20 @@ void	parse_args(t_shell *shell)
 	return ;
 }
 
+static void	handle_enter(t_shell *shell)
+{
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	free(shell->line);
+	return ;
+}
+
 static void	count_pipes(t_shell *shell)
 {
 	int	i;
 
-	if (shell->matrix[0][0] == '|')
+	if (ft_strcmp(shell->matrix[0], "|") == 0)
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
 		free_matrix(shell->matrix);

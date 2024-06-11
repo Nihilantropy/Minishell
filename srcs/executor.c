@@ -37,12 +37,32 @@ static void	simple_process_child(t_shell *shell, char *command, char **envp)
 	}
 }
 
+static void	simple_process_parent(t_shell *shell, char *command, char **envp)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		return;
+	}
+	if (pid == 0)
+	{
+		exe_cmd(shell, command, envp);
+		exit(EXIT_FAILURE);
+	}
+	else
+		waitpid(pid, &status, 0);
+}
+
 static void	simple_command(t_shell *shell, char **envp)
 {
 	while (shell->cmd.index < shell->cmd.pipes_nbr)
 		simple_process_child(shell, shell->matrix[shell->cmd.index++], envp);
 	wait(NULL);
-	process_parent(shell, shell->matrix[shell->cmd.index], envp);
+	simple_process_parent(shell, shell->matrix[shell->cmd.index], envp);
 	return ;
 }
 

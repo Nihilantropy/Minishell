@@ -26,25 +26,21 @@ int main(int argc, char **argv, char **envp)
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
-		printf("Input from terminal.\n");
 		while (1)
 		{
 			parse_args(&shell);
-			if (shell.matrix && 
+			if (shell.matrix &&
 				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 5)))
 			{
-				printf("exit\n");
+				printf("exit MAIN\n");
 				exit(EXIT_SUCCESS);
 			}
-			else if (shell.matrix) {
-				print_matrix(shell.matrix);
+			else if (shell.matrix)
+			{
+				//print_matrix(shell.matrix);
 				executor(&shell, envp);
 			}
 		}
-	}
-	else
-	{
-		printf("Input from file.\n");
 	}
 	return 0;
 }
