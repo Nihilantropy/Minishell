@@ -34,11 +34,16 @@ void	handle_eof(void)
 
 void	sigint_handler(int signum)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
-	(void)signum;
-	sa.sa_handler = handle_sigint;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
+	if (signum == SIGINT)
+	{
+		sa.sa_handler = handle_sigint;
+		sigemptyset(&sa.sa_mask);
+		sa.sa_flags = SA_RESTART;
+		sigaction(SIGINT, &sa, NULL);
+	}
+	else
+		exit (-1);
 }

@@ -6,11 +6,20 @@
 /*   By: mcantell <mcantell@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:57 by crea              #+#    #+#             */
-/*   Updated: 2024/06/11 14:52:05 by mcantell         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:01:02 by mcantell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	sig_exit(int sig)
+{
+	(void)sig;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	exit (142);
+}
 
 void	process_child(t_shell *shell, char *command, char **envp)
 {
@@ -55,6 +64,7 @@ void	process_parent(t_shell *shell, char *command, char **envp)
 		ft_exit_error(FORK_ERROR);
 	if (pid == 0)
 	{
+		signal(SIGQUIT, sig_exit);
 		execve(path, total_command, envp);
 		printf(ERROR_EXECVE);
 		exit (-142);
