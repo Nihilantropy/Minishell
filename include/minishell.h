@@ -31,18 +31,31 @@ typedef	enum e_bool
 	true
 }	t_bool;
 
+typedef struct s_redir
+{
+	t_bool	here_doc;
+	t_bool	redirection;
+	int		infile_index;
+	int		outfile_index;
+	int		limiter_index;
+}			t_redir;
+
+typedef struct s_cmd
+{
+	int		index;
+	int		pipes_nbr;
+	char	*command;
+	t_redir	redir;
+}			t_cmd;
+
 typedef struct s_shell
 {
-	int			fd;
-	t_bool		here_doc;
-	int			pipes_nbr;
-	int			index;
-	int			last_index;
-	int			limiter_index;
-	char		*line;
-	char		**matrix;
-	char		**env;
-}				t_shell;
+	t_cmd	cmd;
+	int		fd;
+	char	*line;
+	char	**matrix;
+	char	**env;
+}			t_shell;
 
 /* main utils */
 void	print_matrix(char **matrix);
@@ -70,8 +83,8 @@ void	exe_cmd(t_shell *shell, char *command, char **envp);
 char	*find_cmd_path(t_shell *shell, char *command);
 
 /* executor pipe */
-int		ft_here_doc(t_shell *shell, char **envp);
-void	ft_pipex(t_shell *shell, char **envp);
+//void	ft_here_doc(t_shell *shell, char **envp);
+//void	ft_pipex(t_shell *shell, char **envp);
 void	process_child(t_shell *shell, char *command, char **envp);
 void	process_parent(t_shell *shell, char *command, char **envp);
 

@@ -19,11 +19,11 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->fd = STDIN_FILENO;
 	shell->line = NULL;
 	shell->matrix = NULL;
-	shell->here_doc = false;
-	shell->pipes_nbr = 0;
-	shell->index = 0;
-	shell->last_index = 0;
-	shell->limiter_index = 0;
+	shell->cmd.pipes_nbr = -1;
+	shell->cmd.index = 0;
+	shell->cmd.redir.redirection = false;
+	shell->cmd.redir.here_doc = false;
+	shell->cmd.redir.limiter_index = 0;
 	shell->env = find_total_path(envp);
 }
 

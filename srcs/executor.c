@@ -12,8 +12,45 @@
 
 #include "../include/minishell.h"
 
+static void	simple_process_child(t_shell *shell, char *command, char **envp)
+{
+	int		fd[2];
+	pid_t	pid;
+
+	if (pipe(fd) == -1)
+		ft_exit_error(PIPE_ERROR);
+	pid = fork();
+	if (pid == -1)
+		ft_exit_error(FORK_ERROR);
+	if (pid == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		exe_cmd(shell, command, envp);
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		return ;
+	}
+}
+
+static void	simple_command(t_shell *shell, char **envp)
+{
+	while (shell->cmd.index < shell->cmd.pipes_nbr)
+		simple_process_child(shell, shell->matrix[shell->cmd.index++], envp);
+	wait(NULL);
+	process_parent(shell, shell->matrix[shell->cmd.index], envp);
+	return ;
+}
+
 void	executor(t_shell *shell, char **envp)
 {
+	simple_command(shell, envp);
+
+	/*
 	if (!ft_strcmp(shell->matrix[0], "here_doc"))
 	{
 		shell->here_doc = true;
@@ -21,51 +58,62 @@ void	executor(t_shell *shell, char **envp)
 		return ;
 	}
 	else
-	{
 		ft_pipex(shell, envp);
-		return ;
-	}
+	*/ // code to run redirections
 }
 
-void	exe_cmd(t_shell *shell, char *command, char **envp)
+/*
+void	ft_here_doc(t_shell *shell, char **envp)
 {
-	char	*path;
-	char	**total_command;
+	int		here_doc;
+	int		write_file;
+	char	*line;
 
-	total_command = ft_split(command, ' ');
-	path = find_cmd_path(shell, total_command[0]);
-	if (!path)
+	here_doc = open(".here_doc.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	if (here_doc == -1)
+		ft_exit_error(ERROR_OPEN_FILE);
+	while (1)
 	{
-		free_matrix(total_command);
-		return ;
+		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+		line = get_next_line(STDIN_FILENO);
+		if (!line)
+			return ;
+		ft_putstr_fd(line, here_doc);
+		if (!ft_strcmp(ft_strtrim(line, " \t\n\r\v"), shell->matrix[shell->cmd.redir.limiter_index]))
+			break ;
+		free(line);
 	}
-	if (execve(path, total_command, envp) == -1)
-	{
-		printf(ERROR_EXECVE);
-		return ;
-	}
+	free(line);
+	dup2(here_doc, STDIN_FILENO);
+	write_file = open(shell->matrix[shell->cmd.last_index], O_WRONLY | O_CREAT | O_APPEND, 0600);
+	if (write_file == -1)
+		ft_exit_error(ERROR_WRITE_FILE);
+	while (shell->index < shell->pipes_nbr)
+		process_child(shell, shell->matrix[shell->index++], envp);
+	wait(NULL);
+	unlink(".here_doc.tmp");
+	dup2(write_file, STDOUT_FILENO);
+	process_parent(shell, shell->matrix[shell->index], envp);
+	return ;
 }
 
-char	*find_cmd_path(t_shell *shell, char *command)
+
+void	ft_pipex(t_shell *shell, char **envp)
 {
-	int		i;
-	char	*relative_path;
-	char	*shell_path;
+	int		read_file;
+	int		write_file;
 
-	i = 0;
-	while (shell->env[i])
-	{
-		relative_path = ft_strjoin(shell->env[i], "/");
-		shell_path = ft_strjoin(relative_path, command);
-		free(relative_path);
-		if (access(shell_path, F_OK) == 0)
-		{
-			free_matrix(shell->env);
-			return (shell_path);
-		}
-		free(shell_path);
-		i++;
-	}
-	free_matrix(shell->env);
-	return (NULL);
-}
+	read_file = open(shell->matrix[0], O_RDONLY, 0777);
+	if (read_file == -1)
+		ft_exit_error(ERROR_OPEN_FILE);
+	dup2(read_file, STDIN_FILENO);
+	write_file = open(shell->matrix[shell->last_index], O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	if (write_file == -1)
+		ft_exit_error(ERROR_WRITE_FILE);
+	while (shell->index < shell->pipes_nbr)
+		process_child(shell, shell->matrix[shell->index++], envp);
+	wait(NULL);
+	dup2(write_file, STDOUT_FILENO);
+	process_parent(shell, shell->matrix[shell->index], envp);
+	return ;
+} */
