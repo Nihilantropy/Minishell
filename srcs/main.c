@@ -41,8 +41,8 @@ int main(int argc, char **argv, char **envp)
 			else if (shell.matrix) {
 				print_matrix(shell.matrix);
 				executor(&shell, envp);
+				free_matrix (shell.matrix);
 			}
-			free_matrix(shell.matrix);
 		}
 	}
 	else
