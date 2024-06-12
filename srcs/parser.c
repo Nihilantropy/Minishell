@@ -12,9 +12,6 @@
 
 #include "../include/minishell.h"
 
-static void	handle_enter(t_shell *shell);
-static void	count_pipes(t_shell *shell);
-
 void	parse_args(t_shell *shell)
 {
 	shell->line = readline("minishell$ ");
@@ -26,34 +23,11 @@ void	parse_args(t_shell *shell)
 		return ;
 	}
 	handle_history(shell);
-	shell->matrix = ft_split(shell->line, '|');
+	shell->matrix = ft_split_plus(shell->line, "|<>");
+	shell->matrix_utils = ft_split_plus_utils(shell->line, "|<>");
+	remove_spaces(shell->matrix);
+	remove_spaces(shell->matrix_utils);
 	count_pipes(shell);
 	free(shell->line);
 	return ;
-}
-
-static void	handle_enter(t_shell *shell)
-{
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	free(shell->line);
-	return ;
-}
-
-static void	count_pipes(t_shell *shell)
-{
-	int	i;
-
-	if (ft_strcmp(shell->matrix[0], "|") == 0)
-	{
-		printf("minishell: syntax error near unexpected token `|'\n");
-		free_matrix(shell->matrix);
-		return ;
-	}
-	i = 0;
-	while (shell->matrix[i])
-		i++;
-	shell->cmd.pipes_nbr = i - 1;
-	printf("pipes number: %d\n", shell->cmd.pipes_nbr);
 }

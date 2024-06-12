@@ -37,8 +37,11 @@ int main(int argc, char **argv, char **envp)
 			}
 			else if (shell.matrix)
 			{
-				//print_matrix(shell.matrix);
-				executor(&shell, envp);
+				printf("matrix:\n");
+				print_matrix(shell.matrix);
+				printf("matrix_utils:\n");
+				print_matrix(shell.matrix_utils);
+				//executor(&shell, envp);
 			}
 		}
 	}

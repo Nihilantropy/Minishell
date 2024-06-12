@@ -19,6 +19,7 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->fd = STDIN_FILENO;
 	shell->line = NULL;
 	shell->matrix = NULL;
+	shell->matrix_utils = NULL;
 	shell->cmd.pipes_nbr = -1;
 	shell->cmd.index = 0;
 	shell->cmd.redir.redirection = false;

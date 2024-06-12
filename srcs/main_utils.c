@@ -23,11 +23,13 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+	matrix = NULL;
 }
 
 void	free_shell(t_shell *shell)
 {
 	free_matrix(shell->matrix);
+	free_matrix(shell->matrix_utils);
 	free_matrix(shell->env);
 }
 

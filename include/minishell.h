@@ -54,6 +54,7 @@ typedef struct s_shell
 	int		fd;
 	char	*line;
 	char	**matrix;
+	char	**matrix_utils;
 	char	**env;
 }			t_shell;
 
@@ -67,6 +68,11 @@ void	init_shell(t_shell *shell, char **envp);
 
 /* parser */
 void	parse_args(t_shell *shell);
+
+/* parser utils */
+void	handle_enter(t_shell *shell);
+void	count_pipes(t_shell *shell);
+void	remove_spaces(char **matrix);
 
 /* signal handler */
 void	signal_handler(void);
@@ -87,6 +93,9 @@ char	*find_cmd_path(t_shell *shell, char *command);
 //void	ft_pipex(t_shell *shell, char **envp);
 void	process_child(t_shell *shell, char *command, char **envp);
 void	process_parent(t_shell *shell, char *command, char **envp);
+
+char **ft_split_plus(const char *str, const char *sep_set);
+char **ft_split_plus_utils(const char *str, const char *sep_set);
 
 #endif
 
