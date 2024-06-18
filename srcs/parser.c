@@ -26,6 +26,7 @@ void	parse_args(t_shell *shell)
 	shell->matrix = ft_split_plus(shell->line, "|<>");
 	shell->matrix_utils = ft_split_plus_utils(shell->line, "|<>");
 	remove_spaces(shell->matrix);
+	print_matrix(shell->matrix_utils);
 	remove_spaces(shell->matrix_utils);
 	count_pipes(shell);
 	free(shell->line);

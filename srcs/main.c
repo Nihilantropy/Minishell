@@ -41,6 +41,7 @@ int main(int argc, char **argv, char **envp)
 				print_matrix(shell.matrix);
 				printf("matrix_utils:\n");
 				print_matrix(shell.matrix_utils);
+				free_matrix(shell.matrix);
 				//executor(&shell, envp);
 			}
 		}
