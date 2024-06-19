@@ -49,10 +49,7 @@ static void	simple_process_parent(t_shell *shell, char *command, char **envp)
 		return;
 	}
 	if (pid == 0)
-	{
 		exe_cmd(shell, command, envp);
-		exit(EXIT_FAILURE);
-	}
 	else
 		waitpid(pid, &status, 0);
 }

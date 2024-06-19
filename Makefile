@@ -25,6 +25,7 @@ $(NAME):	$(OBJS)
 # Rule to compile object files
 %.o:		%.c
 			$(MAKE) -C $(LIBFT_DIR)
+			make bonus -C $(LIBFT_DIR)
 			$(CC) -c $< $(CFLAGS) -o $@ $(INC)
 
 all:		$(NAME)

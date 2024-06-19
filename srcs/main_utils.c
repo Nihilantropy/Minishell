@@ -12,35 +12,3 @@
 
 #include "../include/minishell.h"
 
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
-	matrix = NULL;
-}
-
-void	free_shell(t_shell *shell)
-{
-	free_matrix(shell->matrix);
-	free_matrix(shell->matrix_utils);
-	free_matrix(shell->env);
-}
-
-void	print_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i])
-	{
-		printf("matrix[%d]: %s\n", i, matrix[i]);
-		i++;
-	}
-}

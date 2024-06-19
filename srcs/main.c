@@ -29,20 +29,15 @@ int main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			parse_args(&shell);
-			if (shell.matrix &&
-				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 5)))
+			if (shell.arg &&
+				(!shell.arg->str[0] || !ft_strncmp(shell.arg->str, "exit", 5)))
 			{
 				printf("exit MAIN\n");
 				exit(EXIT_SUCCESS);
 			}
-			else if (shell.matrix)
+			else if (shell.arg->str)
 			{
-				printf("matrix:\n");
-				print_matrix(shell.matrix);
-				printf("matrix_utils:\n");
-				print_matrix(shell.matrix_utils);
-				free_matrix(shell.matrix);
-				//executor(&shell, envp);
+				executor(&shell, envp);
 			}
 		}
 	}

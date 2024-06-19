@@ -27,41 +27,47 @@
 
 typedef	enum e_bool
 {
-	false,
-	true
+	false = 0,
+	true = 1,
 }	t_bool;
 
-typedef struct s_redir
+typedef	enum e_quote
 {
-	t_bool	here_doc;
-	t_bool	redirection;
-	int		infile_index;
-	int		outfile_index;
-	int		limiter_index;
-}			t_redir;
+	QUOTE_NONE = -1,
+	QUOTE_SINGLE = 0,
+	QUOTE_DOUBLE = 1
+}	t_quote;
 
-typedef struct s_cmd
+typedef struct s_token
 {
-	int		index;
-	int		pipes_nbr;
-	char	*command;
-	t_redir	redir;
-}			t_cmd;
+	t_bool	is_token;
+	t_bool	infile;
+	t_bool	outfile;
+	t_bool	append;
+	t_bool	here_doc;
+}			t_token;
+
+typedef struct s_arg
+{
+	int				index;
+	t_token			token;
+	t_quote			quote;
+	char			*str;
+	struct s_arg	*next;
+	struct s_arg	*prev;
+}					t_arg;
 
 typedef struct s_shell
 {
-	t_cmd	cmd;
 	int		fd;
 	char	*line;
-	char	**matrix;
-	char	**matrix_utils;
+	t_arg	*arg;
 	char	**env;
+	t_bool	add_to_history;
+	int		pipe_nbr;
 }			t_shell;
 
 /* main utils */
-void	print_matrix(char **matrix);
-void	free_matrix(char **matrix);
-void	free_shell(t_shell *shell);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -71,8 +77,6 @@ void	parse_args(t_shell *shell);
 
 /* parser utils */
 void	handle_enter(t_shell *shell);
-void	count_pipes(t_shell *shell);
-void	remove_spaces(char **matrix);
 
 /* signal handler */
 void	signal_handler(void);
@@ -94,8 +98,6 @@ char	*find_cmd_path(t_shell *shell, char *command);
 void	process_child(t_shell *shell, char *command, char **envp);
 void	process_parent(t_shell *shell, char *command, char **envp);
 
-char **ft_split_plus(const char *str, const char *sep_set);
-char **ft_split_plus_utils(const char *str, const char *sep_set);
 
 #endif
 

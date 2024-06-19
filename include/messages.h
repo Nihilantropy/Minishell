@@ -13,6 +13,10 @@
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
+# define ERR_PIPE_INPUT "Error. Pipe input is not correct.\n"
+# define ERR_NODE_ALLOC "Error. New node allocation failed.\n"
+# define ERR_STR_NODE_ALLOC "Error. New node string allocation failed.\n"
+
 # define ERR_NBR_ARG "Error. No argument should be provided.\n"
 # define PIPE_ERROR "Error. Pipe error -1\n"
 # define FORK_ERROR "Error. Fork error -1\n"
