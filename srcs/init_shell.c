@@ -18,12 +18,9 @@ void	init_shell(t_shell *shell, char **envp)
 {
 	shell->fd = STDIN_FILENO;
 	shell->line = NULL;
-	shell->matrix = NULL;
-	shell->cmd.pipes_nbr = -1;
-	shell->cmd.index = 0;
-	shell->cmd.redir.redirection = false;
-	shell->cmd.redir.here_doc = false;
-	shell->cmd.redir.limiter_index = 0;
+	shell->add_to_history = true;
+	shell->arg = NULL;
+	shell->pipe_nbr = -1;
 	shell->env = find_total_path(envp);
 }
 

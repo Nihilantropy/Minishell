@@ -39,7 +39,7 @@ void	process_child(t_shell *shell, char *command, char **envp)
 
 void	process_parent(t_shell *shell, char *command, char **envp)
 {
-	exe_cmd(shell, command, envp);
+		exe_cmd(shell, command, envp);
 }
 
 void	exe_cmd(t_shell *shell, char *command, char **envp)
@@ -56,8 +56,10 @@ void	exe_cmd(t_shell *shell, char *command, char **envp)
 	}
 	if (execve(path, total_command, envp) == -1)
 	{
-		printf(ERROR_EXECVE);
-		return ;
+		perror("execve");
+		free_matrix(total_command);
+		free(path);
+		exit(EXIT_FAILURE);
 	}
 }
 
