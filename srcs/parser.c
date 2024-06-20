@@ -14,21 +14,21 @@
 
 t_arg	*find_last_node(t_arg *arg);
 
-static int	arg_length(char *line)
+static int	arg_length(char *temp)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
-	if (line[0] == '\"' || line[0] == '\'')
+	if (temp[0] == '\"' || temp[0] == '\'')
 	{
 		i++;
-		quote = line[0];
-		while (line[i] != quote)
+		quote = temp[0];
+		while (temp[i] != quote && temp[i])
 			i++;
-		return (i);
+		return (i + 1);
 	}
-	while (line[i] && line[i] != ' ' && line[i] != '\t')
+	while (temp[i] && temp[i] != ' ' && temp[i] != '\t')
 		i++;
 	return (i);
 }
@@ -37,7 +37,6 @@ static void	append_node(t_arg **arg, t_arg *new_node)
 {
 	t_arg	*last_node;
 
-	last_node = find_last_node(*arg);
 	if (!*arg)
 	{
 		*arg = new_node;
@@ -45,48 +44,66 @@ static void	append_node(t_arg **arg, t_arg *new_node)
 	}
 	else
 	{
+		last_node = find_last_node(*arg);
 		last_node->next = new_node;
 		new_node->prev = last_node;
 	}
+	new_node->next = NULL;
 }
 
-static void	create_new_node(t_arg **arg, char *line)
+static char	*create_quote_node(t_arg **arg, char *temp)
 {
-	int		i;
+	char	quote;
 	int		len;
 	t_arg	*new_node;
 
-	if (!line)
-		return ;
-	i = 0;
-	len = 0;
-	new_node = malloc(sizeof(t_arg));
+	quote = *temp;
+	len = arg_length(temp);
+	new_node = (t_arg *)malloc(sizeof(t_arg));
 	if (!new_node)
-		ft_exit_error(ERR_NODE_ALLOC);
-	len = arg_length(line);
-	new_node->str = malloc(len + 1);
+		ft_exit_error("ERR_MALLOC");
+	new_node->str = (char *)malloc(len - 1);
 	if (!new_node->str)
-		ft_exit_error(ERR_STR_NODE_ALLOC);
-	while (line[i] && line[i] != ' ')
-	{
-		new_node->str[i] = line[i];
-		i++;
-	}
-	new_node->next = NULL;
+		ft_exit_error("ERR_MALLOC");
+	ft_strlcpy(new_node->str, temp + 1, len - 1);
+	if (quote == '\'')
+		new_node->quote = QUOTE_SINGLE;
+	else
+		new_node->quote = QUOTE_DOUBLE;
 	append_node(arg, new_node);
+	return (temp + len);
+}
+
+static char	*create_new_node(t_arg **arg, char *temp)
+{
 
 } 
 
 static void	parse_list(t_shell *shell)
 {
-	int	i;
+	char	*temp;
+	char	*original_temp;
 
-	i = 0;
-	while (shell->line[i])
+	temp = ft_strdup(shell->line);
+	if (!temp)
+		ft_exit_error("ERR_MALLOC");
+	original_temp = temp;
+	while (*temp)
 	{
-		while (shell->line[i] == ' ' || shell->line[i] == '\t')
-			i++;
-		create_new_node(&shell->arg, shell->line + i);
+		if (*temp == '\'' || *temp == '\"')
+		{
+			temp = create_quote_node(&shell->arg, temp);
+			if (temp == NULL)
+				break ;
+		}
+		else if (*temp != ' ' && *temp != '\t')
+		{
+			temp = create_new_node(&shell->arg, temp);
+			if (temp == NULL)
+				break ;
+		}
+		else
+			temp++;
 	}
 }
 
