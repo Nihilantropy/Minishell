@@ -81,7 +81,7 @@ typedef struct s_list
 {
 	char			*data;
 	struct s_list	*next;
-}			t_list;
+}					t_list;
 char	*get_next_line(int fd);
 
 /* PLUS */

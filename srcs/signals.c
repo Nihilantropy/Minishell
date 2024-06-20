@@ -28,7 +28,7 @@ void	handle_sigint(int sig)
 
 void	handle_eof(void)
 {
-	printf("exit\n");
+	printf("exit EOF\n");
 	exit(EXIT_SUCCESS);
 }
 
