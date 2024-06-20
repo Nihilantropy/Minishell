@@ -30,17 +30,18 @@ int main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			parse_args(&shell);
-			printf("hola\n");
-			if (!shell.arg->str[0] || !ft_strncmp(shell.arg->str, "exit", 5))
+			// printf("%s\n", shell.arg->str);
+			if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
 			{
 				printf("exit MAIN\n");
 				exit(EXIT_SUCCESS);
 			}
-			else if (shell.arg->str)
+			else if (shell.arg)
 			{
 				printf("exec\n");
 				//executor(&shell, envp);
 			}
+			shell.arg = NULL; //serve da freeare ad ogni giro la lista
 		}
 	}
 	return 0;

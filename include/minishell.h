@@ -77,7 +77,7 @@ void	init_shell(t_shell *shell, char **envp);
 void	parse_args(t_shell *shell);
 
 /* parser utils */
-void	handle_enter(t_shell *shell);
+void	handle_enter();
 
 /* signal handler */
 void	signal_handler(void);

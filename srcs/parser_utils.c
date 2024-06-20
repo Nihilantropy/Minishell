@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcantell <mcantell@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 13:09:27 by mcantell          #+#    #+#             */
-/*   Updated: 2024/06/20 13:11:05 by mcantell         ###   ########.fr       */
+/*   Created: 2024/06/20 14:18:44 by mcantell          #+#    #+#             */
+/*   Updated: 2024/06/20 14:50:49 by mcantell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handle_enter(t_shell *shell)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	free(shell->line);
+	free (shell->arg);
 	return ;
 }
 
