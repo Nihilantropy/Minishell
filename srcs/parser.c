@@ -75,7 +75,7 @@ static void	create_new_node(t_arg **arg, char *line)
 	new_node->next = NULL;
 	append_node(arg, new_node);
 
-} 
+}
 
 static void	parse_list(t_shell *shell)
 {
@@ -84,9 +84,11 @@ static void	parse_list(t_shell *shell)
 	i = 0;
 	while (shell->line[i])
 	{
-		while (shell->line[i] == ' ' || shell->line[i] == '\t')
+		while ((shell->line[i] == ' ' || shell->line[i] == '\t') && shell->line[i])
 			i++;
 		create_new_node(&shell->arg, shell->line + i);
+		while ((shell->line[i] != ' ' || shell->line[i] != '\t') && shell->line[i])
+			i++;
 	}
 }
 
@@ -95,7 +97,7 @@ void	parse_args(t_shell *shell)
 	shell->line = readline("minishell$ ");
 	if (!shell->line)
 		handle_eof();
-	if (!shell->line[0])
+	if (shell->line[0] == '\0')
 	{
 		handle_enter(shell);
 		return ;

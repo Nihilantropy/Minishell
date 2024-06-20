@@ -20,10 +20,8 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->line = NULL;
 	shell->add_to_history = true;
 	shell->arg = NULL;
-	shell->pipe_nbr = -1;
+	//shell->pipe_nbr = -1;
 	shell->env = find_total_path(envp);
-	shell->fd_input = dup(STDIN_FILENO);
-	shell->fd_output = dup(STDOUT_FILENO);
 }
 
 static char	**find_total_path(char **envp)

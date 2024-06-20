@@ -30,8 +30,8 @@ int main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			parse_args(&shell);
-			if (shell.arg &&
-				(!shell.arg->str[0] || !ft_strncmp(shell.arg->str, "exit", 5)))
+			printf("hola\n");
+			if (!shell.arg->str[0] || !ft_strncmp(shell.arg->str, "exit", 5))
 			{
 				printf("exit MAIN\n");
 				exit(EXIT_SUCCESS);
