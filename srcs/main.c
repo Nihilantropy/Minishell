@@ -22,25 +22,24 @@ int main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	(void)argv;
+	(void)envp;
+	init_shell(&shell, envp);
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
 		while (1)
 		{
-			dup2(shell.fd_input, STDIN_FILENO);
-			dup2(shell.fd_output, STDOUT_FILENO);
-			init_shell(&shell, envp);
 			parse_args(&shell);
-			if (shell.matrix &&
-				(!shell.matrix[0] || !ft_strncmp(shell.matrix[0], "exit", 5)))
+			if (shell.arg &&
+				(!shell.arg->str[0] || !ft_strncmp(shell.arg->str, "exit", 5)))
 			{
 				printf("exit MAIN\n");
 				exit(EXIT_SUCCESS);
 			}
-			else if (shell.matrix) {
-				print_matrix(shell.matrix);
-				executor(&shell, envp);
-				free_matrix (shell.matrix);
+			else if (shell.arg->str)
+			{
+				printf("exec\n");
+				//executor(&shell, envp);
 			}
 		}
 	}
