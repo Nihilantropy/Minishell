@@ -22,6 +22,7 @@ int main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	(void)argv;
+	(void)envp;
 	init_shell(&shell, envp);
 	signal_handler();
 	if (isatty(STDIN_FILENO))
@@ -37,7 +38,8 @@ int main(int argc, char **argv, char **envp)
 			}
 			else if (shell.arg->str)
 			{
-				executor(&shell, envp);
+				printf("exec\n");
+				//executor(&shell, envp);
 			}
 		}
 	}

@@ -8,3 +8,12 @@ void	handle_enter(t_shell *shell)
 	free(shell->line);
 	return ;
 }
+
+t_arg	*find_last_node(t_arg *arg)
+{
+	if (!arg)
+		return (NULL);
+	while (arg->next)
+		arg = arg->next;
+	return (arg);
+}

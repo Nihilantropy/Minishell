@@ -61,9 +61,9 @@ typedef struct s_shell
 {
 	int		fd;
 	char	*line;
+	t_bool	add_to_history;
 	t_arg	*arg;
 	char	**env;
-	t_bool	add_to_history;
 	int		pipe_nbr;
 }			t_shell;
 

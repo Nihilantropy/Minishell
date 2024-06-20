@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+t_arg	*find_last_node(t_arg *arg);
+
 static int	arg_length(char *line)
 {
 	int		i;
@@ -33,6 +35,9 @@ static int	arg_length(char *line)
 
 static void	append_node(t_arg **arg, t_arg *new_node)
 {
+	t_arg	*last_node;
+
+	last_node = find_last_node(*arg);
 	if (!*arg)
 	{
 		*arg = new_node;
@@ -40,7 +45,8 @@ static void	append_node(t_arg **arg, t_arg *new_node)
 	}
 	else
 	{
-		ft_lstadd_back()
+		last_node->next = new_node;
+		new_node->prev = last_node;
 	}
 }
 

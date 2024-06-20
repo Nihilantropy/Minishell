@@ -3,7 +3,7 @@ NAME		= minishell
 MINISHELL_DIR	= ./srcs
 MINISHELL_HEAD	= ./include
 
-SRCS		= main.c main_utils.c init_shell.c parser.c parser_utils.c signals.c history.c executor.c executor_pipe.c ft_split_plus.c ft_split_plus_utils.c
+SRCS		= main.c main_utils.c init_shell.c parser.c parser_utils.c signals.c history.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 
@@ -25,7 +25,6 @@ $(NAME):	$(OBJS)
 # Rule to compile object files
 %.o:		%.c
 			$(MAKE) -C $(LIBFT_DIR)
-			make bonus -C $(LIBFT_DIR)
 			$(CC) -c $< $(CFLAGS) -o $@ $(INC)
 
 all:		$(NAME)
