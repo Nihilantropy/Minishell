@@ -99,6 +99,8 @@ char	*find_cmd_path(t_shell *shell, char *command);
 void	process_child(t_shell *shell, char *command, char **envp);
 void	process_parent(t_shell *shell, char *command, char **envp);
 
+/* bell free*/
+void	free_struct(t_arg **arg);
 
 #endif
 

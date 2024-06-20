@@ -41,7 +41,7 @@ int main(int argc, char **argv, char **envp)
 				printf("exec\n");
 				//executor(&shell, envp);
 			}
-			shell.arg = NULL; //serve da freeare ad ogni giro la lista
+			free_struct(&shell.arg); //serve da freeare ad ogni giro la lista
 		}
 	}
 	return 0;

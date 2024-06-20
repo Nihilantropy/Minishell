@@ -3,7 +3,7 @@ NAME		= minishell
 MINISHELL_DIR	= ./srcs
 MINISHELL_HEAD	= ./include
 
-SRCS		= main.c main_utils.c init_shell.c parser.c parser_utils.c signals.c history.c
+SRCS		= main.c main_utils.c init_shell.c parser.c parser_utils.c signals.c history.c ft_free.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 
