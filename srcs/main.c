@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **envp)
 			}
 			else if (shell.arg->str)
 			{
-				printf("exec\n");
+				printf("\n");
 				//executor(&shell, envp);
 			}
 		}

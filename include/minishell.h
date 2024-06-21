@@ -40,7 +40,7 @@ typedef	enum e_quote
 
 typedef struct s_token
 {
-	t_bool	is_token;
+	t_bool	pipe;
 	t_bool	infile;
 	t_bool	outfile;
 	t_bool	append;
@@ -68,6 +68,7 @@ typedef struct s_shell
 }			t_shell;
 
 /* main utils */
+void	print_list(t_arg *arg);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
