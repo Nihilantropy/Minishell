@@ -11,14 +11,3 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	print_list(t_arg *arg)
-{
-	if (!arg)
-		return ;
-	while (arg)
-	{
-		printf("%s\n", arg->str);
-		arg = arg->next;
-	}
-}

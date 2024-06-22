@@ -31,12 +31,12 @@ typedef	enum e_bool
 	true = 1,
 }	t_bool;
 
-typedef	enum e_quote
+typedef	struct s_quote
 {
-	QUOTE_NONE = -1,
-	QUOTE_SINGLE = 0,
-	QUOTE_DOUBLE = 1
-}	t_quote;
+	t_bool	NONE;
+	t_bool	SINGLE;
+	t_bool	DOUBLE;
+}			t_quote;
 
 typedef struct s_token
 {
@@ -50,9 +50,9 @@ typedef struct s_token
 typedef struct s_arg
 {
 	int				index;
+	char			*str;
 	t_token			token;
 	t_quote			quote;
-	char			*str;
 	struct s_arg	*next;
 	struct s_arg	*prev;
 }					t_arg;
@@ -77,13 +77,26 @@ void	init_shell(t_shell *shell, char **envp);
 void	parse_args(t_shell *shell);
 
 /* parser utils */
-void	handle_enter(t_shell *shell);
+t_arg	*init_new_node();
+void	struct_list(t_arg **arg, t_arg *new_node);
+void	set_node_index(t_arg *new_node);
+int		arg_length(char *temp);
+int		token_length(char *temp);
+
+/* parser list utls */
+void	append_node(t_arg **arg, t_arg *new_node);
+t_arg	*find_last_node(t_arg *arg);
+void	print_list(t_arg *arg);
+void	free_list(t_arg **arg);
 
 /* signal handler */
 void	signal_handler(void);
 void	handle_sigint(int sig);
 void	handle_eof(void);
 void	sigint_handler(int signum);
+
+/* signal utils */
+void	handle_enter(t_shell *shell);
 
 /* history */
 void	handle_history(t_shell *shell);

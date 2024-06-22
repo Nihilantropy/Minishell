@@ -1,19 +1,80 @@
 #include "../include/minishell.h"
 
-void	handle_enter(t_shell *shell)
+t_arg	*init_new_node()
 {
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	free(shell->line);
-	return ;
+	t_arg	*new_node;
+
+	new_node = (t_arg *)malloc(sizeof(t_arg));
+	if (!new_node)
+		ft_exit_error("ERR MALLOC NEW NODE");
+	new_node->index = 0;
+	new_node->str = NULL;
+	new_node->token.pipe = false;
+	new_node->token.infile = false;
+	new_node->token.outfile = false;
+	new_node->token.here_doc = false;
+	new_node->token.append = false;
+	new_node->quote.DOUBLE = false;
+	new_node->quote.SINGLE = false;
+	new_node->quote.NONE = false;
+	new_node->prev = NULL;
+	new_node->next = NULL;
+	return (new_node);
 }
 
-t_arg	*find_last_node(t_arg *arg)
+void	struct_list(t_arg **arg, t_arg *new_node)
 {
-	if (!arg)
-		return (NULL);
-	while (arg->next)
-		arg = arg->next;
-	return (arg);
+	append_node(arg, new_node);
+	set_node_index(new_node);
+}
+
+void	set_node_index(t_arg *new_node)
+{
+	if (new_node->prev == new_node)
+		new_node->index = 1;
+	else
+		new_node->index = new_node->prev->index + 1;
+}
+
+int	arg_length(char *temp)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	if (temp[0] == '\"' || temp[0] == '\'')
+	{
+		i++;
+		quote = *temp;
+		while (temp[i] != quote && temp[i])
+			i++;
+		return (i);
+	}
+	else
+	{
+		while ((temp[i] != '\'' && temp[i] != '\"'
+				&& temp[i] != '>' && temp[i] != '<'
+				&& temp[i] != '|' && temp[i] != ' '
+				&& temp[i] != '\t') && temp[i])
+			i++;
+		return (i);
+	}
+	return (i);
+}
+
+int	token_length(char *temp)
+{
+	char	token;
+
+	token = *temp;
+	if (token == '|')
+		return (1);
+	else if (token == '<' || token == '>')
+	{
+		if (temp[1] == token)
+			return (2);
+		else
+			return (1);
+	}
+	return (0);
 }
