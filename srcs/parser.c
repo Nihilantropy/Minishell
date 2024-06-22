@@ -31,6 +31,8 @@ static char	*create_quote_node(t_arg **arg, char *temp)
 		new_node->quote.DOUBLE = true;
 	struct_list(arg, new_node);
 	return (temp + len + 1);
+	// TODO Do not handle the unclosed quote. Have to see waht does it mena.
+	// For now it just create a quoted node.
 }
 
 static char	*create_token_node(t_arg **arg, char *temp)

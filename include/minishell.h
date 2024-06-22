@@ -89,6 +89,9 @@ t_arg	*find_last_node(t_arg *arg);
 void	print_list(t_arg *arg);
 void	free_list(t_arg **arg);
 
+/* parser env variables */
+void	handle_env_var(t_arg *arg);
+
 /* signal handler */
 void	signal_handler(void);
 void	handle_sigint(int sig);

@@ -24,6 +24,9 @@ t_arg	*init_new_node()
 
 void	struct_list(t_arg **arg, t_arg *new_node)
 {
+	if ((new_node->quote.NONE || new_node->quote.DOUBLE)
+		&& new_node->str)
+		handle_env_var(new_node);
 	append_node(arg, new_node);
 	set_node_index(new_node);
 }
