@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **envp)
 			}
 			else if (shell.arg)
 			{
-				printf("\n");
+				print_list(shell.arg);
 				//executor(&shell, envp);
 			}
 			free_list(&shell.arg);

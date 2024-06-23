@@ -34,6 +34,7 @@ void	print_list(t_arg *arg)
 	while (arg)
 	{
 		printf("\nstr: %s\n", arg->str);
+		printf("new_node-str pointer is: %p\n", arg->str);
 		printf("index: %d\n", arg->index);
 		if (arg->token.pipe)
 			printf("token = pipe\n");

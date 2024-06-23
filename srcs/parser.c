@@ -98,7 +98,6 @@ static void	parse_list(t_shell *shell)
 		else
 			temp++;
 	}
-	print_list(shell->arg);
 	free(original_temp);
 }
 
