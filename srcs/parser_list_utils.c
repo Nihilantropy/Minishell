@@ -1,5 +1,23 @@
 #include "../include/minishell.h"
 
+void	set_fd_flag(t_arg *arg)
+{
+	if (!arg)
+		return ;
+	while (arg)
+	{
+		if (arg->token.t_infile && arg->next)
+			arg->next->token.infile = true;
+		else if (arg->token.t_outfile && arg->next)
+			arg->next->token.outfile = true;
+		else if (arg->token.t_here_doc && arg->next)
+			arg->next->token.here_doc = true;
+		else if (arg->token.t_append && arg->next)
+			arg->next->token.append = true;
+		arg = arg->next;
+	}
+}
+
 void	append_node(t_arg **arg, t_arg *new_node)
 {
 	t_arg	*last_node;
@@ -38,14 +56,22 @@ void	print_list(t_arg *arg)
 		printf("index: %d\n", arg->index);
 		if (arg->token.pipe)
 			printf("token = pipe\n");
-		else if (arg->token.infile)
+		else if (arg->token.t_infile)
 			printf("token = infile\n");
-		else if (arg->token.outfile)
+		else if (arg->token.t_outfile)
 			printf("token = outfile\n");
-		else if (arg->token.here_doc)
+		else if (arg->token.t_here_doc)
 			printf("token = here_doc\n");
-		else if (arg->token.append)
+		else if (arg->token.t_append)
 			printf("token = append\n");
+		else if (arg->token.infile)
+			printf("str = infile\n");
+		else if (arg->token.outfile)
+			printf("str = outfile\n");
+		else if (arg->token.here_doc)
+			printf("str = here_doc\n");
+		else if (arg->token.append)
+			printf("str = append\n");
 		if (arg->quote.NONE)
 			printf("not quoted\n");
 		else if (arg->quote.SINGLE)

@@ -19,12 +19,11 @@ INC 		= -I$(MINISHELL_HEAD) -I$(LIBFT_DIR)
 
 # Compilation rule for the program
 $(NAME):	$(OBJS)
+			$(MAKE) -C $(LIBFT_DIR)
 			$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
-
 
 # Rule to compile object files
 %.o:		%.c
-			$(MAKE) -C $(LIBFT_DIR)
 			$(CC) -c $< $(CFLAGS) -o $@ $(INC)
 
 all:		$(NAME)

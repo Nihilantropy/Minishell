@@ -56,15 +56,11 @@ static char	*parse_env_var(t_arg *new_node)
 	else
 		while ((*end && ft_isalnum(*end)) || *end == '_')
 			end++;
-	printf("end value is: %c\n", *end);
 	ft_strlcpy(var_name, start + 1, end - start);
 	var_name[end - start] = '\0';
 	var_value = getenv(var_name);
-	printf("var name is: %s\n", var_name);
 	if (!var_value)
 		var_value = "";
-	printf("var value is: %s\n", var_value);
-	printf("str parse_env_var pointer is: %p\n", new_node->str);
 	build_env_str(new_node, var_value, end);
 	return (end);
 }
@@ -83,7 +79,6 @@ void	handle_env_var(t_arg *new_node)
 		if (*temp == '$')
 		{
 			temp = parse_env_var(new_node);
-			printf("temp return at %c\n", *temp);
 			if (temp == NULL)
 				break ;
 		}

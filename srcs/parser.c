@@ -31,7 +31,7 @@ static char	*create_quote_node(t_arg **arg, char *temp)
 		new_node->quote.DOUBLE = true;
 	struct_list(arg, new_node);
 	return (temp + len + 1);
-	// TODO Do not handle the unclosed quote. Have to see waht does it mena.
+	// TODO Do not handle the unclosed quote. Have to see waht does it mean.
 	// For now it just create a quoted node.
 }
 
@@ -48,14 +48,14 @@ static char	*create_token_node(t_arg **arg, char *temp)
 	ft_strlcpy(new_node->str, temp, len + 1);
 	if (!ft_strcmp(new_node->str, "|"))
 		new_node->token.pipe = true;
-	else if (ft_strcmp(new_node->str, "<"))
-		new_node->token.infile = true;
-	else if (ft_strcmp(new_node->str, ">"))
-		new_node->token.outfile = true;
-	else if (ft_strcmp(new_node->str, "<<"))
-		new_node->token.here_doc = true;
-	else if (ft_strcmp(new_node->str, ">>"))
-		new_node->token.append = true;
+	else if (!ft_strcmp(new_node->str, "<"))
+		new_node->token.t_infile = true;
+	else if (!ft_strcmp(new_node->str, ">"))
+		new_node->token.t_outfile = true;
+	else if (!ft_strcmp(new_node->str, "<<"))
+		new_node->token.t_here_doc = true;
+	else if (!ft_strcmp(new_node->str, ">>"))
+		new_node->token.t_append = true;
 	new_node->quote.NONE = true;
 	struct_list(arg, new_node);
 	return (temp + len);

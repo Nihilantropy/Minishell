@@ -41,6 +41,10 @@ typedef	struct s_quote
 typedef struct s_token
 {
 	t_bool	pipe;
+	t_bool	t_infile;
+	t_bool	t_outfile;
+	t_bool	t_append;
+	t_bool	t_here_doc;
 	t_bool	infile;
 	t_bool	outfile;
 	t_bool	append;
@@ -85,6 +89,7 @@ int		token_length(char *temp);
 
 /* parser list utls */
 void	append_node(t_arg **arg, t_arg *new_node);
+void	set_fd_flag(t_arg *arg);
 t_arg	*find_last_node(t_arg *arg);
 void	print_list(t_arg *arg);
 void	free_list(t_arg **arg);
@@ -103,6 +108,7 @@ void	handle_enter(t_shell *shell);
 
 /* history */
 void	handle_history(t_shell *shell);
+void	search_here_doc(t_shell *shell);
 
 /* executor */
 void	executor(t_shell *shell, char **envp);
@@ -115,6 +121,11 @@ char	*find_cmd_path(t_shell *shell, char *command);
 void	process_child(t_shell *shell, char *command, char **envp);
 void	process_parent(t_shell *shell, char *command, char **envp);
 
+
+
+// TODO 
+// create matrix with all command and flag in order and place redirection
+// fd at the last index of the matrix.
 
 #endif
 

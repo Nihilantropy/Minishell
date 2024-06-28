@@ -10,6 +10,10 @@ t_arg	*init_new_node()
 	new_node->index = 0;
 	new_node->str = NULL;
 	new_node->token.pipe = false;
+	new_node->token.t_infile = false;
+	new_node->token.t_outfile = false;
+	new_node->token.t_here_doc = false;
+	new_node->token.t_append = false;
 	new_node->token.infile = false;
 	new_node->token.outfile = false;
 	new_node->token.here_doc = false;
@@ -25,10 +29,11 @@ t_arg	*init_new_node()
 void	struct_list(t_arg **arg, t_arg *new_node)
 {
 	if ((new_node->quote.NONE || new_node->quote.DOUBLE)
-		&& new_node->str)
+		&& new_node->str && ft_strchr(new_node->str, '$'))
 		handle_env_var(new_node);
 	append_node(arg, new_node);
 	set_node_index(new_node);
+	set_fd_flag(*arg);
 }
 
 void	set_node_index(t_arg *new_node)

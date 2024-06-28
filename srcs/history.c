@@ -14,5 +14,20 @@
 
 void	handle_history(t_shell *shell)
 {
-	add_history(shell->line);
+	search_here_doc(shell);
+	if (shell->add_to_history)
+		add_history(shell->line);
+	shell->add_to_history = true;
+}
+
+void	search_here_doc(t_shell *shell)
+{
+	if (!shell->arg)
+		return ;
+	while (shell->arg)
+	{
+		if (shell->arg->token.t_here_doc)
+			shell->add_to_history = false;
+		shell->arg = shell->arg->next;
+	}
 }
