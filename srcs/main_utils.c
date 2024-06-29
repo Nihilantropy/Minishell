@@ -21,9 +21,10 @@ void	print_matrix(char ***matrix)
 	while (matrix[z])
 	{
 		y = 0;
-		while (matrix[z][y]) {
-			printf("Evviva!\n");
-			printf("matrix is: %s\n", matrix[z][y++]);
+		while (matrix[z][y])
+		{
+			printf("matrix[%d][%d]: %s\n", z, y, matrix[z][y]);
+			y++;
 		}
 		z++;
 	}

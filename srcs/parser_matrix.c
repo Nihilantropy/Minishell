@@ -2,8 +2,16 @@
 
 static int	len_to_pipe(t_arg **current_head);
 static void	init_matrix_z(t_shell *shell, char ***matrix);
-static void	matrix_point_to_str(t_shell *shell, char ***matrix, t_arg **current_head, t_arg *arg);
+static void	build_matrix(t_shell *shell, char ***matrix);
 
+/*
+	1) Build the space for the matrixes: z index
+		initializing all to NULL
+	2) Build the space for the rows: y index
+		initializing all to NULL
+	3) Build the row of each matrix 
+		TODO ----- with the right node ------
+*/
 void	parse_matrix(t_shell *shell, t_arg *arg)
 {
 	int		z;
@@ -14,6 +22,7 @@ void	parse_matrix(t_shell *shell, t_arg *arg)
 	z = 0;
 	j = 0;
 	current_head = &arg;
+	printf("parse matrix node string is: %s\n", ((*current_head)->str));
 	shell->matrix = (char ***)malloc(sizeof(char **) * (shell->pipes_nbr + 2));
 	if (!shell->matrix)
 		ft_exit_error(ERR_ALLOC_MATRIX);
@@ -28,8 +37,7 @@ void	parse_matrix(t_shell *shell, t_arg *arg)
 			shell->matrix[z][j++] = NULL;
 		z++;
 	}
-	current_head = &arg;
-	matrix_point_to_str(shell, shell->matrix, current_head, arg);
+	build_matrix(shell, shell->matrix);
 	print_matrix(shell->matrix);
 }
 
@@ -65,15 +73,18 @@ static int	len_to_pipe(t_arg **current_head)
 	return (i);
 }
 
-static void	matrix_point_to_str(t_shell *shell, char ***matrix, t_arg **current_head, t_arg *arg)
+static void	build_matrix(t_shell *shell, char ***matrix)
 {
 	int	z;
 	int	y;
 	int	j;
-	t_arg *current_node;
+	t_arg	*current_node;
+	t_arg	**current_head;
 
 	z = 0;
-	current_node = arg;
+	current_node = shell->arg;
+	current_head = &shell->arg;
+	printf("%s\n", current_node->str);
 	while ((z <= shell->pipes_nbr + 2) && current_node)
 	{
 		y = 0;
@@ -86,8 +97,7 @@ static void	matrix_point_to_str(t_shell *shell, char ***matrix, t_arg **current_
 				&& !current_node->token.t_append
 				&& !current_node->token.pipe)
 			{
-				matrix[z][y] = current_node->str;
-				printf("matrix[%d][%d] is: %s\n", z, y, matrix[z][y]);
+				matrix[z][y] = ft_strdup(current_node->str);
 				y++;
 			}
 			if (current_node->token.pipe)

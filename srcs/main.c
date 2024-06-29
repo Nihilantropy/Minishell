@@ -40,7 +40,7 @@ int main(int argc, char **argv, char **envp)
 			}
 			free_list(&shell.arg);
 			shell.pipes_nbr = 0;
-			//free_matrixes(shell.matrix);
+			free_matrixes(shell.matrix);
 		}
 	}
 	return 0;
