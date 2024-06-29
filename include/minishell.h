@@ -68,11 +68,15 @@ typedef struct s_shell
 	t_bool	add_to_history;
 	t_arg	*arg;
 	char	**env;
-	int		pipe_nbr;
+	char	***matrix;
+	int		last_exit_status;
+	int		pipes_nbr;
 }			t_shell;
 
 /* main utils */
 void	print_list(t_arg *arg);
+void	print_matrix(char ***matrix);
+void	free_matrixes(char ***matrix);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -82,20 +86,23 @@ void	parse_args(t_shell *shell);
 
 /* parser utils */
 t_arg	*init_new_node();
-void	struct_list(t_arg **arg, t_arg *new_node);
-void	set_node_index(t_arg *new_node);
 int		arg_length(char *temp);
 int		token_length(char *temp);
 
 /* parser list utls */
 void	append_node(t_arg **arg, t_arg *new_node);
-void	set_fd_flag(t_arg *arg);
 t_arg	*find_last_node(t_arg *arg);
 void	print_list(t_arg *arg);
 void	free_list(t_arg **arg);
 
 /* parser env variables */
-void	handle_env_var(t_arg *arg);
+void	handle_env_var(t_shell *shell, t_arg *arg);
+
+/* parser polish list */
+void	polish_list(t_shell *shell, t_arg *arg);
+
+/* parser matrix */
+void	parse_matrix(t_shell *shell, t_arg *arg);
 
 /* signal handler */
 void	signal_handler(void);
@@ -108,7 +115,6 @@ void	handle_enter(t_shell *shell);
 
 /* history */
 void	handle_history(t_shell *shell);
-void	search_here_doc(t_shell *shell);
 
 /* executor */
 void	executor(t_shell *shell, char **envp);

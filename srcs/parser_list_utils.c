@@ -1,23 +1,5 @@
 #include "../include/minishell.h"
 
-void	set_fd_flag(t_arg *arg)
-{
-	if (!arg)
-		return ;
-	while (arg)
-	{
-		if (arg->token.t_infile && arg->next)
-			arg->next->token.infile = true;
-		else if (arg->token.t_outfile && arg->next)
-			arg->next->token.outfile = true;
-		else if (arg->token.t_here_doc && arg->next)
-			arg->next->token.here_doc = true;
-		else if (arg->token.t_append && arg->next)
-			arg->next->token.append = true;
-		arg = arg->next;
-	}
-}
-
 void	append_node(t_arg **arg, t_arg *new_node)
 {
 	t_arg	*last_node;

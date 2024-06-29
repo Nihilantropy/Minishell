@@ -1,12 +1,15 @@
 #include "../include/minishell.h"
 
+/*
+	Initializing the new node to have all known values
+*/
 t_arg	*init_new_node()
 {
 	t_arg	*new_node;
 
 	new_node = (t_arg *)malloc(sizeof(t_arg));
 	if (!new_node)
-		ft_exit_error("ERR MALLOC NEW NODE");
+		ft_exit_error(ERR_ALLOC_NEW_NODE);
 	new_node->index = 0;
 	new_node->str = NULL;
 	new_node->token.pipe = false;
@@ -24,24 +27,6 @@ t_arg	*init_new_node()
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
-}
-
-void	struct_list(t_arg **arg, t_arg *new_node)
-{
-	if ((new_node->quote.NONE || new_node->quote.DOUBLE)
-		&& new_node->str && ft_strchr(new_node->str, '$'))
-		handle_env_var(new_node);
-	append_node(arg, new_node);
-	set_node_index(new_node);
-	set_fd_flag(*arg);
-}
-
-void	set_node_index(t_arg *new_node)
-{
-	if (new_node->prev == new_node)
-		new_node->index = 1;
-	else
-		new_node->index = new_node->prev->index + 1;
 }
 
 int	arg_length(char *temp)

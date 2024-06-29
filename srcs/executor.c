@@ -18,10 +18,10 @@ static void	simple_process_child(t_shell *shell, char *command, char **envp)
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
-		ft_exit_error(PIPE_ERROR);
+		ft_exit_error(ERR_PIPE);
 	pid = fork();
 	if (pid == -1)
-		ft_exit_error(FORK_ERROR);
+		ft_exit_error(ERR_FORK);
 	if (pid == 0)
 	{
 		close(fd[0]);
@@ -45,7 +45,7 @@ static void	simple_process_parent(t_shell *shell, char *command, char **envp)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("fork");
+		ft_exit_error(ERR_FORK);
 		return;
 	}
 	if (pid == 0)
@@ -88,7 +88,7 @@ void	ft_here_doc(t_shell *shell, char **envp)
 
 	here_doc = open(".here_doc.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (here_doc == -1)
-		ft_exit_error(ERROR_OPEN_FILE);
+		ft_exit_error(ERR_OPEN_FILE);
 	while (1)
 	{
 		ft_putstr_fd("heredoc> ", STDOUT_FILENO);

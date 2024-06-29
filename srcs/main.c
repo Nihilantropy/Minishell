@@ -22,7 +22,6 @@ int main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	(void)argv;
-	(void)envp;
 	init_shell(&shell, envp);
 	signal_handler();
 	if (isatty(STDIN_FILENO))
@@ -32,15 +31,16 @@ int main(int argc, char **argv, char **envp)
 			parse_args(&shell);
 			if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
 			{
-				printf("exit MAIN\n");
+				printf(EXIT_MAIN);
 				exit(EXIT_SUCCESS);
 			}
 			else if (shell.arg)
 			{
-				print_list(shell.arg);
 				//executor(&shell, envp);
 			}
 			free_list(&shell.arg);
+			shell.pipes_nbr = 0;
+			//free_matrixes(shell.matrix);
 		}
 	}
 	return 0;
