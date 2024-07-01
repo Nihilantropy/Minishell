@@ -45,21 +45,42 @@ typedef struct s_token
 	t_bool	t_outfile;
 	t_bool	t_append;
 	t_bool	t_here_doc;
+}			t_token;
+
+typedef struct s_redir
+{
 	t_bool	infile;
 	t_bool	outfile;
 	t_bool	append;
 	t_bool	here_doc;
-}			t_token;
+}			t_redir;
 
 typedef struct s_arg
 {
 	int				index;
 	char			*str;
 	t_token			token;
+	t_redir			type;
 	t_quote			quote;
 	struct s_arg	*next;
 	struct s_arg	*prev;
 }					t_arg;
+
+typedef struct s_redir_list
+{
+	char					*fd_name;
+	t_redir					type;
+	struct s_redir_list		*next;
+	struct s_redir_list		*prev;
+}							t_redir_list;
+
+typedef struct s_cmd
+{
+	char			**matrix;
+	t_redir_list	*redir;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}					t_cmd;
 
 typedef struct s_shell
 {
@@ -67,16 +88,16 @@ typedef struct s_shell
 	char	*line;
 	t_bool	add_to_history;
 	t_arg	*arg;
+	t_cmd	*cmd;
 	char	**env;
-	char	***matrix;
 	int		last_exit_status;
 	int		pipes_nbr;
 }			t_shell;
 
 /* main utils */
 void	print_list(t_arg *arg);
-void	print_matrix(char ***matrix);
-void	free_matrixes(char ***matrix);
+void	print_matrix(char **matrix);
+void	free_matrixes(char **matrix);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -85,7 +106,7 @@ void	init_shell(t_shell *shell, char **envp);
 void	parse_args(t_shell *shell);
 
 /* parser utils */
-t_arg	*init_new_node();
+t_arg	*init_new_node(void);
 int		arg_length(char *temp);
 int		token_length(char *temp);
 
@@ -102,7 +123,7 @@ void	handle_env_var(t_shell *shell, t_arg *arg);
 void	polish_list(t_shell *shell, t_arg *arg);
 
 /* parser matrix */
-void	parse_matrix(t_shell *shell, t_arg *arg);
+void	parse_matrix(t_shell *shell);
 
 /* signal handler */
 void	signal_handler(void);

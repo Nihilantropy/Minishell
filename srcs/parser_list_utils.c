@@ -46,14 +46,14 @@ void	print_list(t_arg *arg)
 			printf("token = here_doc\n");
 		else if (arg->token.t_append)
 			printf("token = append\n");
-		else if (arg->token.infile)
-			printf("str = infile\n");
-		else if (arg->token.outfile)
-			printf("str = outfile\n");
-		else if (arg->token.here_doc)
-			printf("str = here_doc\n");
-		else if (arg->token.append)
-			printf("str = append\n");
+		else if (arg->type.infile)
+			printf("type = infile\n");
+		else if (arg->type.outfile)
+			printf("type = outfile\n");
+		else if (arg->type.here_doc)
+			printf("type = here_doc\n");
+		else if (arg->type.append)
+			printf("redir = append\n");
 		if (arg->quote.NONE)
 			printf("not quoted\n");
 		else if (arg->quote.SINGLE)

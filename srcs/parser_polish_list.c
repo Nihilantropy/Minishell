@@ -3,6 +3,7 @@
 static void	set_node_index(t_arg *current_node);
 static void	set_fd_flag(t_arg *current_node);
 static void	count_pipes(t_shell *shell, t_arg *current_node);
+static void	check_pipe_index(t_arg *arg);
 
 /* 
 	After the list is fully created, we have to set thing up.
@@ -15,9 +16,10 @@ void	polish_list(t_shell *shell, t_arg *arg)
 {
 	t_arg	*current_node;
 
-	current_node = arg;
-	if (!current_node)
+	if (!arg)
 		return ;
+	current_node = arg;
+	check_pipe_index(current_node);
 	while (current_node)
 	{
 		if ((current_node->quote.NONE || current_node->quote.DOUBLE)
@@ -28,6 +30,17 @@ void	polish_list(t_shell *shell, t_arg *arg)
 		count_pipes(shell, current_node);
 		current_node = current_node->next;
 	}
+}
+
+static void	check_pipe_index(t_arg *first_node)
+{
+	t_arg	*last_node;
+
+	if (!arg)
+		return ;
+	last_node = find_last_node(arg);
+	if (first_node->token.pipe || last_node->token.pipe)
+		ft_exit_error(ERR_PIPE_INDEX);	
 }
 
 static void	set_node_index(t_arg *current_node)
@@ -41,13 +54,13 @@ static void	set_node_index(t_arg *current_node)
 static void	set_fd_flag(t_arg *current_node)
 {
 	if (current_node->token.t_infile && current_node->next)
-		current_node->next->token.infile = true;
+		current_node->next->type.infile = true;
 	else if (current_node->token.t_outfile && current_node->next)
-		current_node->next->token.outfile = true;
+		current_node->next->type.outfile = true;
 	else if (current_node->token.t_here_doc && current_node->next)
-		current_node->next->token.here_doc = true;
+		current_node->next->type.here_doc = true;
 	else if (current_node->token.t_append && current_node->next)
-		current_node->next->token.append = true;
+		current_node->next->type.append = true;
 }
 
 static void	count_pipes(t_shell *shell, t_arg *current_node)

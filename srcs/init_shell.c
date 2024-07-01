@@ -23,7 +23,7 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->pipes_nbr = 0;
 	shell->env = find_total_path(envp);
 	shell->last_exit_status = 0;
-	shell->matrix = NULL;
+	shell->cmd = NULL;
 }
 
 static char	**find_total_path(char **envp)

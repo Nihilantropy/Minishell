@@ -116,7 +116,7 @@ static void	parse_list(t_shell *shell)
 	2) Handle CTRL -D signal (EOF), exiting the shell
 	3) Handle instant ENTER, displaying a new prompt
 	4) Parse the lise into a list
-	5) See if the commando can go into the history
+	5) See if the command can go into the history
 	6) Free the current read line
 */
 void	parse_args(t_shell *shell)
@@ -132,7 +132,7 @@ void	parse_args(t_shell *shell)
 	parse_list(shell);
 	print_list(shell->arg);
 	handle_history(shell);
-	parse_matrix(shell, shell->arg);
+	parse_matrix(shell);
 	free(shell->line);
 	return ;
 }

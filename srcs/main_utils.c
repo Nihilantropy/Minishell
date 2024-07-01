@@ -12,36 +12,24 @@
 
 #include "../include/minishell.h"
 
-void	print_matrix(char ***matrix)
+void	print_matrix(char **matrix)
 {
-	int	z;
 	int	y;
 
-	z = 0;
-	while (matrix[z])
+	y = 0;
+	while (matrix[z][y])
 	{
-		y = 0;
-		while (matrix[z][y])
-		{
-			printf("matrix[%d][%d]: %s\n", z, y, matrix[z][y]);
-			y++;
-		}
-		z++;
+		printf("matrix[%d]: %s\n", y, matrix[y]);
+		y++;
 	}
 }
 
-void	free_matrixes(char ***matrix)
+void	free_matrixes(char **matrix)
 {
-	int	z;
 	int	y;
 
-	z = 0;
-	while (matrix[z])
-	{
-		y = 0;
-		while (matrix[z][y])
-			free(matrix[z][y++]);
-		free(matrix[z++]);
-	}
+	y = 0;
+	while (matrix[y])
+		free(matrix[y++]);
 	free(matrix);
 }

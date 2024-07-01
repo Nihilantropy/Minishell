@@ -3,7 +3,7 @@
 /*
 	Initializing the new node to have all known values
 */
-t_arg	*init_new_node()
+t_arg	*init_new_node(void)
 {
 	t_arg	*new_node;
 
@@ -17,10 +17,10 @@ t_arg	*init_new_node()
 	new_node->token.t_outfile = false;
 	new_node->token.t_here_doc = false;
 	new_node->token.t_append = false;
-	new_node->token.infile = false;
-	new_node->token.outfile = false;
-	new_node->token.here_doc = false;
-	new_node->token.append = false;
+	new_node->type.infile = false;
+	new_node->type.outfile = false;
+	new_node->type.here_doc = false;
+	new_node->type.append = false;
 	new_node->quote.DOUBLE = false;
 	new_node->quote.SINGLE = false;
 	new_node->quote.NONE = false;

@@ -1,17 +1,130 @@
 #include "../include/minishell.h"
 
+int			len_to_pipe_cmd(t_arg *arg);
+void		copy_command(t_cmd *cmd, t_arg *arg);
+
+static void	init_cmd_node(t_cmd **cmd);
+static void	build_nodes(t_cmd *cmd, t_arg *arg);
+static void	build_cmd_matrix(t_cmd *cmd, t_arg *arg);
+
+void	parse_matrix(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (i < (shell->pipes_nbr + 1))
+		init_cmd_node(&shell->cmd);
+	build_nodes(shell->cmd, shell->arg);
+}
+
+
+static void	init_cmd_node(t_cmd **cmd)
+{
+	t_cmd	*new_node;
+
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!new_node)
+		ft_exit_error(ERR_ALLOC_NEW_NODE);
+	new_node->matrix = NULL;
+	new_node->redir = NULL;
+	append_node(cmd, new_node);
+}
+
+static void	build_cmd_matrix(t_cmd *cmd, t_arg *arg)
+{
+	int		len;
+
+	len = len_to_pipe_cmd(arg);
+	printf("len is: %d\n", len);
+	cmd->matrix = malloc(sizeof(char *) * (len + 1));
+	if (!cmd->matrix)
+		ft_exit_error(ERR_ALLOC_MATRIX);
+	copy_command(cmd, arg);
+}
+
+static void	build_redir_list(t_cmd *cmd, t_arg *arg)
+{
+	static t_arg	*current_node;
+
+	if (!arg)
+		return (0);
+	current_node = arg;
+	while (current_node && !current_node->token.pipe)
+	{
+		if ((current_node->type.infile || current_node->type.outfile
+			|| current_node->type.here_doc || current_node->type.append))
+			init_redir_node(&cmd->redir);
+		current_node = current_node->next;
+	}
+	copy_redir(cmd->redir, arg);
+	if (current_node->token.pipe && current_node->next)
+		current_node = current_node->next;
+}
+
+static void	init_redir_node(t_redir_list **redir)
+{
+	t_redir_list	*new_node;
+
+	new_node = malloc(sizeof(t_fd));
+	if (!new_node)
+		ft_exit_error(ERR_REDIR_ALLOC);
+	new_node->fd_name = NULL;
+	new_node->type.infile = false;
+	new_node->type.outfile = false;
+	new_node->type.here_doc = false;
+	new_node->type.append = false;
+	append_node(redir, new_node);
+}
+
+static void	build_nodes(t_cmd *cmd, t_arg *arg)
+{
+	t_cmd	*current_node;
+
+	if (!cmd || !arg)
+		return ;
+	current_node = cmd;
+	while (current_node)
+	{
+		build_cmd_matrix(current_node, arg);
+		build_redir_list(current_node, arg);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 static int	len_to_pipe(t_arg **current_head);
 static void	init_matrix_z(t_shell *shell, char ***matrix);
 static void	build_matrix(t_shell *shell, char ***matrix);
 
-/*
+
 	1) Build the space for the matrixes: z index
 		initializing all to NULL
 	2) Build the space for the rows: y index
 		initializing all to NULL
 	3) Build the row of each matrix 
 		TODO ----- with the right node ------
-*/
+
 void	parse_matrix(t_shell *shell, t_arg *arg)
 {
 	int		z;
@@ -22,7 +135,6 @@ void	parse_matrix(t_shell *shell, t_arg *arg)
 	z = 0;
 	j = 0;
 	current_head = &arg;
-	printf("parse matrix node string is: %s\n", ((*current_head)->str));
 	shell->matrix = (char ***)malloc(sizeof(char **) * (shell->pipes_nbr + 2));
 	if (!shell->matrix)
 		ft_exit_error(ERR_ALLOC_MATRIX);
@@ -109,3 +221,4 @@ static void	build_matrix(t_shell *shell, char ***matrix)
 			current_node = current_node->next;
 	}
 }
+*/

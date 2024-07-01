@@ -23,6 +23,9 @@
 # define ERR_ALLOC_TOKEN_NODE "Error. TOKEN NODE allocation failed.\n"
 # define ERR_ALLOC_ENV_STR "Error. FIRST ENV STR allocation failed.\n"
 # define ERR_ALLOC_MATRIX "Error. MATRIX allocation failed.\n"
+# define ERR_REDIR_ALLOC "Error. REDIR allocation failed.\n"
+
+# define ERR_PIPE_INDEX "-bash: syntax error near unexpected token `|'"
 
 # define ERR_PIPE "Error. Pipe error -1\n"
 # define ERR_FORK "Error. Fork error -1\n"
