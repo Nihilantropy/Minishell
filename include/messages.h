@@ -25,7 +25,8 @@
 # define ERR_ALLOC_MATRIX "Error. MATRIX allocation failed.\n"
 # define ERR_REDIR_ALLOC "Error. REDIR allocation failed.\n"
 
-# define ERR_PIPE_INDEX "-bash: syntax error near unexpected token `|'"
+# define ERR_PIPE_FIRST_INDEX "-bash: syntax error near unexpected token `|'"
+# define ERR_PIPE_LAST_INDEX "Error. Pipe at last index.\n"
 
 # define ERR_PIPE "Error. Pipe error -1\n"
 # define ERR_FORK "Error. Fork error -1\n"

@@ -82,3 +82,4 @@ void	free_list(t_arg **arg)
 	}
 	*arg = NULL;
 }
+

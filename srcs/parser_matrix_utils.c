@@ -2,11 +2,9 @@
 
 int	len_to_pipe_cmd(t_arg *arg)
 {
-	int				len;
-	static t_arg	*current_node;
+	int		len;
+	t_arg	*current_node;
 
-	if (!arg)
-		return (0);
 	len = 0;
 	current_node = arg;
 	while (current_node && !current_node->token.pipe)
@@ -15,43 +13,44 @@ int	len_to_pipe_cmd(t_arg *arg)
 			|| current_node->token.t_here_doc || current_node->token.t_append
 			|| current_node->type.infile || current_node->type.outfile
 			|| current_node->type.here_doc || current_node->type.append))
-			len++;	
+			len++;
 		current_node = current_node->next;
 	}
-	if (current_node->token.pipe && current_node->next)
-		current_node = current_node->next;
+	printf("cmd length is: %d\n", len);
+	printf("current node pointer is: %p\n", current_node);
 	return (len);
 }
 
-void	copy_command(t_cmd *cmd, t_arg *arg)
+void	copy_command(t_cmd *cmd, t_arg **arg)
 {
-	int				y;
-	static t_arg	*current_node;
+	int		y;
+	t_arg	*current_node;
 
-	if (!arg || !cmd)
-		return ;
 	y = 0;
-	current_node = arg;
+	current_node = *arg;
 	while (current_node && !current_node->token.pipe)
 	{
 		if (!(current_node->token.t_infile || current_node->token.t_outfile
 			|| current_node->token.t_here_doc || current_node->token.t_append
 			|| current_node->type.infile || current_node->type.outfile
 			|| current_node->type.here_doc || current_node->type.append))
-			cmd->matrix[y++] = ft_strdup(current_node->str);
+		{
+			cmd->matrix[y] = ft_strdup(current_node->str);
+			printf("matrix at index [%d] is: %s\n", y, cmd->matrix[y]);
+			printf("current node str is: %s\n", current_node->str);
+			y++;
+		}
 		current_node = current_node->next;
 	}
-	if (current_node->token.pipe && current_node->next)
-		current_node = current_node->next;
+	cmd->matrix[y] = NULL;
+	*arg = current_node;
 }
 
-void	copy_redir(t_redir_list *redir, t_arg *arg)
+void	copy_redir(t_redir_list *redir, t_arg **arg)
 {
-	static t_arg	*current_node;
+	t_arg	*current_node;
 
-	if (!redir || !arg)
-		return ;
-	current_node = arg;
+	current_node = *arg;
 	while (current_node && !current_node->token.pipe)
 	{
 		if ((current_node->type.infile || current_node->type.outfile
@@ -65,10 +64,9 @@ void	copy_redir(t_redir_list *redir, t_arg *arg)
 				redir->type.here_doc = true;
 			else if (current_node->type.append)
 				redir->type.append = true;
-			redir->fd_name = ft_strdup(arg->str);
+			redir->fd_name = ft_strdup(current_node->str);
 		}
 		current_node = current_node->next;
 	}
-	if (current_node->token.pipe && current_node->next)
-		current_node = current_node->next;
+	*arg = current_node;
 }

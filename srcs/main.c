@@ -28,8 +28,9 @@ int main(int argc, char **argv, char **envp)
 	{
 		while (1)
 		{
-			parse_args(&shell);
-			if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
+			if (!parse_args(&shell))
+				printf("error pipe\n");
+			else if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
 			{
 				printf(EXIT_MAIN);
 				exit(EXIT_SUCCESS);
@@ -38,9 +39,10 @@ int main(int argc, char **argv, char **envp)
 			{
 				//executor(&shell, envp);
 			}
-			free_list(&shell.arg);
 			shell.pipes_nbr = 0;
-			free_matrixes(shell.matrix);
+			free_redir_list(&shell.cmd->redir);
+			free_cmd_list(&shell.cmd);
+			free_list(&shell.arg);
 		}
 	}
 	return 0;
