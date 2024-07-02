@@ -102,7 +102,7 @@ void	free_matrix(char **matrix);
 void	init_shell(t_shell *shell, char **envp);
 
 /* parser */
-int		parse_args(t_shell *shell);
+void	parse_args(t_shell *shell);
 
 /* parser utils */
 t_arg	*init_new_node(void);
@@ -119,15 +119,15 @@ void	free_list(t_arg **arg);
 void	handle_env_var(t_shell *shell, t_arg *arg);
 
 /* parser polish list */
-int		polish_list(t_shell *shell, t_arg *arg);
+void	polish_list(t_shell *shell, t_arg *arg);
 
 /* parser matrix */
 void	parse_matrix(t_shell *shell);
 
 /* parser matrix utils */
 int		len_to_pipe_cmd(t_arg *arg);
-void	copy_command(t_cmd *cmd, t_arg **arg);
-void	copy_redir(t_redir_list *redir, t_arg **arg);
+void	copy_command(t_cmd *cmd, t_shell *shell);
+void	copy_redir(t_redir_list *redir, t_shell *shell);
 
 /* parser matrix list */
 void	append_cmd_node(t_cmd **cmd, t_cmd *new_node);
@@ -135,9 +135,9 @@ void	append_redir_node(t_redir_list **redir, t_redir_list *new_node);
 
 /* parser matrix list utils */
 void	print_cmd_list(t_cmd *cmd);
-void	print_redir_list(t_redir_list *redir);
+void	print_redir_list(t_cmd *cmd);
 void	free_cmd_list(t_cmd **cmd);
-void	free_redir_list(t_redir_list **redir);
+void	free_redir_list(t_cmd *cmd);
 
 /* signal handler */
 void	signal_handler(void);

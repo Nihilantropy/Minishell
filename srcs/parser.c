@@ -86,7 +86,7 @@ static char	*create_new_node(t_arg **arg, char *temp)
 	3) Polish list to set up all the node correctly.
 	4) Free the duplicated string.
 */
-static int	parse_list(t_shell *shell)
+static void	parse_list(t_shell *shell)
 {
 	char	*temp;
 	char	*original_temp;
@@ -107,10 +107,8 @@ static int	parse_list(t_shell *shell)
 		else
 			temp++;
 	}
-	if (!polish_list(shell, shell->arg))
-		return (0);
+	polish_list(shell, shell->arg);
 	free(original_temp);
-	return (1);
 }
 
 /*
@@ -121,7 +119,7 @@ static int	parse_list(t_shell *shell)
 	5) See if the command can go into the history
 	6) Free the current read line
 */
-int	parse_args(t_shell *shell)
+void	parse_args(t_shell *shell)
 {
 	shell->line = readline("minishell$ ");
 	if (!shell->line)
@@ -129,13 +127,11 @@ int	parse_args(t_shell *shell)
 	if (!shell->line[0])
 	{
 		handle_enter(shell);
-		return (1);
+		return ;
 	}
-	if (!parse_list(shell))
-		return (0);
+	parse_list(shell);
 	print_list(shell->arg);
 	handle_history(shell);
 	parse_matrix(shell);
 	free(shell->line);
-	return (1);
 }

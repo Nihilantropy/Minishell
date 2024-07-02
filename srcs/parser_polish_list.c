@@ -3,7 +3,7 @@
 static void	set_node_index(t_arg *current_node);
 static void	set_fd_flag(t_arg *current_node);
 static void	count_pipes(t_shell *shell, t_arg *current_node);
-static int	check_pipe_index(t_arg *arg);
+static void	check_pipe_index(t_arg *arg);
 
 /* 
 	After the list is fully created, we have to set thing up.
@@ -12,15 +12,14 @@ static int	check_pipe_index(t_arg *arg);
 	3) Find if the node contains a redirection 
 	4) Count the nubmer of pipes in all the command line 
 */
-int	polish_list(t_shell *shell, t_arg *arg)
+void	polish_list(t_shell *shell, t_arg *arg)
 {
 	t_arg	*current_node;
 
 	if (!arg)
-		return (0);
+		return ;
 	current_node = arg;
-	if (check_pipe_index(current_node))
-		return (0);
+	check_pipe_index(current_node);
 	while (current_node)
 	{
 		if ((current_node->quote.NONE || current_node->quote.DOUBLE)
@@ -31,15 +30,14 @@ int	polish_list(t_shell *shell, t_arg *arg)
 		count_pipes(shell, current_node);
 		current_node = current_node->next;
 	}
-	return (1);
 }
 
-static int	check_pipe_index(t_arg *first_node)
+static void	check_pipe_index(t_arg *first_node)
 {
 	t_arg	*last_node;
 
 	if (!first_node)
-		return (0);
+		return ;
 	last_node = find_last_node(first_node);
 	if (first_node->token.pipe)
 	{
@@ -47,7 +45,6 @@ static int	check_pipe_index(t_arg *first_node)
 		rl_on_new_line();
 		rl_redisplay();
 		printf("\nminishell$ ");
-		return (0);
 	}
 	else if (last_node->token.pipe)
 	{
@@ -55,9 +52,8 @@ static int	check_pipe_index(t_arg *first_node)
 		rl_on_new_line();
 		rl_redisplay();
 		printf("\nminishell$ ");
-		return (0);
 	}
-	return (1);
+	return ;
 }
 
 static void	set_node_index(t_arg *current_node)

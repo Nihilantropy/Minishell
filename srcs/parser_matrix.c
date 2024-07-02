@@ -1,11 +1,10 @@
 #include "../include/minishell.h"
 
-
-static void	init_cmd_node(t_cmd **cmd);
+static void	init_cmd_node(t_shell *shell);
 static void	init_redir_node(t_redir_list **redir);
-static void	build_nodes(t_cmd **cmd, t_arg **arg);
-static void	build_cmd_matrix(t_cmd *cmd, t_arg **arg);
-static void	build_redir_list(t_cmd *cmd, t_arg **arg);
+static void	build_nodes(t_shell *shell);
+static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell);
+static void	build_redir_list(t_cmd *cmd, t_shell *shell);
 
 void	parse_matrix(t_shell *shell)
 {
@@ -14,15 +13,13 @@ void	parse_matrix(t_shell *shell)
 	i = 0;
 	while (i < (shell->pipes_nbr + 1))
 	{
-		init_cmd_node(&shell->cmd);
-		printf("creating nodes %d\n", i);
+		init_cmd_node(shell);
 		i++;
 	}
-	build_nodes(&shell->cmd, &shell->arg);
+	build_nodes(shell);
 }
 
-
-static void	init_cmd_node(t_cmd **cmd)
+static void	init_cmd_node(t_shell *shell)
 {
 	t_cmd	*new_node;
 
@@ -31,27 +28,52 @@ static void	init_cmd_node(t_cmd **cmd)
 		ft_exit_error(ERR_ALLOC_NEW_NODE);
 	new_node->matrix = NULL;
 	new_node->redir = NULL;
-	append_cmd_node(cmd, new_node);
+	append_cmd_node(&shell->cmd, new_node);
 }
 
-static void	build_cmd_matrix(t_cmd *cmd, t_arg **arg)
+static void	build_nodes(t_shell *shell)
 {
-	int		len;
+	t_cmd	*current_node;
+	t_arg	*current_head;
+	t_arg	*real_head;
 
-	len = len_to_pipe_cmd(*arg);
+	if (!shell->cmd || !shell->arg)
+		return ;
+	real_head = shell->arg;
+	current_node = shell->cmd;
+	while (current_node)
+	{
+		current_head = shell->arg;
+		build_cmd_matrix(current_node, shell);
+		shell->arg = current_head;
+		build_redir_list(current_node, shell);
+		current_node = current_node->next;
+	}
+	shell->arg = real_head;
+	printf("shell->arg pointer is: %p\n", shell->arg);
+	print_cmd_list(shell->cmd);
+	print_redir_list(shell->cmd);
+	printf("EVVIVA!\n");
+}
+
+static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell)
+{
+	int	len;
+
+	len = len_to_pipe_cmd(shell->arg);
 	cmd->matrix = malloc(sizeof(char *) * (len + 1));
 	if (!cmd->matrix)
 		ft_exit_error(ERR_ALLOC_MATRIX);
-	copy_command(cmd, arg);
+	copy_command(cmd, shell);
 }
 
-static void	build_redir_list(t_cmd *cmd, t_arg **arg)
+static void	build_redir_list(t_cmd *cmd, t_shell *shell)
 {
-	static t_arg	*current_node;
+	t_arg	*current_node;
 
-	if (!*arg)
+	if (!shell->arg)
 		return ;
-	current_node = *arg;
+	current_node = shell->arg;
 	while (current_node && !current_node->token.pipe)
 	{
 		if ((current_node->type.infile || current_node->type.outfile
@@ -59,7 +81,7 @@ static void	build_redir_list(t_cmd *cmd, t_arg **arg)
 			init_redir_node(&cmd->redir);
 		current_node = current_node->next;
 	}
-	copy_redir(cmd->redir, arg);
+	copy_redir(cmd->redir, shell);
 }
 
 static void	init_redir_node(t_redir_list **redir)
@@ -77,22 +99,6 @@ static void	init_redir_node(t_redir_list **redir)
 	append_redir_node(redir, new_node);
 }
 
-static void	build_nodes(t_cmd **cmd, t_arg **arg)
-{
-	t_cmd	*current_node;
-
-	if (!*cmd || !*arg)
-		return ;
-	current_node = *cmd;
-	while (current_node)
-	{
-		build_cmd_matrix(current_node, arg);
-		build_redir_list(current_node, arg);
-		current_node = current_node->next;
-	}
-	print_cmd_list(*cmd);
-	print_redir_list((*cmd)->redir);
-}
 
 
 
