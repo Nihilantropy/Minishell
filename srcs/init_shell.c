@@ -14,6 +14,9 @@
 
 static char	**find_total_path(char **envp);
 
+/*
+	Init the main shell struct
+*/
 void	init_shell(t_shell *shell, char **envp)
 {
 	shell->fd = STDIN_FILENO;
@@ -26,6 +29,9 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->cmd = NULL;
 }
 
+/*
+	Find the PATH for the executable
+*/
 static char	**find_total_path(char **envp)
 {
 	char	**total_path;

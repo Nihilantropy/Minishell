@@ -1,5 +1,10 @@
 #include "../include/minishell.h"
 
+static void	set_node_type(t_redir_list *redir, t_arg *current_node);
+
+/*
+	Return the length of the command + flags untill the end or the pipe
+*/
 int	len_to_pipe_cmd(t_arg *arg)
 {
 	int		len;
@@ -19,6 +24,11 @@ int	len_to_pipe_cmd(t_arg *arg)
 	return (len);
 }
 
+/*
+	1) Copy the command + flags untill the end or the pipe
+	2) If the current node is a pipe, move the node to the next one
+	3) Move the head of the arg list to the current node
+*/
 void	copy_command(t_cmd *cmd, t_shell *shell)
 {
 	int		y;
@@ -44,6 +54,12 @@ void	copy_command(t_cmd *cmd, t_shell *shell)
 	shell->arg = current_node;
 }
 
+/*
+	1) Copy the redirections untill the end or the pipe and set the
+		corrisponding type
+	2) If the current node is a pipe, move the node to the next one
+	3) Move the head of the arg list to the current node
+*/
 void	copy_redir(t_redir_list *redir, t_shell *shell)
 {
 	t_arg	*current_node;
@@ -55,14 +71,7 @@ void	copy_redir(t_redir_list *redir, t_shell *shell)
 		if ((current_node->type.infile || current_node->type.outfile
 			|| current_node->type.here_doc || current_node->type.append))
 		{
-			if (current_node->type.infile)
-				redir->type.infile = true;
-			else if (current_node->type.outfile)
-				redir->type.outfile = true;
-			else if (current_node->type.here_doc)
-				redir->type.here_doc = true;
-			else if (current_node->type.append)
-				redir->type.append = true;
+			set_node_type(redir, current_node);
 			redir->fd_name = ft_strdup(current_node->str);
 			redir = redir->next;
 		}
@@ -71,4 +80,16 @@ void	copy_redir(t_redir_list *redir, t_shell *shell)
 	if (current_node && current_node->token.pipe && current_node->next)
 		current_node = current_node->next;
 	shell->arg = current_node;
+}
+
+static void	set_node_type(t_redir_list *redir, t_arg *current_node)
+{
+	if (current_node->type.infile)
+		redir->type.infile = true;
+	else if (current_node->type.outfile)
+		redir->type.outfile = true;
+	else if (current_node->type.here_doc)
+		redir->type.here_doc = true;
+	else if (current_node->type.append)
+		redir->type.append = true;
 }

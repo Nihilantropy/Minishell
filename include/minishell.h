@@ -55,6 +55,17 @@ typedef struct s_redir
 	t_bool	here_doc;
 }			t_redir;
 
+typedef struct s_builtin
+{
+	t_bool	echo;
+	t_bool	cd;
+	t_bool	pwd;
+	t_bool	export;
+	t_bool	unset;
+	t_bool	env;
+	t_bool	exit;
+}			t_builtin;
+
 typedef struct s_arg
 {
 	int				index;
@@ -78,6 +89,7 @@ typedef struct s_cmd
 {
 	char			**matrix;
 	t_redir_list	*redir;
+	t_builtin		builtin;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;

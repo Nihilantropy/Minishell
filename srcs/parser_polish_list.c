@@ -32,6 +32,11 @@ void	polish_list(t_shell *shell, t_arg *arg)
 	}
 }
 
+/*
+	Check if the pipe token is at the start or at
+	the end of the list. If so, we print an error message
+	and start a new prompt.
+*/
 static void	check_pipe_index(t_arg *first_node)
 {
 	t_arg	*last_node;
@@ -56,6 +61,9 @@ static void	check_pipe_index(t_arg *first_node)
 	return ;
 }
 
+/*
+	Setting up the index for each node of the list
+*/
 static void	set_node_index(t_arg *current_node)
 {
 	if (current_node->prev == current_node)
@@ -64,6 +72,10 @@ static void	set_node_index(t_arg *current_node)
 		current_node->index = current_node->prev->index + 1;
 }
 
+/*
+	Setting up the node flage, corrisponding to the 
+	previous token flag.
+*/
 static void	set_fd_flag(t_arg *current_node)
 {
 	if (current_node->token.t_infile && current_node->next)
@@ -76,6 +88,9 @@ static void	set_fd_flag(t_arg *current_node)
 		current_node->next->type.append = true;
 }
 
+/*
+	Count the number of pipe token 
+*/
 static void	count_pipes(t_shell *shell, t_arg *current_node)
 {
 	if (current_node->token.pipe)
