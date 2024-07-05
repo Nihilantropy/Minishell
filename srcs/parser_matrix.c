@@ -35,6 +35,7 @@ static void	init_cmd_node(t_shell *shell)
 		ft_exit_error(ERR_ALLOC_NEW_NODE);
 	new_node->matrix = NULL;
 	new_node->redir = NULL;
+	new_node->builtin.is_builtin = false;
 	new_node->builtin.cd = false;
 	new_node->builtin.echo = false;
 	new_node->builtin.pwd = false;
@@ -107,8 +108,7 @@ static void	build_redir_list(t_cmd *cmd, t_shell *shell)
 	current_node = shell->arg;
 	while (current_node && !current_node->token.pipe)
 	{
-		if ((current_node->type.infile || current_node->type.outfile
-			|| current_node->type.here_doc || current_node->type.append))
+		if (current_node->type.is_redir)
 			init_redir_node(&cmd->redir);
 		current_node = current_node->next;
 	}
@@ -126,6 +126,7 @@ static void	init_redir_node(t_redir_list **redir)
 	if (!new_node)
 		ft_exit_error(ERR_REDIR_ALLOC);
 	new_node->fd_name = NULL;
+	new_node->type.is_redir = false;
 	new_node->type.infile = false;
 	new_node->type.outfile = false;
 	new_node->type.here_doc = false;

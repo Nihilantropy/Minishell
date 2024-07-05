@@ -14,10 +14,7 @@ int	len_to_pipe_cmd(t_arg *arg)
 	current_node = arg;
 	while (current_node && !current_node->token.pipe)
 	{
-		if (!(current_node->token.t_infile || current_node->token.t_outfile
-			|| current_node->token.t_here_doc || current_node->token.t_append
-			|| current_node->type.infile || current_node->type.outfile
-			|| current_node->type.here_doc || current_node->type.append))
+		if (!(current_node->token.is_token || current_node->type.is_redir))
 			len++;
 		current_node = current_node->next;
 	}
@@ -38,10 +35,7 @@ void	copy_command(t_cmd *cmd, t_shell *shell)
 	current_node = shell->arg;
 	while (current_node && !current_node->token.pipe)
 	{
-		if (!(current_node->token.t_infile || current_node->token.t_outfile
-			|| current_node->token.t_here_doc || current_node->token.t_append
-			|| current_node->type.infile || current_node->type.outfile
-			|| current_node->type.here_doc || current_node->type.append))
+		if (!(current_node->token.is_token || current_node->type.is_redir))
 		{
 			cmd->matrix[y] = ft_strdup(current_node->str);
 			y++;
@@ -68,8 +62,7 @@ void	copy_redir(t_redir_list *redir, t_shell *shell)
 	while (current_node && !current_node->token.pipe)
 	{
 		
-		if ((current_node->type.infile || current_node->type.outfile
-			|| current_node->type.here_doc || current_node->type.append))
+		if (current_node->type.is_redir)
 		{
 			set_node_type(redir, current_node);
 			redir->fd_name = ft_strdup(current_node->str);
@@ -92,4 +85,5 @@ static void	set_node_type(t_redir_list *redir, t_arg *current_node)
 		redir->type.here_doc = true;
 	else if (current_node->type.append)
 		redir->type.append = true;
+	redir->type.is_redir = true;
 }

@@ -40,6 +40,7 @@ typedef	struct s_quote
 
 typedef struct s_token
 {
+	t_bool	is_token;
 	t_bool	pipe;
 	t_bool	t_infile;
 	t_bool	t_outfile;
@@ -49,6 +50,7 @@ typedef struct s_token
 
 typedef struct s_redir
 {
+	t_bool	is_redir;
 	t_bool	infile;
 	t_bool	outfile;
 	t_bool	append;
@@ -57,6 +59,7 @@ typedef struct s_redir
 
 typedef struct s_builtin
 {
+	t_bool	is_builtin;
 	t_bool	echo;
 	t_bool	cd;
 	t_bool	pwd;

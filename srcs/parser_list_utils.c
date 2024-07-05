@@ -36,6 +36,10 @@ void	print_list(t_arg *arg)
 		printf("\nstr: %s\n", arg->str);
 		printf("new_node-str pointer is: %p\n", arg->str);
 		printf("index: %d\n", arg->index);
+		if (arg->token.is_token)
+			printf("Is a token\n");
+		else if (arg->type.is_redir)
+			printf("Is a redirection\n");
 		if (arg->token.pipe)
 			printf("token = pipe\n");
 		else if (arg->token.t_infile)

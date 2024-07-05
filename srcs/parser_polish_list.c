@@ -3,7 +3,7 @@
 static void	set_node_index(t_arg *current_node);
 static void	set_fd_flag(t_arg *current_node);
 static void	count_pipes(t_shell *shell, t_arg *current_node);
-static void	check_pipe_index(t_arg *arg);
+static void	check_token_index(t_arg *arg);
 
 /* 
 	After the list is fully created, we have to set thing up.
@@ -19,7 +19,7 @@ void	polish_list(t_shell *shell, t_arg *arg)
 	if (!arg)
 		return ;
 	current_node = arg;
-	check_pipe_index(current_node);
+	check_token_index(current_node);
 	while (current_node)
 	{
 		if ((current_node->quote.NONE || current_node->quote.DOUBLE)
@@ -37,7 +37,7 @@ void	polish_list(t_shell *shell, t_arg *arg)
 	the end of the list. If so, we print an error message
 	and start a new prompt.
 */
-static void	check_pipe_index(t_arg *first_node)
+static void	check_token_index(t_arg *first_node)
 {
 	t_arg	*last_node;
 
@@ -73,19 +73,25 @@ static void	set_node_index(t_arg *current_node)
 }
 
 /*
-	Setting up the node flage, corrisponding to the 
+	Setting up the node flag, corrisponding to the 
 	previous token flag.
 */
 static void	set_fd_flag(t_arg *current_node)
 {
-	if (current_node->token.t_infile && current_node->next)
-		current_node->next->type.infile = true;
-	else if (current_node->token.t_outfile && current_node->next)
-		current_node->next->type.outfile = true;
-	else if (current_node->token.t_here_doc && current_node->next)
-		current_node->next->type.here_doc = true;
-	else if (current_node->token.t_append && current_node->next)
-		current_node->next->type.append = true;
+	if (current_node && current_node->next)
+	{
+		if (current_node->token.t_infile && current_node->next)
+			current_node->next->type.infile = true;
+		else if (current_node->token.t_outfile && current_node->next)
+			current_node->next->type.outfile = true;
+		else if (current_node->token.t_here_doc && current_node->next)
+			current_node->next->type.here_doc = true;
+		else if (current_node->token.t_append && current_node->next)
+			current_node->next->type.append = true;
+		if (current_node->token.t_infile || current_node->token.t_outfile
+			|| current_node->token.t_here_doc || current_node->token.t_append)
+			current_node->next->type.is_redir = true;
+	}
 }
 
 /*

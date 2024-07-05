@@ -13,6 +13,8 @@ void	print_redir_list(t_cmd *cmd)
 		{
 			ft_putnl();
 			printf("str: %s\n", redir->fd_name);
+			if (redir->type.is_redir)
+				printf("is a redirection\n");
 			if (redir->type.infile)
 				printf("type = infile\n");
 			else if (redir->type.outfile)

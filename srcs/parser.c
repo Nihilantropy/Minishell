@@ -57,6 +57,7 @@ static char	*create_token_node(t_arg **arg, char *temp)
 		new_node->token.t_here_doc = true;
 	else if (!ft_strcmp(new_node->str, ">>"))
 		new_node->token.t_append = true;
+	new_node->token.is_token = true;
 	new_node->quote.NONE = true;
 	append_node(arg, new_node);
 	return (temp + len);
@@ -81,8 +82,7 @@ static char	*create_new_node(t_arg **arg, char *temp)
 /*
 	1) Duplicate the original string to work on a separete memory space
 	2) Navigate the string to see if we have to build a quote node ("" or ''),
-		a toke node (|, <, >, <<, or >>) that will always be valid or a
-		none quoted, simple node.
+		a toke node (|, <, >, <<, or >>), that will always be valid, or a simple node.
 	3) Polish list to set up all the node correctly.
 	4) Free the duplicated string.
 */
