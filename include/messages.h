@@ -15,6 +15,10 @@
 
 # define EXIT_MAIN "User wrote exit\n"
 
+# define ERR_ALLOC_ENV "Error. ENV allocation failed.\n"
+# define ERR_ALLOC_NAME "Error. NAME allocation failed.\n"
+# define ERR_ALLOC_VALUE "Error. VALUE allocation failed.\n"
+
 # define ERR_NBR_ARG "Error. No argument should be provided.\n"
 # define ERR_PIPE_INPUT "Error. Pipe input is not correct.\n"
 # define ERR_ALLOC_STR "Error. STRING allocation failed.\n"
@@ -23,7 +27,9 @@
 # define ERR_ALLOC_TOKEN_NODE "Error. TOKEN NODE allocation failed.\n"
 # define ERR_ALLOC_ENV_STR "Error. FIRST ENV STR allocation failed.\n"
 # define ERR_ALLOC_MATRIX "Error. MATRIX allocation failed.\n"
-# define ERR_REDIR_ALLOC "Error. REDIR allocation failed.\n"
+# define ERR_ALLOC_REDIR "Error. REDIR allocation failed.\n"
+
+# define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"
 
 # define ERR_PIPE_FIRST_INDEX "-bash: syntax error near unexpected token `|'"
 # define ERR_PIPE_LAST_INDEX "Error. Pipe at last index.\n"

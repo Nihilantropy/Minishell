@@ -28,7 +28,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		while (1)
 		{
-			parse_args(&shell);
+			parse_args(&shell, envp);
 			if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
 			{
 				printf(EXIT_MAIN);
@@ -37,11 +37,12 @@ int main(int argc, char **argv, char **envp)
 			else if (shell.arg)
 			{
 				//executor(&shell, envp);
+				shell.pipes_nbr = 0;
+				free_env_list(&shell.env);
+				free_redir_list(shell.cmd);
+				free_cmd_list(&shell.cmd);
+				free_list(&shell.arg);
 			}
-			shell.pipes_nbr = 0;
-			free_redir_list(shell.cmd);
-			free_cmd_list(&shell.cmd);
-			free_list(&shell.arg);
 		}
 	}
 	return (0);

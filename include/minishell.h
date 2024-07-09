@@ -69,6 +69,15 @@ typedef struct s_builtin
 	t_bool	exit;
 }			t_builtin;
 
+typedef struct	s_env
+{
+	char			*var;
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}					t_env;
+
 typedef struct s_arg
 {
 	int				index;
@@ -104,7 +113,8 @@ typedef struct s_shell
 	t_bool	add_to_history;
 	t_arg	*arg;
 	t_cmd	*cmd;
-	char	**env;
+	t_env	*env;
+	char	**path;
 	int		last_exit_status;
 	int		pipes_nbr;
 }			t_shell;
@@ -116,8 +126,14 @@ void	free_matrix(char **matrix);
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
 
+/* init env */
+void	init_env(t_shell *shell, char **envp);
+
+/* init env utils */
+void	free_env_list(t_env **env);
+
 /* parser */
-void	parse_args(t_shell *shell);
+void	parse_args(t_shell *shell, char **envp);
 
 /* parser utils */
 t_arg	*init_new_node(void);
@@ -153,6 +169,13 @@ void	print_cmd_list(t_cmd *cmd);
 void	print_redir_list(t_cmd *cmd);
 void	free_cmd_list(t_cmd **cmd);
 void	free_redir_list(t_cmd *cmd);
+
+/* builtin */
+void 	check_builtin(t_cmd *cmd);
+void	handle_builtin(t_shell *shell, char **envp);
+
+/* builtin export */
+void	handle_export(t_shell *shell, char **envp);
 
 /* signal handler */
 void	signal_handler(void);

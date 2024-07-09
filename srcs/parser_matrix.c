@@ -92,6 +92,7 @@ static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell)
 	if (!cmd->matrix)
 		ft_exit_error(ERR_ALLOC_MATRIX);
 	copy_command(cmd, shell);
+	check_builtin(cmd);
 }
 
 /*
@@ -124,7 +125,7 @@ static void	init_redir_node(t_redir_list **redir)
 
 	new_node = malloc(sizeof(t_redir_list));
 	if (!new_node)
-		ft_exit_error(ERR_REDIR_ALLOC);
+		ft_exit_error(ERR_ALLOC_REDIR);
 	new_node->fd_name = NULL;
 	new_node->type.is_redir = false;
 	new_node->type.infile = false;
