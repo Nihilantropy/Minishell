@@ -38,11 +38,10 @@ char	*copy_value(char *current_var)
 
 	value = NULL;
 	start = ft_strchr(current_var, '=');
+	if (!start)
+		return (NULL);
 	if ((*start + 1) == '\0')
-	{
-		value = "";
-		return (value);
-	}
+		return ("");
 	value = ft_strdup(start + 1);
 	if (!value)
 		ft_exit_error(ERR_ALLOC_VALUE);

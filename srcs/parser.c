@@ -119,11 +119,11 @@ static void	parse_list(t_shell *shell)
 	5) See if the command can go into the history
 	6) Free the current read line
 */
-void	parse_args(t_shell *shell, char **envp)
+void	parse_args(t_shell *shell)
 {
 	shell->line = readline("minishell$ ");
 	if (!shell->line)
-		handle_eof();
+		handle_eof(shell);
 	if (!shell->line[0])
 	{
 		handle_enter(shell);
@@ -133,6 +133,6 @@ void	parse_args(t_shell *shell, char **envp)
 	print_list(shell->arg);
 	handle_history(shell);
 	parse_matrix(shell);
-	handle_builtin(shell, envp);
+	handle_builtin(shell);
 	free(shell->line);
 }

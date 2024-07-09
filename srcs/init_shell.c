@@ -24,6 +24,7 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->add_to_history = true;
 	shell->arg = NULL;
 	shell->pipes_nbr = 0;
+	shell->env = NULL;
 	init_env(shell, envp);
 	shell->path = find_total_path(envp);
 	shell->last_exit_status = 0;

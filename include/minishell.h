@@ -74,6 +74,7 @@ typedef struct	s_env
 	char			*var;
 	char			*name;
 	char			*value;
+	t_bool			show;
 	struct s_env	*next;
 	struct s_env	*prev;
 }					t_env;
@@ -100,6 +101,7 @@ typedef struct s_redir_list
 typedef struct s_cmd
 {
 	char			**matrix;
+	int				index;
 	t_redir_list	*redir;
 	t_builtin		builtin;
 	struct s_cmd	*next;
@@ -120,6 +122,7 @@ typedef struct s_shell
 }			t_shell;
 
 /* main utils */
+void	free_all(t_shell *shell);
 void	print_matrix(char **matrix);
 void	free_matrix(char **matrix);
 
@@ -128,12 +131,14 @@ void	init_shell(t_shell *shell, char **envp);
 
 /* init env */
 void	init_env(t_shell *shell, char **envp);
+void	create_new_env_node(t_shell *shell, char *current_var);
+void	append_env_node(t_env **env, t_env *new_node);
 
 /* init env utils */
 void	free_env_list(t_env **env);
 
 /* parser */
-void	parse_args(t_shell *shell, char **envp);
+void	parse_args(t_shell *shell);
 
 /* parser utils */
 t_arg	*init_new_node(void);
@@ -145,6 +150,9 @@ void	append_node(t_arg **arg, t_arg *new_node);
 t_arg	*find_last_node(t_arg *arg);
 void	print_list(t_arg *arg);
 void	free_list(t_arg **arg);
+
+/* ft_getenv */
+char	*ft_getenv(t_env *env, char *var_name);
 
 /* parser env variables */
 void	handle_env_var(t_shell *shell, t_arg *arg);
@@ -172,15 +180,15 @@ void	free_redir_list(t_cmd *cmd);
 
 /* builtin */
 void 	check_builtin(t_cmd *cmd);
-void	handle_builtin(t_shell *shell, char **envp);
+void	handle_builtin(t_shell *shell);
 
 /* builtin export */
-void	handle_export(t_shell *shell, char **envp);
+void	handle_export(t_shell *shell);
 
 /* signal handler */
 void	signal_handler(void);
 void	handle_sigint(int sig);
-void	handle_eof(void);
+void	handle_eof(t_shell *shell);
 void	sigint_handler(int signum);
 
 /* signal utils */

@@ -29,6 +29,8 @@
 # define ERR_ALLOC_MATRIX "Error. MATRIX allocation failed.\n"
 # define ERR_ALLOC_REDIR "Error. REDIR allocation failed.\n"
 
+# define ERR_ALLOR_EXPORT "Error. EXPORT allocation failed.\n"
+
 # define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"
 
 # define ERR_PIPE_FIRST_INDEX "-bash: syntax error near unexpected token `|'"

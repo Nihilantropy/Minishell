@@ -60,7 +60,7 @@ static char	*parse_env_var(t_shell *shell, t_arg *new_node)
 		while ((*end && ft_isalnum(*end)) || *end == '_')
 				end++;
 		ft_strlcpy(var_name, start + 1, end - start);
-		var_value = getenv(var_name);
+		var_value = ft_getenv(shell->env, var_name);
 		if (!var_value)
 			var_value = "";
 	}

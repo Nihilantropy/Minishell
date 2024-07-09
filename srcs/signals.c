@@ -26,8 +26,9 @@ void	handle_sigint(int sig)
 	printf("\nminishell$ ");
 }
 
-void	handle_eof(void)
+void	handle_eof(t_shell *shell)
 {
+	free_all(shell);
 	printf("exit EOF\n");
 	exit(EXIT_SUCCESS);
 }

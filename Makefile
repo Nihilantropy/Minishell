@@ -5,7 +5,7 @@ MINISHELL_HEAD	= ./include
 
 SRCS		= main.c main_utils.c init_shell.c init_env.c init_env_utils.c parser.c parser_utils.c parser_list_utils.c parser_polish_list.c parser_env.c \
 				parser_matrix.c parser_matrix_utils.c parser_matrix_list.c parser_matrix_list_utils.c signals.c signals_utils.c history.c \
-				builtin.c builtin_export.c
+				builtin.c builtin_export.c ft_getenv.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 

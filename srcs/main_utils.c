@@ -12,6 +12,11 @@
 
 #include "../include/minishell.h"
 
+void	free_all(t_shell *shell)
+{
+	free_env_list(&shell->env);
+}
+
 void	print_matrix(char **matrix)
 {
 	int	y;
