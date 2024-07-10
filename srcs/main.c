@@ -12,6 +12,26 @@
 
 #include "../include/minishell.h"
 
+void	shell_prompt(t_shell *shell)
+{
+	while (1)
+	{
+		parse_args(shell);
+		if (shell->arg && !ft_strncmp(shell->arg->str, "exit", 5))
+		{
+			printf(EXIT_MAIN);
+			free_env_list(&shell->env);
+			exit(EXIT_SUCCESS);
+		}
+		else if (shell->arg)
+		{
+			//executor(&shell, envp);
+			shell->pipes_nbr = 0;
+			free_all(shell);
+		}
+	}
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	t_shell		shell;
@@ -26,23 +46,7 @@ int main(int argc, char **argv, char **envp)
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
-		while (1)
-		{
-			parse_args(&shell);
-			if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
-			{
-				printf(EXIT_MAIN);
-				//free_env_list(&shell.env);
-				exit(EXIT_SUCCESS);
-			}
-			else if (shell.arg)
-			{
-				//executor(&shell, envp);
-				shell.pipes_nbr = 0;
-				//free_all(&shell);
-			}
-		}
-
+		shell_prompt(&shell);
 	}
 	return (0);
 }

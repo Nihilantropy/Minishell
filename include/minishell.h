@@ -120,10 +120,20 @@ typedef struct s_shell
 	int		pipes_nbr;
 }			t_shell;
 
+/* main */
+void	shell_prompt(t_shell *shell);
+
 /* main utils */
 void	free_all(t_shell *shell);
 void	print_matrix(char **matrix);
 void	free_matrix(char **matrix);
+
+/* signal handler */
+void	signal_handler(void);
+void	handle_eof(t_shell *shell);
+
+/* signal utils */
+void	handle_enter(t_shell *shell);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -194,15 +204,6 @@ char	*copy_ex_var(t_env *current_node, char *temp, int len);
 char	*copy_ex_name(char *current_var);
 char	*copy_ex_value(char *current_var);
 
-/* signal handler */
-void	signal_handler(void);
-void	handle_sigint(int sig);
-void	handle_eof(t_shell *shell);
-void	sigint_handler(int signum);
-
-/* signal utils */
-void	handle_enter(t_shell *shell);
-
 /* history */
 void	handle_history(t_shell *shell);
 
@@ -216,12 +217,6 @@ char	*find_cmd_path(t_shell *shell, char *command);
 //void	ft_pipex(t_shell *shell, char **envp);
 void	process_child(t_shell *shell, char *command, char **envp);
 void	process_parent(t_shell *shell, char *command, char **envp);
-
-
-
-// TODO 
-// create matrix with all command and flag in order and place redirection
-// fd at the last index of the matrix.
 
 #endif
 

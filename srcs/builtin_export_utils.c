@@ -1,5 +1,7 @@
 #include "../include/minishell.h"
 
+static char	*parse_ex_str(char *parsed_value, char *value);
+
 void print_env_list(t_env *env)
 {
 	t_env	*current_node;
@@ -7,15 +9,14 @@ void print_env_list(t_env *env)
 	if (!env)
 		return ;
 	current_node = env;
-	printf("\n-------------------\n");
-	printf("command node: %s\n", current_node->var);
-	current_node = current_node->next;
 	while (current_node)
 	{
 		printf("\n-------------------\n");
 		printf("variable is: %s\n", current_node->var);
 		printf("name is: %s\n", current_node->name);
 		printf("value is: %s\n", current_node->value);
+		printf("show node? %d\n", current_node->show);
+		printf("current node pointer is: %p\n", current_node);
 		current_node = current_node->next;
 	}
 }
@@ -64,12 +65,12 @@ char	*copy_ex_var(t_env *current_node, char *temp, int len)
 		i++;
 	}
 	current_node->var[i] = '\0';
-	printf("temp + len + 1 char is : %c\n", *(temp + len + 1));
 	return (temp + len + 1);
 }
 
-static char	*parse_ex_str(char *parsed_value, char *value);
-
+/*
+	Copy the export node value, parsing the quote correctly
+*/
 char	*copy_ex_value(char *current_var)
 {
 	char	*value;
@@ -87,13 +88,12 @@ char	*copy_ex_value(char *current_var)
 	if (!value || !parsed_value)
 		ft_exit_error(ERR_ALLOC_VALUE);
 	parse_ex_str(parsed_value, value);
-	printf("parsed value is: %s\n", parsed_value);
 	return (parsed_value);
 }
 
-//static void	check_invalid_name(char *str);
-
-// TODO non funziona :)
+/*
+	Copy the export node name, parsing the quote correctly
+*/
 char	*copy_ex_name(char *current_var)
 {
 	int		i;
@@ -108,31 +108,14 @@ char	*copy_ex_name(char *current_var)
 	if (!name || !parsed_name)
 		ft_exit_error(ERR_ALLOC_NAME);
 	ft_strlcpy(name, current_var, i + 1);
-	printf("name is: %s\n", name);
 	parse_ex_str(parsed_name, name);
-	printf("parsed name is: %s\n", parsed_name);
-	//check_invalid_name(parsed_name);
 	return (parsed_name);
 }
+
 /*
-static void	check_invalid_name(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]))
-		{
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-			printf("\nminishell$ ");
-		}
-	}
-}
+	Remove the quote from correct quote from the string,
+	then free the old string
 */
-
 static char	*parse_ex_str(char *parsed_str, char *str)
 {
 	int		i;

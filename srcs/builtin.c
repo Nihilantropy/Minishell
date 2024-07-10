@@ -5,7 +5,7 @@
 */
 void	handle_builtin(t_shell *shell)
 {
-	if (!ft_strcmp(shell->cmd->matrix[0], "export") && shell->pipes_nbr == 0)
+	if (!ft_strncmp(shell->cmd->matrix[0], "export", 7) && shell->pipes_nbr == 0)
 		handle_export(shell);
 }
 
@@ -14,19 +14,19 @@ void	handle_builtin(t_shell *shell)
 */
 void check_builtin(t_cmd *current_node)
 {
-	if (!ft_strcmp(current_node->matrix[0], "echo"))
+	if (!ft_strncmp(current_node->matrix[0], "echo", 5))
 		current_node->builtin.echo = true;
-	else if (!ft_strcmp(current_node->matrix[0], "cd"))
+	else if (!ft_strncmp(current_node->matrix[0], "cd", 3))
 		current_node->builtin.cd = true;
-	else if (!ft_strcmp(current_node->matrix[0], "pwd"))
+	else if (!ft_strncmp(current_node->matrix[0], "pwd", 4))
 		current_node->builtin.pwd = true;
-	else if (!ft_strcmp(current_node->matrix[0], "export"))
+	else if (!ft_strncmp(current_node->matrix[0], "export", 7))
 		current_node->builtin.export = true;
-	else if (!ft_strcmp(current_node->matrix[0], "unset"))
+	else if (!ft_strncmp(current_node->matrix[0], "unset", 6))
 		current_node->builtin.unset = true;
-	else if (!ft_strcmp(current_node->matrix[0], "env"))
+	else if (!ft_strncmp(current_node->matrix[0], "env", 4))
 		current_node->builtin.env = true;
-	else if (!ft_strcmp(current_node->matrix[0], "exit"))
+	else if (!ft_strncmp(current_node->matrix[0], "exit", 5))
 		current_node->builtin.exit = true;
 	if (current_node->builtin.echo || current_node->builtin.cd
 		|| current_node->builtin.pwd || current_node->builtin.export

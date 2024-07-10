@@ -12,6 +12,9 @@
 
 #include "../include/minishell.h"
 
+static void	sigint_handler(int signum);
+static void	handle_sigint(int sig);
+
 void	signal_handler(void)
 {
 	sigint_handler(SIGINT);
@@ -26,14 +29,7 @@ void	handle_sigint(int sig)
 	printf("\nminishell$ ");
 }
 
-void	handle_eof(t_shell *shell)
-{
-	free_env_list(&shell->env);
-	printf("exit EOF\n");
-	exit(EXIT_SUCCESS);
-}
-
-void	sigint_handler(int signum)
+static void	sigint_handler(int signum)
 {
 	struct sigaction sa;
 
@@ -42,4 +38,11 @@ void	sigint_handler(int signum)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
+}
+
+void	handle_eof(t_shell *shell)
+{
+	free_env_list(&shell->env);
+	printf("exit EOF\n");
+	exit(EXIT_SUCCESS);
 }

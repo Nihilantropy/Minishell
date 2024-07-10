@@ -31,23 +31,23 @@ void	print_redir_list(t_cmd *cmd)
 
 void	free_redir_list(t_cmd *cmd)
 {
-	t_redir_list	*current;
-	t_redir_list	*next_node;
+	t_redir_list	*current_redir_node;
+	t_redir_list	*next_redir_node;
+	t_cmd 			*current_cmd_node;
 
-	if (!cmd->redir)
-		return ;
-	while (cmd)
+	current_cmd_node = cmd;
+	while (current_cmd_node)
 	{
-		current = cmd->redir;
-		while (current)
+		current_redir_node = current_cmd_node->redir;
+		while (current_redir_node)
 		{
-			next_node = current->next;
-			free(current->fd_name);
-			free(current);
-			current = next_node;
+			next_redir_node = current_redir_node->next;
+			free(current_redir_node->fd_name);
+			free(current_redir_node);
+			current_redir_node = next_redir_node;
 		}
-		cmd->redir = NULL;
-		cmd = cmd->next;
+		current_cmd_node->redir = NULL;
+		current_cmd_node = current_cmd_node->next;
 	}
 }
 

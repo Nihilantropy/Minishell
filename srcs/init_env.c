@@ -24,7 +24,7 @@ void	create_new_env_node(t_shell *shell, char *current_var)
 	new_node->var = copy_var(current_var);
 	new_node->name = copy_name(current_var);
 	new_node->value = copy_value(current_var);
-	new_node->show = false;
+	new_node->show = true;
 	append_env_node(&shell->env, new_node);
 }
 
