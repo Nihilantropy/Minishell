@@ -28,7 +28,7 @@ void	handle_sigint(int sig)
 
 void	handle_eof(t_shell *shell)
 {
-	free_all(shell);
+	free_env_list(&shell->env);
 	printf("exit EOF\n");
 	exit(EXIT_SUCCESS);
 }

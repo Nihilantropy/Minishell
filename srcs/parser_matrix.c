@@ -34,7 +34,6 @@ static void	init_cmd_node(t_shell *shell)
 	if (!new_node)
 		ft_exit_error(ERR_ALLOC_NEW_NODE);
 	new_node->matrix = NULL;
-	new_node->index = 0;
 	new_node->redir = NULL;
 	new_node->builtin.is_builtin = false;
 	new_node->builtin.cd = false;

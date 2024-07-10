@@ -101,7 +101,6 @@ typedef struct s_redir_list
 typedef struct s_cmd
 {
 	char			**matrix;
-	int				index;
 	t_redir_list	*redir;
 	t_builtin		builtin;
 	struct s_cmd	*next;
@@ -135,6 +134,9 @@ void	create_new_env_node(t_shell *shell, char *current_var);
 void	append_env_node(t_env **env, t_env *new_node);
 
 /* init env utils */
+char	*copy_var(char *current_var);
+char	*copy_name(char *current_var);
+char	*copy_value(char *current_var);
 void	free_env_list(t_env **env);
 
 /* parser */
@@ -154,7 +156,7 @@ void	free_list(t_arg **arg);
 /* ft_getenv */
 char	*ft_getenv(t_env *env, char *var_name);
 
-/* parser env variables */
+/* parser env */
 void	handle_env_var(t_shell *shell, t_arg *arg);
 
 /* parser polish list */
@@ -184,6 +186,13 @@ void	handle_builtin(t_shell *shell);
 
 /* builtin export */
 void	handle_export(t_shell *shell);
+
+/* builtin export utils */
+void 	print_env_list(t_env *env);
+int		var_length(char *line);
+char	*copy_ex_var(t_env *current_node, char *temp, int len);
+char	*copy_ex_name(char *current_var);
+char	*copy_ex_value(char *current_var);
 
 /* signal handler */
 void	signal_handler(void);

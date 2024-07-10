@@ -30,6 +30,8 @@
 # define ERR_ALLOC_REDIR "Error. REDIR allocation failed.\n"
 
 # define ERR_ALLOR_EXPORT "Error. EXPORT allocation failed.\n"
+# define ERR_EXPORT_NAME ""
+# define ERR_ALLOC_PARSED_VALUE "Error. PARSED VALUE allocation failed.\n"
 
 # define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"
 

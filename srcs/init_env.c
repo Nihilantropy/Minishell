@@ -1,9 +1,5 @@
 #include "../include/minishell.h"
 
-char	*copy_var(char *current_var);
-char	*copy_name(char *current_var);
-char	*copy_value(char *current_var);
-
 static t_env	*find_last_env_node(t_env *env);
 
 void	init_env(t_shell *shell, char **envp)

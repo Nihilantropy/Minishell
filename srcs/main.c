@@ -32,16 +32,14 @@ int main(int argc, char **argv, char **envp)
 			if (shell.arg && !ft_strncmp(shell.arg->str, "exit", 5))
 			{
 				printf(EXIT_MAIN);
-				free_all(&shell);
+				//free_env_list(&shell.env);
 				exit(EXIT_SUCCESS);
 			}
 			else if (shell.arg)
 			{
 				//executor(&shell, envp);
 				shell.pipes_nbr = 0;
-				free_redir_list(shell.cmd);
-				free_cmd_list(&shell.cmd);
-				free_list(&shell.arg);
+				//free_all(&shell);
 			}
 		}
 
