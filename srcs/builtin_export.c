@@ -2,7 +2,7 @@
 
 static void		create_ex_list(t_shell *shell, t_env **export);
 static t_env	*create_ex_node(t_env **export, int len);
-static void		check_invalid_name(t_env *export);
+static void		check_invalid_name(t_shell *shell, t_env *export);
 static void		append_list_to_env(t_shell *shell, t_env *export);
 
 /*
@@ -15,31 +15,15 @@ void	handle_export(t_shell *shell)
 
 	export = NULL;
 	create_ex_list(shell, &export);
+	if (export->prev == export)
+	{
+		print_export(shell->env);
+		return ;
+	}
 	printf("\n------- printing export list -------\n");
 	print_env_list(export);
 
 	append_list_to_env(shell, export);
-}
-
-/*
-	Create the export node with the variable space
-	and append to the list
-*/
-static t_env	*create_ex_node(t_env **export, int len)
-{
-	t_env	*new_node;
-
-	new_node = malloc(sizeof(t_env));
-	if (!new_node)
-		ft_exit_error(ERR_ALLOR_EXPORT);
-	new_node->var = malloc(len + 1);
-	if (!new_node)
-		ft_exit_error(ERR_ALLOC_NEW_NODE);
-	new_node->name = NULL;
-	new_node->value = NULL;
-	new_node->show = false;
-	append_env_node(export, new_node);
-	return (new_node);
 }
 
 /*
@@ -63,14 +47,36 @@ static void	create_ex_list(t_shell *shell, t_env **export)
 		if (current_node->value)
 			current_node->show = true;
 	}
-	check_invalid_name(*export);
+	check_invalid_name(shell, *export);
 }
+
+/*
+	Create the export node with the variable space
+	and append to the list
+*/
+static t_env	*create_ex_node(t_env **export, int len)
+{
+	t_env	*new_node;
+
+	new_node = malloc(sizeof(t_env));
+	if (!new_node)
+		ft_exit_error(ERR_ALLOR_EXPORT);
+	new_node->var = malloc(len + 1);
+	if (!new_node)
+		ft_exit_error(ERR_ALLOC_NEW_NODE);
+	new_node->name = NULL;
+	new_node->value = NULL;
+	new_node->show = false;
+	append_env_node(export, new_node);
+	return (new_node);
+}
+
 
 /*
 	If the name of the argument is invalid, free the current export list
 	and display a new prompt
 */
-static void	check_invalid_name(t_env *export)
+static void	check_invalid_name(t_shell *shell, t_env *export)
 {
 	int		i;
 	t_env	*current_node;
@@ -86,10 +92,10 @@ static void	check_invalid_name(t_env *export)
 				rl_replace_line("", 0);
 				rl_on_new_line();
 				rl_redisplay();
-				printf("-bash: export: ");
-				printf("`%s'", current_node->var);
+				printf("-bash: export: `%s'", current_node->var);
 				printf(": not a valid identifier\n");
 				free_env_list(&export);
+				shell_prompt(shell);
 				return ;
 			}
 			i++;
@@ -101,28 +107,15 @@ static void	check_invalid_name(t_env *export)
 static void	append_list_to_env(t_shell *shell, t_env *export)
 {
 	t_env	*export_dup;
-	t_env	*current_node;
-	t_env	*next_node;
 
 	if (!export)
 		return ;
-	create_ex_list(shell, &export_dup);
+	dup_ex_list(export, &export_dup);
 	printf("\n------- printing export list to append -------\n");
 	print_env_list(export_dup);
+	append_env_node(&shell->env, export_dup);
 
-	current_node = export_dup;
-	while (current_node)
-	{
-		next_node = current_node->next;
-		append_env_node(&shell->env, current_node);
-		current_node = next_node;
-	}
 	free_env_list(&export);
-	//printf("\n------- printing env list -------\n");
-	//print_env_list(shell->env);
+	printf("\n------- printing env list -------\n");
+	print_env_list(shell->env);
 }
-
-// TODO make the list work, now the new list point to the old nodes (dk why).
-// check the append on the env list, to make sure it doesn't append more nodes
-// everytime the function get called. 
-// Check the ovverrwriting of the same var name when appending the node to the env.

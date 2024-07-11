@@ -42,7 +42,7 @@ static void	sigint_handler(int signum)
 
 void	handle_eof(t_shell *shell)
 {
-	free_env_list(&shell->env);
+	free_shell_lists(shell);
 	printf("exit EOF\n");
 	exit(EXIT_SUCCESS);
 }

@@ -20,14 +20,14 @@ void	shell_prompt(t_shell *shell)
 		if (shell->arg && !ft_strncmp(shell->arg->str, "exit", 5))
 		{
 			printf(EXIT_MAIN);
-			free_env_list(&shell->env);
+			free_shell_lists(shell);
 			exit(EXIT_SUCCESS);
 		}
 		else if (shell->arg)
 		{
 			//executor(&shell, envp);
 			shell->pipes_nbr = 0;
-			free_all(shell);
+			free_prompt_lists(shell);
 		}
 	}
 }

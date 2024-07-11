@@ -12,11 +12,16 @@
 
 #include "../include/minishell.h"
 
-void	free_all(t_shell *shell)
+void	free_prompt_lists(t_shell *shell)
 {
 	free_redir_list(shell->cmd);
 	free_cmd_list(&shell->cmd);
 	free_list(&shell->arg);
+}
+
+void	free_shell_lists(t_shell *shell)
+{
+	free_env_list(&shell->env);
 }
 
 void	print_matrix(char **matrix)

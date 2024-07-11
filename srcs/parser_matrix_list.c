@@ -17,6 +17,7 @@ void	append_cmd_node(t_cmd **cmd, t_cmd *new_node)
 		last_node = find_last_cmd_node(*cmd);
 		last_node->next = new_node;
 		new_node->prev = last_node;
+		(*cmd)->prev = new_node;
 	}
 	new_node->next = NULL;
 }
@@ -35,6 +36,7 @@ void	append_redir_node(t_redir_list **redir, t_redir_list *new_node)
 		last_node = find_last_redir_node(*redir);
 		last_node->next = new_node;
 		new_node->prev = last_node;
+		(*redir)->prev = new_node;
 	}
 	new_node->next = NULL;
 }

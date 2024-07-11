@@ -124,7 +124,8 @@ typedef struct s_shell
 void	shell_prompt(t_shell *shell);
 
 /* main utils */
-void	free_all(t_shell *shell);
+void	free_prompt_lists(t_shell *shell);
+void	free_shell_lists(t_shell *shell);
 void	print_matrix(char **matrix);
 void	free_matrix(char **matrix);
 
@@ -197,12 +198,18 @@ void	handle_builtin(t_shell *shell);
 /* builtin export */
 void	handle_export(t_shell *shell);
 
-/* builtin export utils */
+/* builtin export utils 1 */
+void	dup_ex_list(t_env *export, t_env **export_dup);
+
+/* builtin export utils 2 */
 void 	print_env_list(t_env *env);
 int		var_length(char *line);
 char	*copy_ex_var(t_env *current_node, char *temp, int len);
 char	*copy_ex_name(char *current_var);
 char	*copy_ex_value(char *current_var);
+
+/* builtin export print */
+void	print_export(t_env *env);
 
 /* history */
 void	handle_history(t_shell *shell);

@@ -59,11 +59,23 @@ void	free_env_list(t_env **env)
 	while (current)
 	{
 		next_node = current->next;
-		free(current->var);
-		free(current->name);
-		free(current->value);
+		if (current->var)
+			free(current->var);
+		if (current->name)
+			free(current->name);
+		if (current->value)
+			free(current->value);
 		free(current);
 		current = next_node;
 	}
 	*env = NULL;
+}
+
+t_env	*find_last_env_node(t_env *env)
+{
+	if (!env)
+		return (NULL);
+	while (env->next)
+		env = env->next;
+	return (env);
 }

@@ -14,6 +14,7 @@ void	append_node(t_arg **arg, t_arg *new_node)
 		last_node = find_last_node(*arg);
 		last_node->next = new_node;
 		new_node->prev = last_node;
+		(*arg)->prev = new_node;
 	}
 	new_node->next = NULL;
 }

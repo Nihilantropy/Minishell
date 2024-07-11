@@ -1,6 +1,8 @@
 #include "../include/minishell.h"
 
-static t_env	*find_last_env_node(t_env *env);
+t_env		*find_last_env_node(t_env *env);
+static int	search_same_name_node(t_env **env, t_env *new_node);
+static void	handle_node_pointer(t_env *current_node, t_env *new_node);
 
 void	init_env(t_shell *shell, char **envp)
 {
@@ -37,20 +39,62 @@ void	append_env_node(t_env **env, t_env *new_node)
 		*env = new_node;
 		new_node->prev = new_node;
 	}
+	else if (search_same_name_node(env, new_node))
+		return ;
 	else
 	{
 		last_node = find_last_env_node(*env);
 		last_node->next = new_node;
 		new_node->prev = last_node;
+		(*env)->prev = new_node;
 	}
 	new_node->next = NULL;
 }
 
-static t_env	*find_last_env_node(t_env *env)
+static int	search_same_name_node(t_env **env, t_env *new_node)
 {
-	if (!env)
-		return (NULL);
-	while (env->next)
-		env = env->next;
-	return (env);
+	t_env	*current_node;
+
+	current_node = *env;
+	while (current_node)
+	{
+		if ((current_node->name && new_node->name)
+			&& !ft_strcmp(current_node->name, new_node->name))
+		{
+			handle_node_pointer(current_node, new_node);
+			if (current_node->var)
+				free(current_node->var);
+			if (current_node->name)
+				free(current_node->name);
+			if (current_node->value)
+				free(current_node->value);
+			free(current_node);
+			return (1);
+		}
+		current_node = current_node->next;
+	}
+	return (0);
+}
+
+static void	handle_node_pointer(t_env *current_node, t_env *new_node)
+{
+	if (!current_node->prev->next)
+	{
+		current_node->next->prev = new_node;
+		new_node->prev = current_node->prev;
+		new_node->next = current_node->next;
+	}
+	else if (!current_node->next)
+	{
+		current_node->prev->next = new_node;
+		new_node->next = current_node->next;
+		new_node->prev = current_node->prev;
+	}
+	else
+	{
+		current_node->next->prev = new_node;
+		current_node->prev->next = new_node;
+		new_node->next = current_node->next;
+		new_node->prev = current_node->prev;
+	}
 }
