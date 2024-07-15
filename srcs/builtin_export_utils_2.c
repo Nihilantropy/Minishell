@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-static char	*parse_ex_str(char *parsed_value, char *value);
+static void	parse_ex_str(char *parsed_value, char *str);
 
 void print_env_list(t_env *env)
 {
@@ -52,31 +52,12 @@ int	var_length(char *line)
 
 /*
 	Copy the entire variable in the node and return
-	a pointer to the end of the variable + 1
+	a pointer to the end of the variable
 */
 char	*copy_ex_var(t_env *current_node, char *temp, int len)
 {
-	int		i;
-	char	*parsed_var;
-	char	*temp_var;
-
-	i = 0;
-	while (i < len)
-	{
-		current_node->var[i] = temp[i];
-		i++;
-	}
-	current_node->var[i] = '\0';
-	parsed_var = malloc(ft_strlen(current_node->var) + 1);
-	if (!parsed_var)
-		ft_exit_error(ERR_ALLOC_PARSED_VAR);
-	i = 0;
-	while (current_node->var[i] == ' ' || current_node->var[i] == '\t')
-		i++;
-	ft_strlcpy(parsed_var, (current_node->var + i), (ft_strlen(current_node->var) + 1));
-	temp_var = current_node->var;
-	current_node->var = parsed_var;
-	free(temp_var);
+	ft_strlcpy(current_node->var, temp, (len + 1));
+	current_node->var = ft_strtrim(current_node->var, " \t\v\r");
 	return (temp + len);
 }
 
@@ -128,7 +109,7 @@ char	*copy_ex_name(char *current_var)
 	Remove the quote from correct quote from the string,
 	then free the old string
 */
-static char	*parse_ex_str(char *parsed_str, char *str)
+static void	parse_ex_str(char *parsed_str, char *str)
 {
 	int		i;
 	int		j;
@@ -151,6 +132,5 @@ static char	*parse_ex_str(char *parsed_str, char *str)
 	}
 	parsed_str[j] = '\0';
 	free(str);
-	return (parsed_str);
 }
 

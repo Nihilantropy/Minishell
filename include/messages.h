@@ -29,10 +29,12 @@
 # define ERR_ALLOC_MATRIX "Error. MATRIX allocation failed.\n"
 # define ERR_ALLOC_REDIR "Error. REDIR allocation failed.\n"
 
+# define ERR_ALLOC_VAR "Error. VAR allocation failed.\n"
 # define ERR_ALLOC_LINE_COPY "Error. LINE COPY allocation failed.\n"
 # define ERR_ALLOC_PARSED_VAR "Error. PARSED VAR allocation failed.\n"
-# define ERR_ALLOR_EXPORT "Error. EXPORT allocation failed.\n"
 # define ERR_ALLOC_PARSED_VALUE "Error. PARSED VALUE allocation failed.\n"
+# define ERR_ALLOC_PARSED_NAME "Error. PARSED NAME allocation failed.\n"
+# define ERR_ALLOR_EXPORT "Error. EXPORT allocation failed.\n"
 # define ERR_ALLOC_ARRAY "Error. ARRAY allocation failed.\n"
 
 # define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"

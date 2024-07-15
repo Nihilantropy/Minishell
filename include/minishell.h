@@ -197,7 +197,7 @@ void 	check_builtin(t_cmd *cmd);
 void	handle_builtin(t_shell *shell);
 
 /* builtin export */
-void	handle_export(t_shell *shell);
+void	handle_builtin_export(t_shell *shell);
 
 /* builtin export utils 1 */
 void	dup_ex_list(t_env *export, t_env **export_dup);
@@ -214,6 +214,15 @@ void	print_export(t_env *env);
 
 /* builtin export print utils */
 void	sort_nodes(t_env **env_dup);
+
+/* builtin env */
+void	handle_builtin_env(t_shell *shell);
+
+/* builtin unset */
+void	handle_builtin_unset(t_shell *shell);
+
+/* builtin unset utils */
+void	create_unset_list(t_shell *shell, t_env **unset);
 
 /* history */
 void	handle_history(t_shell *shell);

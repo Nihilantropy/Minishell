@@ -54,6 +54,8 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 {
 	t_env	*current_node;
 
+	if (!env || !*env || !new_node)
+		return (0);
 	current_node = *env;
 	while (current_node)
 	{

@@ -9,7 +9,7 @@ static void		append_list_to_env(t_shell *shell, t_env *export);
 	When export is called by the user we create a list to parse the
 	command and the arguments
 */
-void	handle_export(t_shell *shell)
+void	handle_builtin_export(t_shell *shell)
 {
 	t_env	*export;
 
@@ -18,11 +18,9 @@ void	handle_export(t_shell *shell)
 	if (export->prev == export)
 	{
 		print_export(shell->env);
+		free_env_list(&export);
 		return ;
 	}
-	printf("\n------- printing export list -------\n");
-	print_env_list(export);
-
 	append_list_to_env(shell, export);
 }
 
@@ -37,7 +35,6 @@ static void	create_ex_list(t_shell *shell, t_env **export)
 	t_env	*current_node;
 
 	line_copy = ft_strdup(shell->line);
-	//line_copy = ft_strtrim(shell->line, " \t\v");
 	if (!line_copy)
 		ft_exit_error(ERR_ALLOC_LINE_COPY);
 	temp = line_copy;
@@ -112,12 +109,20 @@ static void	check_invalid_name(t_shell *shell, t_env *export)
 static void	append_list_to_env(t_shell *shell, t_env *export)
 {
 	t_env	*export_dup;
+	t_env	*current_node;
+	t_env	*next_node;
 
 	if (!export)
 		return ;
 	export_dup = NULL;
 	dup_ex_list(export, &export_dup);
-	append_env_node(&shell->env, export_dup);
-
+	current_node = export_dup;
+	print_env_list(export_dup);
+	while (current_node)
+	{
+		next_node = current_node->next;
+		append_env_node(&shell->env, current_node);
+		current_node = next_node;
+	}
 	free_env_list(&export);
 }
