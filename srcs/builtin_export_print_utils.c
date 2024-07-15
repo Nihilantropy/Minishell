@@ -1,50 +1,45 @@
 #include "../include/minishell.h"
 
-static void	swap_nodes(t_env *current_node, t_env *next_node, t_env **env_dup);
+static void	swap_nodes(t_env *current_node, t_env *next_node);
 
-t_env	*sort_nodes(t_env **env_dup)
+void	sort_nodes(t_env **env_dup)
 {
 	t_env	*current_node;
 
 	if (!env_dup || !*env_dup)
-		return (*env_dup);
+		return ;
 	current_node = *env_dup;
 	while (current_node && current_node->next)
 	{
 		if (ft_strcmp(current_node->name, current_node->next->name) > 0)
 		{
-			printf("current node name is: %s\n", current_node->name);
-			printf("next node name is: %s\n", current_node->next->name);
-		
-			swap_nodes(current_node, current_node->next, env_dup);
-			printf("EVVIVA!\n");
+			swap_nodes(current_node, current_node->next);
 			current_node = *env_dup;
-			return (*env_dup);
 		}
-		current_node = current_node->next;
-		printf("current node pointer: %p\n", current_node);
-		printf("next node pointer: %p\n", current_node->next);
+		else
+			current_node = current_node->next;
 	}
-	return (*env_dup);
 }
 
-static void	swap_nodes(t_env *current_node, t_env *next_node, t_env **env_dup)
+static void	swap_nodes(t_env *current_node, t_env *next_node)
 {
-	t_env	*prev_node;
-	t_env	*next_next_node;
-	
-	if (!current_node->prev->next)
-		*env_dup = next_node;
-	prev_node = current_node->prev;
-	next_next_node = next_node->next;
-	if (prev_node)
-		prev_node->next = next_node;
-	else
-		*env_dup = next_node;
-	if (next_next_node)
-		next_next_node->prev = current_node;
-	current_node->next = next_next_node;
-	next_node->prev = prev_node;
-	next_node->next = current_node;
-	current_node->prev = next_node;
+	char	*temp_var;
+	char	*temp_name;
+	char	*temp_value;
+	t_bool	temp_show;
+
+	temp_var = current_node->var;
+	temp_name = current_node->name;
+	temp_value = current_node->value;
+	temp_show = current_node->show;
+
+	current_node->var = next_node->var;
+	current_node->name = next_node->name;
+	current_node->value = next_node->value;
+	current_node->show = next_node->show;
+
+	next_node->var = temp_var;
+	next_node->name = temp_name;
+	next_node->value = temp_value;
+	next_node->show = temp_show;
 }

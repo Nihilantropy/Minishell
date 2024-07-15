@@ -213,7 +213,7 @@ char	*copy_ex_value(char *current_var);
 void	print_export(t_env *env);
 
 /* builtin export print utils */
-t_env	*sort_nodes(t_env **env_dup);
+void	sort_nodes(t_env **env_dup);
 
 /* history */
 void	handle_history(t_shell *shell);

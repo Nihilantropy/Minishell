@@ -18,9 +18,9 @@ void	print_export(t_env *env)
 	print_env_list(env_dup);
 
 
-	env_dup = sort_nodes(&env_dup);
-	//printf("\n------- printing sorted dup env list --------\n");
-	//print_env_list(env_dup);
+	sort_nodes(&env_dup);
+	printf("\n------- printing sorted dup env list --------\n");
+	print_env_list(env_dup);
 	current_node = env_dup;
 	while (current_node)
 	{
