@@ -11,24 +11,15 @@ void	print_export(t_env *env)
 		return ;
 
 	env_dup = NULL;
-	//printf("\n------- printing env list --------\n");
-	//print_env_list(env);
 	dup_env_list(env, &env_dup);
-	printf("\n------- printing dup env list --------\n");
-	print_env_list(env_dup);
-
-
 	sort_nodes(&env_dup);
-	printf("\n------- printing sorted dup env list --------\n");
-	print_env_list(env_dup);
 	current_node = env_dup;
 	while (current_node)
 	{
-		printf("declare -x %s=", current_node->name);
+		printf("declare -x %s", current_node->name);
 		if (current_node->value)
-			printf("\"%s\"\n", current_node->value);
-		else
-			ft_putnl();
+			printf("=\"%s\"", current_node->value);
+		printf("\n");
 		current_node = current_node->next;
 	}
 	free_env_list(&env_dup);

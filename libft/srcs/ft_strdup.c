@@ -19,10 +19,10 @@ char	*ft_strdup(const char *str)
 
 	if (!str)
 		return (NULL);
-	dup_sz = ft_strlen(str) + 1;
-	dup_str = (char *)malloc(dup_sz);
+	dup_sz = ft_strlen(str);
+	dup_str = (char *)malloc(dup_sz + 1);
 	if (!dup_str)
 		return (0);
-	ft_memcpy(dup_str, str, dup_sz);
+	ft_memcpy(dup_str, str, (dup_sz + 1));
 	return (dup_str);
 }

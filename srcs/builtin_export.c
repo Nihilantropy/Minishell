@@ -31,14 +31,18 @@ void	handle_export(t_shell *shell)
 */
 static void	create_ex_list(t_shell *shell, t_env **export)
 {
+	char	*line_copy;
 	char	*temp;
 	int		len;
 	t_env	*current_node;
-	int		i = 0;
-	temp = shell->line;
+
+	line_copy = ft_strdup(shell->line);
+	//line_copy = ft_strtrim(shell->line, " \t\v");
+	if (!line_copy)
+		ft_exit_error(ERR_ALLOC_LINE_COPY);
+	temp = line_copy;
 	while (*temp)
 	{
-		i++;
 		len = var_length(temp);
 		current_node = create_ex_node(export, len);
 		temp = copy_ex_var(current_node, temp, len);
@@ -48,6 +52,7 @@ static void	create_ex_list(t_shell *shell, t_env **export)
 			current_node->show = true;
 	}
 	check_invalid_name(shell, *export);
+	free(line_copy);
 }
 
 /*
@@ -87,7 +92,7 @@ static void	check_invalid_name(t_shell *shell, t_env *export)
 		i = 0;
 		while (current_node->name[i])
 		{
-			if (!ft_isalnum(current_node->name[i]))
+			if (!ft_isalnum(current_node->name[i]) || ft_isdigit(current_node->name[0]))
 			{
 				rl_replace_line("", 0);
 				rl_on_new_line();
@@ -110,12 +115,9 @@ static void	append_list_to_env(t_shell *shell, t_env *export)
 
 	if (!export)
 		return ;
+	export_dup = NULL;
 	dup_ex_list(export, &export_dup);
-	printf("\n------- printing export list to append -------\n");
-	print_env_list(export_dup);
 	append_env_node(&shell->env, export_dup);
 
 	free_env_list(&export);
-	printf("\n------- printing env list -------\n");
-	print_env_list(shell->env);
 }

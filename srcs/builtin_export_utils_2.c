@@ -56,7 +56,9 @@ int	var_length(char *line)
 */
 char	*copy_ex_var(t_env *current_node, char *temp, int len)
 {
-	int	i;
+	int		i;
+	char	*parsed_var;
+	char	*temp_var;
 
 	i = 0;
 	while (i < len)
@@ -65,7 +67,17 @@ char	*copy_ex_var(t_env *current_node, char *temp, int len)
 		i++;
 	}
 	current_node->var[i] = '\0';
-	return (temp + len + 1);
+	parsed_var = malloc(ft_strlen(current_node->var) + 1);
+	if (!parsed_var)
+		ft_exit_error(ERR_ALLOC_PARSED_VAR);
+	i = 0;
+	while (current_node->var[i] == ' ' || current_node->var[i] == '\t')
+		i++;
+	ft_strlcpy(parsed_var, (current_node->var + i), (ft_strlen(current_node->var) + 1));
+	temp_var = current_node->var;
+	current_node->var = parsed_var;
+	free(temp_var);
+	return (temp + len);
 }
 
 /*
