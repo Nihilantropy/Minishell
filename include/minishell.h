@@ -149,6 +149,7 @@ char	*copy_var(char *current_var);
 char	*copy_name(char *current_var);
 char	*copy_value(char *current_var);
 void	free_env_list(t_env **env);
+t_env	*find_last_env_node(t_env *env);
 
 /* parser */
 void	parse_args(t_shell *shell);
@@ -210,6 +211,9 @@ char	*copy_ex_value(char *current_var);
 
 /* builtin export print */
 void	print_export(t_env *env);
+
+/* builtin export print utils */
+t_env	*sort_nodes(t_env **env_dup);
 
 /* history */
 void	handle_history(t_shell *shell);

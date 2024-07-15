@@ -1,7 +1,6 @@
 #include "../include/minishell.h"
 
-t_env		*find_last_env_node(t_env *env);
-static int	search_same_name_node(t_env **env, t_env *new_node);
+static int	del_same_name_node(t_env **env, t_env *new_node);
 static void	handle_node_pointer(t_env *current_node, t_env *new_node);
 
 void	init_env(t_shell *shell, char **envp)
@@ -39,7 +38,7 @@ void	append_env_node(t_env **env, t_env *new_node)
 		*env = new_node;
 		new_node->prev = new_node;
 	}
-	else if (search_same_name_node(env, new_node))
+	else if (del_same_name_node(env, new_node))
 		return ;
 	else
 	{
@@ -51,7 +50,7 @@ void	append_env_node(t_env **env, t_env *new_node)
 	new_node->next = NULL;
 }
 
-static int	search_same_name_node(t_env **env, t_env *new_node)
+static int	del_same_name_node(t_env **env, t_env *new_node)
 {
 	t_env	*current_node;
 
