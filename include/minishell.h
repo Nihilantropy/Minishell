@@ -217,6 +217,7 @@ void	sort_nodes(t_env **env_dup);
 
 /* builtin env */
 void	handle_builtin_env(t_shell *shell);
+void	remove_node(t_env *current_node, t_env **head);
 
 /* builtin unset */
 void	handle_builtin_unset(t_shell *shell);

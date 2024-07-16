@@ -56,8 +56,15 @@ int	var_length(char *line)
 */
 char	*copy_ex_var(t_env *current_node, char *temp, int len)
 {
+	char	*original_var;
+
+	current_node->var = malloc(len + 1);
+	if (!current_node->var)
+		ft_exit_error(ERR_ALLOC_VAR);
 	ft_strlcpy(current_node->var, temp, (len + 1));
+	original_var = current_node->var;
 	current_node->var = ft_strtrim(current_node->var, " \t\v\r");
+	free(original_var);
 	return (temp + len);
 }
 

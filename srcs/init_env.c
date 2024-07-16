@@ -62,6 +62,8 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 		if ((current_node->name && new_node->name)
 			&& !ft_strcmp(current_node->name, new_node->name))
 		{
+			if (current_node == *env)
+				*env = new_node;
 			handle_node_pointer(current_node, new_node);
 			if (current_node->var)
 				free(current_node->var);
@@ -79,23 +81,10 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 
 static void	handle_node_pointer(t_env *current_node, t_env *new_node)
 {
-	if (!current_node->prev->next)
-	{
-		current_node->next->prev = new_node;
-		new_node->prev = current_node->prev;
-		new_node->next = current_node->next;
-	}
-	else if (!current_node->next)
-	{
+	if (current_node->prev->next)
 		current_node->prev->next = new_node;
-		new_node->next = current_node->next;
-		new_node->prev = current_node->prev;
-	}
-	else
-	{
+	if (current_node->next)
 		current_node->next->prev = new_node;
-		current_node->prev->next = new_node;
-		new_node->next = current_node->next;
-		new_node->prev = current_node->prev;
-	}
+	new_node->next = current_node->next;
+	new_node->prev = current_node->prev;
 }

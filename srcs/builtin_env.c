@@ -24,3 +24,25 @@ static void	print_env_builtin(t_env *env)
 		}
 	}
 }
+
+/*
+	Remove the current node from the env list
+*/
+void	remove_node(t_env *current_node, t_env **head)
+{
+	if (!current_node)
+		return ;
+	if (!current_node->prev->next)
+		*head = current_node->next;
+	else if (current_node->prev->next)
+		current_node->prev->next = current_node->next;
+	if (current_node->next)
+		current_node->next->prev = current_node->prev;
+	if (current_node->var)
+		free(current_node->var);
+	if (current_node->name)
+		free(current_node->name);
+	if (current_node->value)
+		free(current_node->value);
+	free(current_node);
+}
