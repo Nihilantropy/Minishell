@@ -3,6 +3,9 @@
 static int	del_same_name_node(t_env **env, t_env *new_node);
 static void	handle_node_pointer(t_env *current_node, t_env *new_node);
 
+/*
+	Create a list copy of the envp
+*/
 void	init_env(t_shell *shell, char **envp)
 {
 	char **current_var;
@@ -15,6 +18,12 @@ void	init_env(t_shell *shell, char **envp)
 	}
 }
 
+/*
+	Create the env node with 3 string:
+	1) the entire variable
+	2) the name of the variable
+	3) the value of the variable
+*/
 void	create_new_env_node(t_shell *shell, char *current_var)
 {
 	t_env	*new_node;
@@ -50,6 +59,10 @@ void	append_env_node(t_env **env, t_env *new_node)
 	new_node->next = NULL;
 }
 
+/*
+	If the name node that we are appending is already in the list,
+	we replace the old node with the new one
+*/
 static int	del_same_name_node(t_env **env, t_env *new_node)
 {
 	t_env	*current_node;

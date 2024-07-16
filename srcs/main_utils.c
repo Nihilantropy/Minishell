@@ -21,6 +21,8 @@ void	free_prompt_lists(t_shell *shell)
 
 void	free_shell_lists(t_shell *shell)
 {
+	if (shell->path)
+		free_matrix(shell->path);
 	free_env_list(&shell->env);
 }
 

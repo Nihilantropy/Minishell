@@ -5,12 +5,14 @@
 */
 void	handle_builtin(t_shell *shell)
 {
-	if (!ft_strncmp(shell->cmd->matrix[0], "export", 7) && shell->pipes_nbr == 0)
+	if (!ft_strncmp(shell->cmd->matrix[0], "export", 7))
 		handle_builtin_export(shell);
 	else if (!ft_strncmp(shell->cmd->matrix[0], "env", 4))
 		handle_builtin_env(shell);
 	else if (!ft_strncmp(shell->cmd->matrix[0], "unset", 6))
 		handle_builtin_unset(shell);
+	else if (!ft_strncmp(shell->cmd->matrix[0], "echo", 5))
+		handle_builtin_echo(shell);
 }
 
 /*

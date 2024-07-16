@@ -18,10 +18,9 @@ static char	*create_quote_node(t_arg **arg, char *temp)
 	int		len;
 	t_arg	*new_node;
 
-	printf("create_quote_node\n");
 	quote = *temp;
 	new_node = init_new_node();
-	len = arg_length(temp);
+	len = arg_length(temp, new_node);
 	new_node->str = (char *)malloc(len);
 	if (!new_node->str)
 		ft_exit_error(ERR_ALLOC_QUOTE_NODE);
@@ -67,7 +66,7 @@ static char	*create_new_node(t_arg **arg, char *temp)
 	t_arg	*new_node;
 
 	new_node = init_new_node();
-	len = arg_length(temp);
+	len = arg_length(temp, new_node);
 	new_node->str = (char *)malloc(len + 1);
 	if (!new_node->str)
 		ft_exit_error(ERR_ALLOC_STR);
@@ -105,8 +104,8 @@ static void	parse_list(t_shell *shell)
 		else
 			temp++;
 	}
-	polish_list(shell, shell->arg);
 	free(original_temp);
+	polish_list(shell, shell->arg);
 }
 
 /*

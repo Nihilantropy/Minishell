@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+static char	*join_matrix_to_node(char *str, char *to_join);
 static void	set_node_type(t_redir_list *redir, t_arg *current_node);
 
 /*
@@ -15,7 +16,10 @@ int	len_to_pipe_cmd(t_arg *arg)
 	while (current_node && !current_node->token.pipe)
 	{
 		if (!(current_node->token.is_token || current_node->type.is_redir))
-			len++;
+		{
+			if (!current_node->prev || !current_node->prev->chained)
+				len++;
+		}
 		current_node = current_node->next;
 	}
 	return (len);
@@ -37,8 +41,10 @@ void	copy_command(t_cmd *cmd, t_shell *shell)
 	{
 		if (!(current_node->token.is_token || current_node->type.is_redir))
 		{
-			cmd->matrix[y] = ft_strdup(current_node->str);
-			y++;
+			if (current_node->prev && current_node->prev->chained)
+				cmd->matrix[y - 1] = join_matrix_to_node(cmd->matrix[y - 1], current_node->str);
+			else
+				cmd->matrix[y++] = ft_strdup(current_node->str);
 		}
 		current_node = current_node->next;
 	}
@@ -75,6 +81,9 @@ void	copy_redir(t_redir_list *redir, t_shell *shell)
 	shell->arg = current_node;
 }
 
+/*
+	Set the corrisponding redirection type
+*/
 static void	set_node_type(t_redir_list *redir, t_arg *current_node)
 {
 	if (current_node->type.infile)
@@ -86,4 +95,13 @@ static void	set_node_type(t_redir_list *redir, t_arg *current_node)
 	else if (current_node->type.append)
 		redir->type.append = true;
 	redir->type.is_redir = true;
+}
+
+static char	*join_matrix_to_node(char *str, char *to_join)
+{
+	char	*joined_str;
+
+	joined_str = ft_strjoin(str, to_join);
+	free(str);
+	return (joined_str);
 }

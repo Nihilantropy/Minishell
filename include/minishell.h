@@ -79,17 +79,6 @@ typedef struct	s_env
 	struct s_env	*prev;
 }					t_env;
 
-typedef struct s_arg
-{
-	int				index;
-	char			*str;
-	t_token			token;
-	t_redir			type;
-	t_quote			quote;
-	struct s_arg	*next;
-	struct s_arg	*prev;
-}					t_arg;
-
 typedef struct s_redir_list
 {
 	char					*fd_name;
@@ -106,6 +95,18 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
+
+typedef struct s_arg
+{
+	int				index;
+	char			*str;
+	t_token			token;
+	t_redir			type;
+	t_quote			quote;
+	t_bool			chained;
+	struct s_arg	*next;
+	struct s_arg	*prev;
+}					t_arg;
 
 typedef struct s_shell
 {
@@ -154,9 +155,11 @@ t_env	*find_last_env_node(t_env *env);
 /* parser */
 void	parse_args(t_shell *shell);
 
-/* parser utils */
+/* parser utils 1 */
 t_arg	*init_new_node(void);
-int		arg_length(char *temp);
+
+/* parser utils 2 */
+int		arg_length(char *temp, t_arg *new_node);
 int		token_length(char *temp);
 
 /* parser list utls */
@@ -224,6 +227,9 @@ void	handle_builtin_unset(t_shell *shell);
 
 /* builtin unset utils */
 void	create_unset_list(t_shell *shell, t_env **unset);
+
+/* builtin echo */
+void	handle_builtin_echo(t_shell *shell);
 
 /* history */
 void	handle_history(t_shell *shell);

@@ -1,5 +1,9 @@
 #include "../include/minishell.h"
 
+/*
+	Function to get the corrisponding name value form the
+	env list
+*/
 char	*ft_getenv(t_env *env, char *var_name)
 {
 	t_env	*current_node;

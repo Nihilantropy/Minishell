@@ -21,9 +21,14 @@ void	handle_builtin_export(t_shell *shell)
 		free_env_list(&export);
 		return ;
 	}
-	append_list_to_env(shell, export);
+	if (shell->pipes_nbr == 0)
+		append_list_to_env(shell, export);
+	else
+		free_env_list(&export);
 }
 
+
+// TODO Make the export list not from the line but form the cmd list, to save the chained information
 /*
 	Loop the user string until all the parameter are placed in the list
 */

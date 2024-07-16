@@ -2,19 +2,31 @@
 
 static void	remove_node_from_env(t_env **env, t_env **unset);
 
+/*
+	Create the argument list with the var name to remove from
+	the env list
+*/
 void	handle_builtin_unset(t_shell *shell)
 {
 	t_env	*unset;
 
 	unset = NULL;
 	create_unset_list(shell, &unset);
-	if (!unset || unset->prev == unset)
+	if (!unset || unset->prev == unset || shell->pipes_nbr > 0)
+	{
+		free_env_list(&unset);
 		return ;
+	}
 	remove_node(unset, &unset);
 	remove_node_from_env(&shell->env, &unset);
 	free_env_list(&unset);
 }
 
+/*
+	Search the env node to remove from the env list.
+	while doing that we remove the unset node that after
+	each loop.
+*/
 static void	remove_node_from_env(t_env **env, t_env **unset)
 {
 	t_env	*current_unset_node;
@@ -32,7 +44,6 @@ static void	remove_node_from_env(t_env **env, t_env **unset)
 			if (!ft_strcmp(current_unset_node->name, current_env_node->name))
 			{
 				remove_node(current_env_node, env);
-				print_env_list(*env);
 				break ;
 			}
 			current_env_node = next_env_node;

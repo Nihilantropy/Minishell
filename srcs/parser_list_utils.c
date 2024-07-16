@@ -65,6 +65,8 @@ void	print_list(t_arg *arg)
 			printf("single quoted\n");
 		else if (arg->quote.DOUBLE)
 			printf("double quoted\n");
+		if (arg->chained)
+			printf("chained to next node\n");
 		printf("------------------\n");
 		arg = arg->next;
 	}

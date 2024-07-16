@@ -21,7 +21,6 @@ void	create_unset_list(t_shell *shell, t_env **unset)
 		current_node = create_unset_node(unset, len);
 		temp = copy_unset_name(current_node, temp, len);
 	}
-	print_env_list(*unset);
 	free(line_copy);
 }
 
