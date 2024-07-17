@@ -6,13 +6,13 @@
 void	handle_builtin(t_shell *shell)
 {
 	if (!ft_strncmp(shell->cmd->matrix[0], "export", 7))
-		handle_builtin_export(shell);
+		handle_builtin_export(shell, shell->cmd->matrix);
 	else if (!ft_strncmp(shell->cmd->matrix[0], "env", 4))
 		handle_builtin_env(shell);
 	else if (!ft_strncmp(shell->cmd->matrix[0], "unset", 6))
-		handle_builtin_unset(shell);
+		handle_builtin_unset(shell, shell->cmd->matrix);
 	else if (!ft_strncmp(shell->cmd->matrix[0], "echo", 5))
-		handle_builtin_echo(shell);
+		handle_builtin_echo(shell, shell->cmd->matrix);
 }
 
 /*

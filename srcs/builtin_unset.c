@@ -6,12 +6,12 @@ static void	remove_node_from_env(t_env **env, t_env **unset);
 	Create the argument list with the var name to remove from
 	the env list
 */
-void	handle_builtin_unset(t_shell *shell)
+void	handle_builtin_unset(t_shell *shell, char **matrix)
 {
 	t_env	*unset;
 
 	unset = NULL;
-	create_unset_list(shell, &unset);
+	create_unset_list(matrix, &unset);
 	if (!unset || unset->prev == unset || shell->pipes_nbr > 0)
 	{
 		free_env_list(&unset);

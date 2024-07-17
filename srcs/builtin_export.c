@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-static void		create_ex_list(t_shell *shell, t_env **export);
+static void		create_ex_list(char **matrix, t_env **export);
 static t_env	*create_ex_node(t_env **export);
 static void		check_invalid_name(t_env **export);
 static void		append_list_to_env(t_shell *shell, t_env *export);
@@ -9,12 +9,12 @@ static void		append_list_to_env(t_shell *shell, t_env *export);
 	When export is called by the user we create a list to parse the
 	command and the arguments
 */
-void	handle_builtin_export(t_shell *shell)
+void	handle_builtin_export(t_shell *shell, char **matrix)
 {
 	t_env	*export;
 
 	export = NULL;
-	create_ex_list(shell, &export);
+	create_ex_list(matrix, &export);
 	if (export->prev == export)
 	{
 		print_export(shell->env);
@@ -32,29 +32,29 @@ void	handle_builtin_export(t_shell *shell)
 /*
 	Loop the user string until all the parameter are placed in the list
 */
-static void	create_ex_list(t_shell *shell, t_env **export)
+static void	create_ex_list(char **matrix, t_env **export)
 {
-	char	*line_copy;
-	char	*temp;
-	int		len;
+	char	**matrix_copy;
+	int		y;
 	t_env	*current_node;
 
-	line_copy = ft_strdup(shell->line);
-	if (!line_copy)
+	matrix_copy = dup_matrix(matrix);
+	if (!matrix_copy)
 		ft_exit_error(ERR_ALLOC_LINE_COPY);
-	temp = line_copy;
-	while (*temp)
+	y = 0;
+	while (matrix_copy[y])
 	{
-		len = var_length(temp);
 		current_node = create_ex_node(export);
-		temp = copy_ex_var(current_node, temp, len);
+		current_node->var = copy_ex_var(matrix[y]);
 		current_node->name = copy_ex_name(current_node->var);
 		current_node->value = copy_ex_value(current_node->var);
 		if (current_node->value)
 			current_node->show = true;
+		y++;
 	}
+	print_env_list(*export);
 	check_invalid_name(export);
-	free(line_copy);
+	free_matrix(matrix_copy);
 }
 
 /*

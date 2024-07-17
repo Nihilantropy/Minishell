@@ -1,7 +1,5 @@
 #include "../include/minishell.h"
 
-static void	parse_ex_str(char *parsed_value, char *str);
-
 void print_env_list(t_env *env)
 {
 	t_env	*current_node;
@@ -51,30 +49,42 @@ int	var_length(char *line)
 }
 
 /*
-	Copy the entire variable in the node and return
-	a pointer to the end of the variable
+	Copy the entire variable in the node and return it
 */
-char	*copy_ex_var(t_env *current_node, char *temp, int len)
+char	*copy_ex_var(char *str)
 {
-	char	*original_var;
+	char	*var;
 
-	current_node->var = malloc(len + 1);
-	if (!current_node->var)
+	var = ft_strdup(str);
+	if (!var)
 		ft_exit_error(ERR_ALLOC_VAR);
-	ft_strlcpy(current_node->var, temp, (len + 1));
-	original_var = current_node->var;
-	current_node->var = ft_strtrim(current_node->var, " \t\v\r");
-	free(original_var);
-	return (temp + len);
+	return (var);
 }
 
 /*
-	Copy the export node value, parsing the quote correctly
+	Copy the export node name
+*/
+char	*copy_ex_name(char *current_var)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	while (current_var[i] && current_var[i] != '=')
+		i++;
+	name = malloc(i + 1);
+	if (!name)
+		ft_exit_error(ERR_ALLOC_NAME);
+	ft_strlcpy(name, current_var, i + 1);
+	return (name);
+}
+
+/*
+	Copy the export node value
 */
 char	*copy_ex_value(char *current_var)
 {
 	char	*value;
-	char	*parsed_value;
 	char	*start;
 
 	value = NULL;
@@ -84,60 +94,7 @@ char	*copy_ex_value(char *current_var)
 	if ((*start + 1) == '\0')
 		return ("");
 	value = ft_strdup(start + 1);
-	parsed_value = malloc(ft_strlen(value) + 1);
-	if (!value || !parsed_value)
+	if (!value)
 		ft_exit_error(ERR_ALLOC_VALUE);
-	parse_ex_str(parsed_value, value);
-	return (parsed_value);
+	return (value);
 }
-
-/*
-	Copy the export node name, parsing the quote correctly
-*/
-char	*copy_ex_name(char *current_var)
-{
-	int		i;
-	char	*name;
-	char	*parsed_name;
-
-	i = 0;
-	while (current_var[i] && current_var[i] != '=')
-		i++;
-	name = malloc(i + 1);
-	parsed_name = malloc(i + 1);
-	if (!name || !parsed_name)
-		ft_exit_error(ERR_ALLOC_NAME);
-	ft_strlcpy(name, current_var, i + 1);
-	parse_ex_str(parsed_name, name);
-	return (parsed_name);
-}
-
-/*
-	Remove the quote from correct quote from the string,
-	then free the old string
-*/
-static void	parse_ex_str(char *parsed_str, char *str)
-{
-	int		i;
-	int		j;
-	char	quote;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			quote = str[i++];
-			while (str[i] != quote && str[i])
-				parsed_str[j++] = str[i++];
-			if (str[i] == quote)
-				i++;
-		}
-		else
-			parsed_str[j++] = str[i++];
-	}
-	parsed_str[j] = '\0';
-	free(str);
-}
-

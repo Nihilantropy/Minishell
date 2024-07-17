@@ -128,6 +128,7 @@ void	shell_prompt(t_shell *shell);
 void	free_prompt_lists(t_shell *shell);
 void	free_shell_lists(t_shell *shell);
 void	print_matrix(char **matrix);
+char	**dup_matrix(char **matrix);
 void	free_matrix(char **matrix);
 
 /* signal handler */
@@ -200,7 +201,7 @@ void 	check_builtin(t_cmd *cmd);
 void	handle_builtin(t_shell *shell);
 
 /* builtin export */
-void	handle_builtin_export(t_shell *shell);
+void	handle_builtin_export(t_shell *shell, char **matrix);
 
 /* builtin export utils 1 */
 void	dup_ex_list(t_env *export, t_env **export_dup);
@@ -208,7 +209,7 @@ void	dup_ex_list(t_env *export, t_env **export_dup);
 /* builtin export utils 2 */
 void 	print_env_list(t_env *env);
 int		var_length(char *line);
-char	*copy_ex_var(t_env *current_node, char *temp, int len);
+char	*copy_ex_var(char *str);
 char	*copy_ex_name(char *current_var);
 char	*copy_ex_value(char *current_var);
 
@@ -223,13 +224,13 @@ void	handle_builtin_env(t_shell *shell);
 void	remove_node(t_env *current_node, t_env **head);
 
 /* builtin unset */
-void	handle_builtin_unset(t_shell *shell);
+void	handle_builtin_unset(t_shell *shell, char **matrix);
 
 /* builtin unset utils */
-void	create_unset_list(t_shell *shell, t_env **unset);
+void	create_unset_list(char **matrix, t_env **unset);
 
 /* builtin echo */
-void	handle_builtin_echo(t_shell *shell);
+void	handle_builtin_echo(t_shell *shell, char **matrix);
 
 /* history */
 void	handle_history(t_shell *shell);
