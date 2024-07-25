@@ -1,9 +1,11 @@
 #include "../include/minishell.h"
 
-static void		create_ex_list(char **matrix, t_env **export);
+static void		create_ex_list(t_shell *shell, char **matrix, t_env **export);
 static t_env	*create_ex_node(t_env **export);
-static void		check_invalid_name(t_env **export);
+static int		check_invalid_name(t_shell *shell, t_env **export);
 static void		append_list_to_env(t_shell *shell, t_env *export);
+void			copy_ex_node(t_env *current_node, char **matrix, int y);
+int				check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export);
 
 /*
 	When export is called by the user we create a list to parse the
@@ -14,7 +16,7 @@ void	handle_builtin_export(t_shell *shell, char **matrix)
 	t_env	*export;
 
 	export = NULL;
-	create_ex_list(matrix, &export);
+	create_ex_list(shell, matrix, &export);
 	if (export->prev == export)
 	{
 		print_export(shell->env);
@@ -25,14 +27,13 @@ void	handle_builtin_export(t_shell *shell, char **matrix)
 		append_list_to_env(shell, export);
 	else
 		free_env_list(&export);
+	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
-
-// TODO Make the export list not from the line but form the cmd list, to save the chained information
 /*
-	Loop the user string until all the parameter are placed in the list
+	Loop the cmd matrix until all the parameter are placed in the list
 */
-static void	create_ex_list(char **matrix, t_env **export)
+static void	create_ex_list(t_shell *shell, char **matrix, t_env **export)
 {
 	char	**matrix_copy;
 	int		y;
@@ -45,16 +46,16 @@ static void	create_ex_list(char **matrix, t_env **export)
 	while (matrix_copy[y])
 	{
 		current_node = create_ex_node(export);
-		current_node->var = copy_ex_var(matrix[y]);
-		current_node->name = copy_ex_name(current_node->var);
-		current_node->value = copy_ex_value(current_node->var);
-		if (current_node->value)
-			current_node->show = true;
+		copy_ex_node(current_node, matrix, y);
 		y++;
 	}
-	print_env_list(*export);
-	check_invalid_name(export);
+	if (check_invalid_name(shell, export) == 1)
+	{
+		free_matrix(matrix_copy);
+		return ;
+	}
 	free_matrix(matrix_copy);
+	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 /*
@@ -81,28 +82,24 @@ static t_env	*create_ex_node(t_env **export)
 	If the name of the argument is invalid, free the current export list
 	and display a new prompt
 */
-static void	check_invalid_name(t_env **export)
+static int	check_invalid_name(t_shell *shell, t_env **export)
 {
 	int		i;
 	t_env	*current_node;
 
-	current_node = *export;
+	current_node = (*export)->next;
 	while (current_node)	
 	{
 		i = 0;
 		while (current_node->name[i])
 		{
-			if (!ft_isalnum(current_node->name[i]) || ft_isdigit(current_node->name[0]))
-			{
-				printf("-bash: export: `%s'", current_node->var);
-				printf(": not a valid identifier\n");
-				remove_node(current_node, export);
-				return ;
-			}
+			if (check_name_arg_error(shell, current_node, export) == 1)
+				return (1);
 			i++;
 		}
 		current_node = current_node->next;
 	}
+	return (0);
 }
 
 static void	append_list_to_env(t_shell *shell, t_env *export)

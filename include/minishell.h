@@ -25,6 +25,9 @@
 # include "messages.h"
 # include "../libft/include/libft.h"
 
+# define EXIT_STATUS_SUCCESS 0
+# define EXIT_STATUS_ERROR 1
+
 typedef	enum e_bool
 {
 	false = 0,
@@ -231,6 +234,12 @@ void	create_unset_list(char **matrix, t_env **unset);
 
 /* builtin echo */
 void	handle_builtin_echo(t_shell *shell, char **matrix);
+
+/* builtin pwd */
+void	handle_builtin_pwd(t_shell *shell);
+
+/* builtin exit */
+void	handle_builtin_exit(t_shell *shell);
 
 /* history */
 void	handle_history(t_shell *shell);

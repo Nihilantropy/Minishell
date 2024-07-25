@@ -1,36 +1,37 @@
 #include "../include/minishell.h"
 
-static int	len_to_token(char *str)
-{
-	int	i;
+static int	len_to_token(char *str);
+static char	*parse_env_var(t_shell *shell, t_arg *new_node);
+static char	*build_env_str(t_arg *new_node, char *var_value, char *end);
 
-	i = 0;
-	while (str[i] && str[i] != '$')
-		i++;
-	return (i);
-}
-
-/*
-	Function to split the main string into 2 parts:
-	the first part goes up to the $
-	the second part takes the first part and appends the environment variable
-	Then we join the new string with the modified VAR (var_value)
-	and make our current node string point to the new string.
+/* 
+	Function that loops to replace all $VAR
+	with the correct variables.
+	As we are going to make the current node string, point
+	to a different allocated memory string, at the end we free
+	our old string.
 */
-static void	build_env_str(t_arg *new_node, char *var_value, char *end)
+void	handle_env_var(t_shell *shell, t_arg *new_node)
 {
-	char	*first_str;
-	char	*second_str;
-	int		len;
+	char	*temp;
+	char	*original_temp;
 
-	len = len_to_token(new_node->str);
-	first_str = (char *)malloc(len + 1);
-	if (!first_str)
-		ft_exit_error(ERR_ALLOC_ENV_STR);
-	ft_strlcpy(first_str, new_node->str, len + 1);
-	second_str = ft_strjoin(first_str, var_value);
-	free(first_str);
-	new_node->str = ft_strjoin(second_str, end);
+	temp = ft_strdup(new_node->str);
+	original_temp = temp;
+	printf("temp is: %p\n", temp);
+	printf("new node str is %p\n", new_node->str);
+	while (*temp)
+	{
+		if (*(temp + 1) && *temp == '$')
+		{
+			temp = parse_env_var(shell, new_node);
+			if (temp == NULL)
+				break ;
+		}
+		else
+			temp++;
+	}
+	free(original_temp);
 }
 
 /* 
@@ -64,34 +65,46 @@ static char	*parse_env_var(t_shell *shell, t_arg *new_node)
 		if (!var_value)
 			var_value = "";
 	}
-	build_env_str(new_node, var_value, end);
+	new_node->str = build_env_str(new_node, var_value, end);
 	return (end);
 }
 
-/* 
-	Function that loops to replace all $VAR
-	with the correct variables.
-	As we are going to make the current node string, point
-	to a different allocated memory string, at the end we free
-	our old string.
+/*
+	Function to split the main string into 2 parts:
+	the first part goes up to the $
+	the second part takes the first part and appends the environment variable
+	Then we join the new string with the modified VAR (var_value)
+	and make our current node string point to the new string.
 */
-void	handle_env_var(t_shell *shell, t_arg *new_node)
+static char	*build_env_str(t_arg *new_node, char *var_value, char *end)
 {
-	char	*temp;
-	char	*original_temp;
+	char	*old_str;
+	char	*new_str;
+	char	*first_str;
+	char	*second_str;
+	int		len;
 
-	temp = ft_strdup(new_node->str);
-	original_temp = temp;
-	while (*temp)
-	{
-		if (*(temp + 1) && *temp == '$')
-		{
-			temp = parse_env_var(shell, new_node);
-			if (temp == NULL)
-				break ;
-		}
-		else
-			temp++;
-	}
-	free(original_temp);
+	old_str = new_node->str;
+	len = len_to_token(new_node->str);
+	first_str = (char *)malloc(len + 1);
+	if (!first_str)
+		ft_exit_error(ERR_ALLOC_ENV_STR);
+	ft_strlcpy(first_str, new_node->str, len + 1);
+	second_str = ft_strjoin(first_str, var_value);
+	free(first_str);
+	new_str = ft_strjoin(second_str, end);
+	free(second_str);
+	free(old_str);
+	printf("new str is: %s\n", new_str);
+	return (new_str);
+} // TODO Correct a memory leak
+
+static int	len_to_token(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	return (i);
 }

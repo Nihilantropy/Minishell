@@ -83,7 +83,8 @@ void	free_list(t_arg **arg)
 	while (current)
 	{
 		next_node = current->next;
-		free(current->str);
+		if (current->str)
+			free(current->str);
 		free(current);
 		current = next_node;
 	}

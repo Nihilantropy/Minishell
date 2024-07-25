@@ -20,6 +20,7 @@ void	handle_builtin_unset(t_shell *shell, char **matrix)
 	remove_node(unset, &unset);
 	remove_node_from_env(&shell->env, &unset);
 	free_env_list(&unset);
+	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 /*

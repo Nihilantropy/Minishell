@@ -5,7 +5,7 @@ static void	print_env_builtin(t_env *env);
 void	handle_builtin_env(t_shell *shell)
 {
 	print_env_builtin(shell->env);
-	return ;
+	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 /*

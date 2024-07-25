@@ -1,24 +1,18 @@
 #include "../include/minishell.h"
 
 static void	print_echo_matrix(char **echo_matrix, t_bool flag);
+static void	handle_echo_print(char **echo_matrix);
 
 void	handle_builtin_echo(t_shell *shell, char **matrix)
 {
 	char	**echo_matrix;
-	t_bool	flag;
 
-	(void)shell;
 	echo_matrix = dup_matrix(matrix);
 	if (!echo_matrix)
 		ft_exit_error(ERR_ALLOC_MATRIX_COPY);
-	flag = false;
-	if (!ft_strncmp(echo_matrix[1], "-n", 3))
-		flag = true;
-	if (flag)
-		print_echo_matrix(echo_matrix + 2, flag);
-	else
-		print_echo_matrix(echo_matrix + 1, flag);
+	handle_echo_print(echo_matrix);
 	free_matrix(echo_matrix);
+	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 static void	print_echo_matrix(char **echo_matrix, t_bool flag)
@@ -36,4 +30,21 @@ static void	print_echo_matrix(char **echo_matrix, t_bool flag)
 	}
 	if (flag == false)
 		printf("\n");
+}
+
+static void	handle_echo_print(char **echo_matrix)
+{
+	t_bool	flag;
+
+	flag = false;
+	if (echo_matrix[1] && !ft_strncmp(echo_matrix[1], "-n", 3))
+		flag = true;
+	if (flag && !echo_matrix[2])
+		printf("echo -n with no string to output\n"); // TODO remove the print
+	else if (!flag && !echo_matrix[1])
+		printf("echo with no string to output\n"); // TODO remove the print
+	else if (flag && echo_matrix[2])
+		print_echo_matrix(echo_matrix + 2, flag);
+	else
+		print_echo_matrix(echo_matrix + 1, flag);
 }

@@ -13,6 +13,10 @@ void	handle_builtin(t_shell *shell)
 		handle_builtin_unset(shell, shell->cmd->matrix);
 	else if (!ft_strncmp(shell->cmd->matrix[0], "echo", 5))
 		handle_builtin_echo(shell, shell->cmd->matrix);
+	else if (!ft_strncmp(shell->cmd->matrix[0], "pwd", 4))
+		handle_builtin_pwd(shell);
+	else if (!ft_strncmp(shell->cmd->matrix[0], "exit", 5))
+		handle_builtin_exit(shell);
 }
 
 /*
