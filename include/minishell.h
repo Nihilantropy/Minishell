@@ -125,7 +125,7 @@ typedef struct s_shell
 }			t_shell;
 
 /* main */
-void	shell_prompt(t_shell *shell);
+void	shell_prompt(t_shell *shell, char **envp);
 
 /* main utils */
 void	free_prompt_lists(t_shell *shell);
@@ -201,7 +201,7 @@ void	free_redir_list(t_cmd *cmd);
 
 /* builtin */
 void 	check_builtin(t_cmd *cmd);
-void	handle_builtin(t_shell *shell);
+void	handle_builtin(t_shell *shell, t_cmd *current_node);
 
 /* builtin export */
 void	handle_builtin_export(t_shell *shell, char **matrix);
@@ -240,6 +240,9 @@ void	handle_builtin_pwd(t_shell *shell);
 
 /* builtin exit */
 void	handle_builtin_exit(t_shell *shell);
+
+/* builtin cd */
+void	handle_builtin_cd(t_shell *shell);
 
 /* history */
 void	handle_history(t_shell *shell);

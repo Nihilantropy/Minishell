@@ -3,14 +3,45 @@ NAME		= minishell
 MINISHELL_DIR	= ./srcs
 MINISHELL_HEAD	= ./include
 
-
+MAIN_DIR		= ./main
 PARSER_DIR		= ./parser
 BUILTIN_DIR		= ./builtin
+SIGNAL_DIR		= ./signal
+EXECUTOR_DIR	= ./executor
 
-SRCS		= main.c main_utils.c init_shell.c init_env.c init_env_utils.c parser.c parser_utils_1.c parser_utils_2.c parser_list_utils.c parser_polish_list.c parser_env.c \
-				parser_matrix.c parser_matrix_utils.c parser_matrix_list.c parser_matrix_list_utils.c signals.c signals_utils.c history.c \
-				builtin.c builtin_export.c builtin_export_utils_1.c builtin_export_utils_2.c builtin_export_print.c builtin_export_print_utils.c \
-				builtin_env.c builtin_unset.c builtin_unset_utils.c builtin_echo.c builtin_pwd.c builtin_exit.c ft_getenv.c
+SRCS		=	$(MAIN_DIR)/main.c \
+				$(MAIN_DIR)/main_utils.c \
+				$(MAIN_DIR)/init_shell.c \
+				$(MAIN_DIR)/init_env.c \
+				$(MAIN_DIR)/init_env_utils.c \
+				$(MAIN_DIR)/history.c \
+				$(MAIN_DIR)/ft_getenv.c \
+				$(PARSER_DIR)/parser.c \
+				$(PARSER_DIR)/parser_utils_1.c \
+				$(PARSER_DIR)/parser_utils_2.c \
+				$(PARSER_DIR)/parser_list_utils.c \
+				$(PARSER_DIR)/parser_polish_list.c \
+				$(PARSER_DIR)/parser_env.c \
+				$(PARSER_DIR)/parser_matrix.c \
+				$(PARSER_DIR)/parser_matrix_utils.c \
+				$(PARSER_DIR)/parser_matrix_list.c \
+				$(PARSER_DIR)/parser_matrix_list_utils.c \
+				$(SIGNAL_DIR)/signals.c \
+				$(SIGNAL_DIR)/signals_utils.c \
+				$(BUILTIN_DIR)/builtin.c \
+				$(BUILTIN_DIR)/builtin_export.c \
+				$(BUILTIN_DIR)/builtin_export_utils_1.c \
+				$(BUILTIN_DIR)/builtin_export_utils_2.c \
+				$(BUILTIN_DIR)/builtin_export_print.c \
+				$(BUILTIN_DIR)/builtin_export_print_utils.c \
+				$(BUILTIN_DIR)/builtin_env.c \
+				$(BUILTIN_DIR)/builtin_unset.c \
+				$(BUILTIN_DIR)/builtin_unset_utils.c \
+				$(BUILTIN_DIR)/builtin_echo.c \
+				$(BUILTIN_DIR)/builtin_pwd.c \
+				$(BUILTIN_DIR)/builtin_exit.c \
+				$(BUILTIN_DIR)/builtin_cd.c \
+				$(EXECUTOR_DIR)/executor.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 
