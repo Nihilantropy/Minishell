@@ -41,6 +41,7 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(BUILTIN_DIR)/builtin_pwd.c \
 				$(BUILTIN_DIR)/builtin_exit.c \
 				$(BUILTIN_DIR)/builtin_cd.c \
+				$(BUILTIN_DIR)/builtin_cd_utils.c \
 				$(EXECUTOR_DIR)/executor.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
@@ -49,7 +50,7 @@ LIBFT_DIR	= ./libft
 LIBFT		= libft.a
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 RM			= rm -f
 
 # Include directory for header files

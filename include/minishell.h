@@ -242,7 +242,7 @@ void	handle_builtin_pwd(t_shell *shell);
 void	handle_builtin_exit(t_shell *shell);
 
 /* builtin cd */
-void	handle_builtin_cd(t_shell *shell);
+void	handle_builtin_cd(t_shell *shell, char **matrix);
 
 /* history */
 void	handle_history(t_shell *shell);

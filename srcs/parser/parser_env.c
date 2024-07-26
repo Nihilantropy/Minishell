@@ -49,11 +49,14 @@ static char	*parse_env_var(t_shell *shell, t_arg *new_node)
 	char		*end;
 	char		var_name[128];
 	char		*var_value;
+	t_bool		exit_status;
 
+	exit_status = false;
 	start = ft_strnstr(new_node->str, "$", ft_strlen(new_node->str));
 	end = start + 1;
 	if (*end == '?')
 	{
+		exit_status = true;
 		var_value = ft_itoa(shell->last_exit_status);
 		end++;
 	}
@@ -67,6 +70,8 @@ static char	*parse_env_var(t_shell *shell, t_arg *new_node)
 			var_value = "";
 	}
 	build_env_str(new_node, var_value, end);
+	if (exit_status)
+		free(var_value);
 	return (end);
 }
 
@@ -94,6 +99,7 @@ static void	build_env_str(t_arg *new_node, char *var_value, char *end)
 	new_str = ft_strjoin(second_str, end);
 	free(second_str);
 	new_node->str = new_str;
+	printf("new_node->str is: %s\n", new_node->str);
 }
 
 static int	len_to_token(char *str)

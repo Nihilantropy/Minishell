@@ -6,19 +6,19 @@
 void	handle_builtin(t_shell *shell, t_cmd *current_node)
 {
 	if (current_node->builtin.export)
-		handle_builtin_export(shell, shell->cmd->matrix);
+		handle_builtin_export(shell, current_node->matrix);
 	else if (current_node->builtin.env)
 		handle_builtin_env(shell);
 	else if (current_node->builtin.unset)
-		handle_builtin_unset(shell, shell->cmd->matrix);
+		handle_builtin_unset(shell, current_node->matrix);
 	else if (current_node->builtin.echo)
-		handle_builtin_echo(shell, shell->cmd->matrix);
+		handle_builtin_echo(shell, current_node->matrix);
 	else if (current_node->builtin.pwd)
 		handle_builtin_pwd(shell);
 	else if (current_node->builtin.exit)
 		handle_builtin_exit(shell);
 	else if (current_node->builtin.cd)
-		handle_builtin_cd(shell);
+		handle_builtin_cd(shell, current_node->matrix);
 }
 
 /*
