@@ -22,6 +22,7 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(PARSER_DIR)/parser_list_utils.c \
 				$(PARSER_DIR)/parser_polish_list.c \
 				$(PARSER_DIR)/parser_env.c \
+				$(PARSER_DIR)/parser_env_utils.c \
 				$(PARSER_DIR)/parser_matrix.c \
 				$(PARSER_DIR)/parser_matrix_utils.c \
 				$(PARSER_DIR)/parser_matrix_list.c \

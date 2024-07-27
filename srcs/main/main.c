@@ -14,21 +14,22 @@ int main(int argc, char **argv, char **envp)
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{
-		shell_prompt(&shell, envp);
+		shell_prompt(&shell);
 	}
 	return (0);
 }
 
-void	shell_prompt(t_shell *shell, char **envp)
+void	shell_prompt(t_shell *shell)
 {
 	while (1)
 	{
 		parse_args(shell);
-		if (shell->arg)
+		if (shell->arg && shell->error == false)
 		{
-			executor(shell, envp);
-			shell->pipes_nbr = 0;
-			free_prompt_lists(shell);
+			executor(shell);
 		}
+		free_prompt_lists(shell);
+		shell->pipes_nbr = 0;
+		shell->error = false;
 	}
 }

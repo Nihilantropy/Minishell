@@ -57,7 +57,7 @@ static void	update_oldpwd(t_shell *shell, char *current_pwd)
 		current_node = current_node->next;
 	}
 	if (!current_node)
-		create_oldpwd_node(shell, current_pwd);
+		create_oldpwd_node(shell, current_pwd); // Maybe remove (check bash)
 	else
 		substitute_oldpwd_node(current_node, current_pwd);
 }
@@ -79,7 +79,7 @@ static void	update_pwd(t_shell *shell, char *new_pwd)
 		current_node = current_node->next;
 	}
 	if (!current_node)
-		create_pwd_node(shell, new_pwd);
+		create_pwd_node(shell, new_pwd); // Maybe remove (check bash)
 	else
 		substitute_pwd_node(current_node, new_pwd);
 }

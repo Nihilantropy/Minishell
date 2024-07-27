@@ -26,6 +26,8 @@ void	handle_builtin(t_shell *shell, t_cmd *current_node)
 */
 void check_builtin(t_cmd *current_node)
 {
+	if (!current_node->matrix[0])
+		return ;
 	if (!ft_strncmp(current_node->matrix[0], "echo", 5))
 		current_node->builtin.echo = true;
 	else if (!ft_strncmp(current_node->matrix[0], "cd", 3))

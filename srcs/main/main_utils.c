@@ -2,16 +2,20 @@
 
 void	free_prompt_lists(t_shell *shell)
 {
-	free_redir_list(shell->cmd);
-	free_cmd_list(&shell->cmd);
-	free_list(&shell->arg);
+	if (shell->cmd->redir)
+		free_redir_list(shell->cmd);
+	if (shell->cmd)
+		free_cmd_list(&shell->cmd);
+	if (shell->arg)
+		free_list(&shell->arg);
 }
 
 void	free_shell_lists(t_shell *shell)
 {
 	if (shell->path)
 		free_matrix(shell->path);
-	free_env_list(&shell->env);
+	if (shell->env)
+		free_env_list(&shell->env);
 }
 
 void	print_matrix(char **matrix)

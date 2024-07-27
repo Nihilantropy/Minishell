@@ -113,6 +113,7 @@ typedef struct s_arg
 
 typedef struct s_shell
 {
+	char	**envp_d;
 	int		fd;
 	char	*line;
 	t_bool	add_to_history;
@@ -122,10 +123,11 @@ typedef struct s_shell
 	char	**path;
 	int		last_exit_status;
 	int		pipes_nbr;
+	t_bool	error;
 }			t_shell;
 
 /* main */
-void	shell_prompt(t_shell *shell, char **envp);
+void	shell_prompt(t_shell *shell);
 
 /* main utils */
 void	free_prompt_lists(t_shell *shell);
@@ -248,7 +250,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix);
 void	handle_history(t_shell *shell);
 
 /* executor */
-void	executor(t_shell *shell, char **envp);
+void	executor(t_shell *shell);
 void	exe_cmd(t_shell *shell, char *command, char **envp);
 char	*find_cmd_path(t_shell *shell, char *command);
 

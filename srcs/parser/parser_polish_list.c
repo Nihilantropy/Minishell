@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 static void	set_node_index(t_arg *current_node);
-static void	set_fd_flag(t_arg *current_node);
+static void	set_fd_flag(t_shell *shell, t_arg *current_node);
 static void	count_pipes(t_shell *shell, t_arg *current_node);
 static void	check_token_index(t_arg *arg);
 
@@ -26,7 +26,7 @@ void	polish_list(t_shell *shell, t_arg *arg)
 			&& current_node->str && ft_strchr(current_node->str, '$'))
 			handle_env_var(shell, current_node);
 		set_node_index(current_node);
-		set_fd_flag(current_node);
+		set_fd_flag(shell, current_node);
 		count_pipes(shell, current_node);
 		current_node = current_node->next;
 	}
@@ -76,21 +76,31 @@ static void	set_node_index(t_arg *current_node)
 	Setting up the node flag, corrisponding to the 
 	previous token flag.
 */
-static void	set_fd_flag(t_arg *current_node)
+static void	set_fd_flag(t_shell *shell, t_arg *current_node)
 {
-	if (current_node && current_node->next)
+	t_arg	*next_node;
+
+	next_node = current_node->next;
+	if (current_node && next_node)
 	{
-		if (current_node->token.t_infile && current_node->next)
-			current_node->next->type.infile = true;
-		else if (current_node->token.t_outfile && current_node->next)
-			current_node->next->type.outfile = true;
-		else if (current_node->token.t_here_doc && current_node->next)
-			current_node->next->type.here_doc = true;
-		else if (current_node->token.t_append && current_node->next)
-			current_node->next->type.append = true;
+		if (current_node->token.is_token && next_node->token.is_token)
+		{
+			printf("bash: syntax error near unexpected token `%s'\n", next_node->str);
+			shell->last_exit_status = 2;
+			shell->error = true;
+			return ;
+		}
+		if (current_node->token.t_infile && next_node)
+			next_node->type.infile = true;
+		else if (current_node->token.t_outfile && next_node)
+			next_node->type.outfile = true;
+		else if (current_node->token.t_here_doc && next_node)
+			next_node->type.here_doc = true;
+		else if (current_node->token.t_append && next_node)
+			next_node->type.append = true;
 		if (current_node->token.t_infile || current_node->token.t_outfile
 			|| current_node->token.t_here_doc || current_node->token.t_append)
-			current_node->next->type.is_redir = true;
+			next_node->type.is_redir = true;
 	}
 }
 

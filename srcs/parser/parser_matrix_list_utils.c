@@ -36,9 +36,13 @@ void	free_redir_list(t_cmd *cmd)
 	t_cmd 			*current_cmd_node;
 
 	current_cmd_node = cmd;
+	if (!current_cmd_node)
+		return ;
 	while (current_cmd_node)
 	{
 		current_redir_node = current_cmd_node->redir;
+		if (!current_redir_node)
+			return ;
 		while (current_redir_node)
 		{
 			next_redir_node = current_redir_node->next;

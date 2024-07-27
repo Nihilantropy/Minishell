@@ -1,38 +1,38 @@
 #include "../../include/minishell.h"
 
-static int	len_to_token(char *str);
 static char	*parse_env_var(t_shell *shell, t_arg *new_node);
-static void	build_env_str(t_arg *new_node, char *var_value, char *end);
+char		*handle_exit_status_var(t_shell *shell, t_arg *new_node, char *end);
+char		*hanlde_env_var(t_shell *shell, t_arg *new_node, char *start, char *end);
 
 /* 
 	Function that loops to replace all $VAR
 	with the correct variables.
-	As we are going to make the current node string, point
-	to a different allocated memory string, at the end we free
-	our old string.
+	If the string is parsed, return to the start of the string
+	and restart the loop until all '$' are correctly parsed
 */
+
 void	handle_env_var(t_shell *shell, t_arg *new_node)
 {
-	char	*temp;
-	char	*original_temp;
-	char	*original_str;
+	int		i;
+	char	*old_str;
+	char	*new_str;
 
-	temp = ft_strdup(new_node->str);
-	original_temp = temp;
-	original_str = new_node->str;
-	while (*temp)
+	i = 0;
+	while (new_node->str[i])
 	{
-		if (*(temp + 1) && *temp == '$')
+		if (new_node->str[i + 1] && new_node->str[i] == '$')
 		{
-			temp = parse_env_var(shell, new_node);
-			if (temp == NULL)
+			old_str = new_node->str;
+			new_str = parse_env_var(shell, new_node);
+			if (!new_str)
 				break ;
+			new_node->str = new_str;
+			free(old_str);
+			i = 0;
 		}
 		else
-			temp++;
+			i++;
 	}
-	free(original_temp);
-	free(original_str);
 }
 
 /* 
@@ -47,67 +47,18 @@ static char	*parse_env_var(t_shell *shell, t_arg *new_node)
 {
 	char		*start;
 	char		*end;
-	char		var_name[128];
-	char		*var_value;
-	t_bool		exit_status;
+	char		*new_str;
 
-	exit_status = false;
 	start = ft_strnstr(new_node->str, "$", ft_strlen(new_node->str));
 	end = start + 1;
+	if (!*end)
+		return (NULL);
 	if (*end == '?')
 	{
-		exit_status = true;
-		var_value = ft_itoa(shell->last_exit_status);
 		end++;
+		new_str = handle_exit_status_var(shell, new_node, end);
 	}
 	else
-	{
-		while ((*end && ft_isalnum(*end)) || *end == '_')
-				end++;
-		ft_strlcpy(var_name, start + 1, end - start);
-		var_value = ft_getenv(shell->env, var_name);
-		if (!var_value)
-			var_value = "";
-	}
-	build_env_str(new_node, var_value, end);
-	if (exit_status)
-		free(var_value);
-	return (end);
-}
-
-/*
-	Function to split the main string into 2 parts:
-	the first part goes up to the $
-	the second part takes the first part and appends the environment variable
-	Then we join the new string with the modified VAR (var_value)
-	and make our current node string point to the new string.
-*/
-static void	build_env_str(t_arg *new_node, char *var_value, char *end)
-{
-	char	*new_str;
-	char	*first_str;
-	char	*second_str;
-	int		len;
-
-	len = len_to_token(new_node->str);
-	first_str = (char *)malloc(len + 1);
-	if (!first_str)
-		ft_exit_error(ERR_ALLOC_ENV_STR);
-	ft_strlcpy(first_str, new_node->str, len + 1);
-	second_str = ft_strjoin(first_str, var_value);
-	free(first_str);
-	new_str = ft_strjoin(second_str, end);
-	free(second_str);
-	new_node->str = new_str;
-	printf("new_node->str is: %s\n", new_node->str);
-}
-
-static int	len_to_token(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '$')
-		i++;
-	return (i);
+		new_str = hanlde_env_var(shell, new_node, start, end);
+	return (new_str);
 }
