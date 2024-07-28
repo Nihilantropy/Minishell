@@ -200,6 +200,7 @@ void	print_cmd_list(t_cmd *cmd);
 void	print_redir_list(t_cmd *cmd);
 void	free_cmd_list(t_cmd **cmd);
 void	free_redir_list(t_cmd *cmd);
+void	free_redir_list_utils(t_redir_list **redir);
 
 /* builtin */
 void 	check_builtin(t_cmd *cmd);
@@ -251,14 +252,17 @@ void	handle_history(t_shell *shell);
 
 /* executor */
 void	executor(t_shell *shell);
-void	exe_cmd(t_shell *shell, char *command, char **envp);
-char	*find_cmd_path(t_shell *shell, char *command);
 
-/* executor pipe */
-//void	ft_here_doc(t_shell *shell, char **envp);
-//void	ft_pipex(t_shell *shell, char **envp);
-void	process_child(t_shell *shell, char *command, char **envp);
-void	process_parent(t_shell *shell, char *command, char **envp);
+/* executor redir */
+void	redir_input(t_redir_list *redir);
+void	redir_output(t_redir_list *redir);
+void	reset_redir(int stdin_copy, int stdout_copy);
+
+/* executor process */
+void	process_command(t_shell *shell);
+
+/* executor command */
+void	exe_cmd(t_shell *shell, t_cmd *current_node);
 
 #endif
 

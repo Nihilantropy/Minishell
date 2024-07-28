@@ -2,6 +2,12 @@
 
 void	free_prompt_lists(t_shell *shell)
 {
+	if (shell->line && shell->line[0] == '\0')
+	{
+		free(shell->line);
+		shell->line = NULL;
+		return ;
+	}
 	if (shell->cmd->redir)
 		free_redir_list(shell->cmd);
 	if (shell->cmd)

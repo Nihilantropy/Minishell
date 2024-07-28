@@ -43,7 +43,10 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(BUILTIN_DIR)/builtin_exit.c \
 				$(BUILTIN_DIR)/builtin_cd.c \
 				$(BUILTIN_DIR)/builtin_cd_utils.c \
-				$(EXECUTOR_DIR)/executor.c
+				$(EXECUTOR_DIR)/executor.c \
+				$(EXECUTOR_DIR)/executor_redir.c \
+				$(EXECUTOR_DIR)/executor_process.c \
+				$(EXECUTOR_DIR)/executor_command.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 

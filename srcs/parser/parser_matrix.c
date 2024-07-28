@@ -74,8 +74,6 @@ static void	build_nodes(t_shell *shell)
 		current_node = current_node->next;
 	}
 	shell->arg = real_head;
-	print_cmd_list(shell->cmd);
-	print_redir_list(shell->cmd);
 }
 
 /*

@@ -31,8 +31,6 @@ void	print_redir_list(t_cmd *cmd)
 
 void	free_redir_list(t_cmd *cmd)
 {
-	t_redir_list	*current_redir_node;
-	t_redir_list	*next_redir_node;
 	t_cmd 			*current_cmd_node;
 
 	current_cmd_node = cmd;
@@ -40,19 +38,28 @@ void	free_redir_list(t_cmd *cmd)
 		return ;
 	while (current_cmd_node)
 	{
-		current_redir_node = current_cmd_node->redir;
-		if (!current_redir_node)
-			return ;
-		while (current_redir_node)
-		{
-			next_redir_node = current_redir_node->next;
-			free(current_redir_node->fd_name);
-			free(current_redir_node);
-			current_redir_node = next_redir_node;
-		}
-		current_cmd_node->redir = NULL;
+		free_redir_list_utils(&cmd->redir);
 		current_cmd_node = current_cmd_node->next;
 	}
+}
+
+void	free_redir_list_utils(t_redir_list **redir)
+{
+	t_redir_list	*current;
+	t_redir_list	*next_node;
+
+	if (!*redir)
+		return ;
+	current = *redir;
+	while (current)
+	{
+		next_node = current->next;
+		if (current->fd_name)
+			free(current->fd_name);
+		free(current);
+		current = next_node;
+	}
+	*redir = NULL;
 }
 
 void	print_cmd_list(t_cmd *cmd)
@@ -78,7 +85,8 @@ void	free_cmd_list(t_cmd **cmd)
 	while (current)
 	{
 		next_node = current->next;
-		free_matrix(current->matrix);
+		if (current->matrix)
+			free_matrix(current->matrix);
 		free(current);
 		current = next_node;
 	}

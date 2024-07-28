@@ -109,14 +109,14 @@ void	parse_args(t_shell *shell)
 	shell->line = readline("minishell$ ");
 	if (!shell->line)
 		handle_eof(shell);
-	if (!shell->line[0])
+	if (shell->line[0] == '\0')
 	{
 		handle_enter(shell);
 		return ;
 	}
 	parse_list(shell);
-	print_list(shell->arg);
 	handle_history(shell);
 	parse_matrix(shell);
 	free(shell->line);
+	shell->line = NULL;
 }
