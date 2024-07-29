@@ -43,7 +43,7 @@ static void	check_token_index(t_arg *first_node)
 
 	if (!first_node)
 		return ;
-	last_node = find_last_node(first_node);
+	last_node = find_last_arg_node(first_node);
 	if (first_node->token.pipe)
 	{
 		rl_replace_line(ERR_PIPE_FIRST_INDEX, ft_strlen(ERR_PIPE_FIRST_INDEX));

@@ -19,7 +19,6 @@ void	create_unset_list(char **matrix, t_env **unset)
 		current_node->name = copy_ex_name(current_node->var);
 		y++;
 	}
-	print_env_list(*unset);
 	free_matrix(matrix_copy);
 }
 

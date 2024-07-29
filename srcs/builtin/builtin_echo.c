@@ -40,9 +40,9 @@ static void	handle_echo_print(char **echo_matrix)
 	if (echo_matrix[1] && !ft_strncmp(echo_matrix[1], "-n", 3))
 		flag = true;
 	if (flag && !echo_matrix[2])
-		printf("echo -n with no string to output\n"); // TODO remove the print
+		return ;
 	else if (!flag && !echo_matrix[1])
-		printf("echo with no string to output\n"); // TODO remove the print
+		printf("\n");
 	else if (flag && echo_matrix[2])
 		print_echo_matrix(echo_matrix + 2, flag);
 	else

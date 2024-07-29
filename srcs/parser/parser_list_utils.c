@@ -11,7 +11,7 @@ void	append_node(t_arg **arg, t_arg *new_node)
 	}
 	else
 	{
-		last_node = find_last_node(*arg);
+		last_node = find_last_arg_node(*arg);
 		last_node->next = new_node;
 		new_node->prev = last_node;
 		(*arg)->prev = new_node;
@@ -19,7 +19,7 @@ void	append_node(t_arg **arg, t_arg *new_node)
 	new_node->next = NULL;
 }
 
-t_arg	*find_last_node(t_arg *arg)
+t_arg	*find_last_arg_node(t_arg *arg)
 {
 	if (!arg)
 		return (NULL);

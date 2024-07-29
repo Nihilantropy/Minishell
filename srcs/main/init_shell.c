@@ -26,12 +26,17 @@ void	init_shell(t_shell *shell, char **envp)
 */
 static char	**find_total_path(char **envp)
 {
-	char	**total_path;
+	char	**path;
 	int		i;
 
 	i = 0;
-	while (!ft_strnstr(envp[i], "PATH=", 5))
+	while (envp[i] && !ft_strnstr(envp[i], "PATH=", 5))
 		i++;
-	total_path = ft_split(envp[i] + 5, ':');
-	return (total_path);
+	if (!envp[i])
+	{
+		printf("NA NA NA! Give me the path asshole!\n");
+		return (NULL);
+	}
+	path = ft_split(envp[i] + 5, ':');
+	return (path);
 }

@@ -6,6 +6,11 @@ void	exe_cmd(t_shell *shell, t_cmd *current_node)
 {
 	char	*cmd_path;
 
+	if (!shell->path)
+	{
+		printf("path doesn't exist %p\n", shell->path);
+		exit(EXIT_FAILURE);
+	}
 	cmd_path = find_cmd_path(shell, current_node);
 	if (!cmd_path)
 	{
@@ -31,6 +36,8 @@ static char	*find_cmd_path(t_shell *shell, t_cmd *current_node)
 		relative_path = ft_strjoin(shell->path[i], "/");
 		cmd_path = ft_strjoin(relative_path, current_node->matrix[0]);
 		free(relative_path);
+		if (!cmd_path)
+			return (NULL);
 		if (access(cmd_path, F_OK) == 0)
 		{
 			free_matrix(shell->path);

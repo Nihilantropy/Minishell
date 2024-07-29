@@ -1,7 +1,6 @@
 #include "../../include/minishell.h"
 
 static char	*join_matrix_to_node(char *str, char *to_join);
-static void	set_node_type(t_redir_list *redir, t_arg *current_node);
 
 /*
 	Return the length of the command + flags untill the end or the pipe
@@ -52,49 +51,6 @@ void	copy_command(t_cmd *cmd, t_shell *shell)
 	if (current_node && current_node->token.pipe && current_node->next)
 		current_node = current_node->next;
 	shell->arg = current_node;
-}
-
-/*
-	1) Copy the redirections untill the end or the pipe and set the
-		corrisponding type
-	2) If the current node is a pipe, move the node to the next one
-	3) Move the head of the arg list to the current node
-*/
-void	copy_redir(t_redir_list *redir, t_shell *shell)
-{
-	t_arg	*current_node;
-
-	current_node = shell->arg;
-	while (current_node && !current_node->token.pipe)
-	{
-		
-		if (current_node->type.is_redir)
-		{
-			set_node_type(redir, current_node);
-			redir->fd_name = ft_strdup(current_node->str);
-			redir = redir->next;
-		}
-		current_node = current_node->next;
-	}
-	if (current_node && current_node->token.pipe && current_node->next)
-		current_node = current_node->next;
-	shell->arg = current_node;
-}
-
-/*
-	Set the corrisponding redirection type
-*/
-static void	set_node_type(t_redir_list *redir, t_arg *current_node)
-{
-	if (current_node->type.infile)
-		redir->type.infile = true;
-	else if (current_node->type.outfile)
-		redir->type.outfile = true;
-	else if (current_node->type.here_doc)
-		redir->type.here_doc = true;
-	else if (current_node->type.append)
-		redir->type.append = true;
-	redir->type.is_redir = true;
 }
 
 static char	*join_matrix_to_node(char *str, char *to_join)

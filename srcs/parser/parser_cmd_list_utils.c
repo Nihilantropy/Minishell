@@ -29,39 +29,6 @@ void	print_redir_list(t_cmd *cmd)
 	}
 }
 
-void	free_redir_list(t_cmd *cmd)
-{
-	t_cmd 			*current_cmd_node;
-
-	current_cmd_node = cmd;
-	if (!current_cmd_node)
-		return ;
-	while (current_cmd_node)
-	{
-		free_redir_list_utils(&cmd->redir);
-		current_cmd_node = current_cmd_node->next;
-	}
-}
-
-void	free_redir_list_utils(t_redir_list **redir)
-{
-	t_redir_list	*current;
-	t_redir_list	*next_node;
-
-	if (!*redir)
-		return ;
-	current = *redir;
-	while (current)
-	{
-		next_node = current->next;
-		if (current->fd_name)
-			free(current->fd_name);
-		free(current);
-		current = next_node;
-	}
-	*redir = NULL;
-}
-
 void	print_cmd_list(t_cmd *cmd)
 {
 	if (!cmd)

@@ -82,9 +82,18 @@ typedef struct	s_env
 	struct s_env	*prev;
 }					t_env;
 
+typedef struct	s_here_doc
+{
+	char	*limiter;
+	char	*tmp_file_name;
+	int		index;
+}			t_here_doc;
+
+
 typedef struct s_redir_list
 {
 	char					*fd_name;
+	t_here_doc				*here_doc;
 	t_redir					type;
 	struct s_redir_list		*next;
 	struct s_redir_list		*prev;
@@ -170,7 +179,7 @@ int		token_length(char *temp);
 
 /* parser list utls */
 void	append_node(t_arg **arg, t_arg *new_node);
-t_arg	*find_last_node(t_arg *arg);
+t_arg	*find_last_arg_node(t_arg *arg);
 void	print_list(t_arg *arg);
 void	free_list(t_arg **arg);
 
@@ -183,24 +192,30 @@ void	handle_env_var(t_shell *shell, t_arg *arg);
 /* parser polish list */
 void	polish_list(t_shell *shell, t_arg *arg);
 
-/* parser matrix */
+/* parser cmd */
 void	parse_matrix(t_shell *shell);
 
-/* parser matrix utils */
+/* parser cmd utils */
 int		len_to_pipe_cmd(t_arg *arg);
 void	copy_command(t_cmd *cmd, t_shell *shell);
-void	copy_redir(t_redir_list *redir, t_shell *shell);
 
-/* parser matrix list */
+/* parser cmd list */
 void	append_cmd_node(t_cmd **cmd, t_cmd *new_node);
 void	append_redir_node(t_redir_list **redir, t_redir_list *new_node);
 
-/* parser matrix list utils */
+/* parser cmd list utils */
 void	print_cmd_list(t_cmd *cmd);
 void	print_redir_list(t_cmd *cmd);
 void	free_cmd_list(t_cmd **cmd);
-void	free_redir_list(t_cmd *cmd);
-void	free_redir_list_utils(t_redir_list **redir);
+
+/* parser cmd redir */
+void	build_redir_list(t_cmd *cmd, t_shell *shell);
+
+/* parser cmd redir utils */
+void	append_redir_node(t_redir_list **redir, t_redir_list *new_node);
+void	set_node_type(t_redir_list *redir, t_arg *current_node);
+void	free_all_redir_list(t_cmd *cmd);
+void	free_redir_list(t_redir_list **redir);
 
 /* builtin */
 void 	check_builtin(t_cmd *cmd);
@@ -256,7 +271,7 @@ void	executor(t_shell *shell);
 /* executor redir */
 void	redir_input(t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
-void	reset_redir(int stdin_copy, int stdout_copy);
+void	reset_redir(t_shell *shell, int stdin_copy, int stdout_copy);
 
 /* executor process */
 void	process_command(t_shell *shell);

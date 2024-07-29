@@ -20,7 +20,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 
 	if (!matrix[1] || matrix[2])
 	{
-		printf("passami una path stronzo!\n");
+		printf(ERR_CD_PATH);
 		shell->last_exit_status = EXIT_STATUS_SUCCESS;
 		return ;
 	}
