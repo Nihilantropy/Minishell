@@ -56,7 +56,7 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 	t_arg	*current_node;
 	int		here_doc_index;
 
-	here_doc_index = 0;
+	here_doc_index = 1;
 	current_node = shell->arg;
 	while (current_node && !current_node->token.pipe)
 	{

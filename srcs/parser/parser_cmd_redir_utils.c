@@ -80,6 +80,7 @@ void	free_redir_list(t_redir_list **redir)
 		{
 			free(current->here_doc->limiter);
 			free(current->here_doc->tmp_file_name);
+			free(current->here_doc);
 		}
 		free(current);
 		current = next_node;

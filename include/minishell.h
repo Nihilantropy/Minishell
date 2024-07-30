@@ -133,6 +133,8 @@ typedef struct s_shell
 	int		last_exit_status;
 	int		pipes_nbr;
 	t_bool	error;
+	int		stdin_copy;
+	int		stdout_copy;
 }			t_shell;
 
 /* main */
@@ -269,9 +271,9 @@ void	handle_history(t_shell *shell);
 void	executor(t_shell *shell);
 
 /* executor redir */
-void	redir_input(t_redir_list *redir);
+void	redir_input(t_shell *shell, t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
-void	reset_redir(t_shell *shell, int stdin_copy, int stdout_copy);
+void	reset_redir(t_shell *shell);
 
 /* executor process */
 void	process_command(t_shell *shell);

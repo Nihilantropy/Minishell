@@ -77,7 +77,8 @@ clean:
 			$(RM) $(OBJS)
 			$(MAKE) -C $(LIBFT_DIR) clean
 
-fclean:		clean
+fclean:
+			$(RM) $(OBJS)
 			$(RM) $(NAME)
 			$(MAKE) -C $(LIBFT_DIR) fclean
 

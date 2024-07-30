@@ -6,11 +6,6 @@ void	exe_cmd(t_shell *shell, t_cmd *current_node)
 {
 	char	*cmd_path;
 
-	if (!shell->path)
-	{
-		printf("path doesn't exist %p\n", shell->path);
-		exit(EXIT_FAILURE);
-	}
 	cmd_path = find_cmd_path(shell, current_node);
 	if (!cmd_path)
 	{

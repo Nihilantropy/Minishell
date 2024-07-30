@@ -12,7 +12,7 @@ void	handle_builtin_exit(t_shell *shell)
 		shell->last_exit_status = EXIT_STATUS_SUCCESS; // TODO
 		free_shell_lists(shell);
 		free_prompt_lists(shell);
-		kill(getppid(), SIGTERM);
+		kill(getppid(), SIGTERM); // TODO can't use getppid()
 	}
 	else
 	{

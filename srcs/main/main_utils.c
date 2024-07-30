@@ -14,6 +14,11 @@ void	free_prompt_lists(t_shell *shell)
 		free_cmd_list(&shell->cmd);
 	if (shell->arg)
 		free_list(&shell->arg);
+	if (shell->path)
+	{
+		free_matrix(shell->path);
+		shell->path = NULL;
+	}
 }
 
 void	free_shell_lists(t_shell *shell)
