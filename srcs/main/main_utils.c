@@ -8,7 +8,7 @@ void	free_prompt_lists(t_shell *shell)
 		shell->line = NULL;
 		return ;
 	}
-	if (shell->cmd->redir)
+	if (shell->cmd)
 		free_all_redir_list(shell->cmd);
 	if (shell->cmd)
 		free_cmd_list(&shell->cmd);

@@ -54,8 +54,6 @@ void	free_all_redir_list(t_cmd *cmd)
 	t_cmd 			*current_cmd_node;
 
 	current_cmd_node = cmd;
-	if (!current_cmd_node)
-		return ;
 	while (current_cmd_node)
 	{
 		free_redir_list(&current_cmd_node->redir);
@@ -68,9 +66,9 @@ void	free_redir_list(t_redir_list **redir)
 	t_redir_list	*current;
 	t_redir_list	*next_node;
 
-	if (!*redir)
-		return ;
 	current = *redir;
+	if (!current)
+		return ;
 	while (current)
 	{
 		next_node = current->next;
@@ -78,9 +76,12 @@ void	free_redir_list(t_redir_list **redir)
 			free(current->fd_name);
 		if (current->here_doc)
 		{
+			if (!access(current->here_doc->tmp_file_name, F_OK))
+					unlink(current->here_doc->tmp_file_name);
 			free(current->here_doc->limiter);
 			free(current->here_doc->tmp_file_name);
 			free(current->here_doc);
+			current->here_doc = NULL;
 		}
 		free(current);
 		current = next_node;

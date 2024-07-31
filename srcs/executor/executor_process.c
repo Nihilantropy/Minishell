@@ -18,6 +18,7 @@ void	process_command(t_shell *shell)
 	int		fd[2];
 	int		i;
 	t_cmd	*current_node;
+	int		status;
 
 	i = 0;
 	current_node = shell->cmd;
@@ -27,14 +28,15 @@ void	process_command(t_shell *shell)
 			ft_exit_error(ERR_PIPE);
 		process_child(shell, current_node, fd);
 		close(fd[1]);
-		if (i < (shell->pipes_nbr))
+		if (i < shell->pipes_nbr)
 			dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		current_node = current_node->next;
 		i++;
 	}
+	wait(&status);
+	shell->last_exit_status = status;
 	process_parent(shell, current_node);
-	wait(NULL);
 }
 
 /*
@@ -46,6 +48,7 @@ void	process_command(t_shell *shell)
 static void	process_child(t_shell *shell, t_cmd *current_node, int fd[2])
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -68,6 +71,8 @@ static void	process_child(t_shell *shell, t_cmd *current_node, int fd[2])
 		else
 			ft_exit_error("");
 	}
+	wait(&status);
+	shell->last_exit_status = status;
 }
 
 /*

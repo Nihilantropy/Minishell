@@ -28,7 +28,6 @@ void	shell_prompt(t_shell *shell)
 		{
 			executor(shell);
 		}
-		free_prompt_lists(shell);
 		shell->pipes_nbr = 0;
 		shell->error = false;
 	}

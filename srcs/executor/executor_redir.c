@@ -10,24 +10,6 @@ static void	open_here_doc_r(int here_doc, char *here_doc_fd_name);
 */
 void	reset_redir(t_shell *shell)
 {
-	t_cmd			*current_cmd_node;
-	t_redir_list	*current_redir_node;
-
-	current_cmd_node = shell->cmd;
-	while (current_cmd_node)
-	{
-		current_redir_node = current_cmd_node->redir;
-		while (current_redir_node)
-		{
-			if (current_redir_node->type.here_doc)
-			{
-				if (!access(current_redir_node->here_doc->tmp_file_name, F_OK))
-					unlink(current_redir_node->here_doc->tmp_file_name);
-			}
-			current_redir_node = current_redir_node->next;
-		}
-		current_cmd_node = current_cmd_node->next;
-	}
 	if (dup2(shell->stdin_copy, STDIN_FILENO) == -1)
 		perror("dup2 stdin_copy");
 	if (dup2(shell->stdout_copy, STDOUT_FILENO) == -1)
@@ -38,7 +20,7 @@ void	reset_redir(t_shell *shell)
 
 /*
 	1) Loop all the redir list to find the here_doc nodes
-	2) Loop a,ll the redir list to find the infile nodes
+	2) Loop all the redir list to find the infile nodes
 */
 void	redir_input(t_shell *shell, t_redir_list *redir)
 {
@@ -50,12 +32,7 @@ void	redir_input(t_shell *shell, t_redir_list *redir)
 	{
 		if (current_node->type.here_doc)
 			handle_here_doc(shell, current_node);
-		current_node = current_node->next;
-	}
-	current_node = redir;
-	while (current_node)
-	{
-		if (current_node->type.infile)
+		else if (current_node->type.infile)
 		{
 			read_file = open(current_node->fd_name, O_RDONLY, 0777);
 			if (read_file == -1)
@@ -120,7 +97,10 @@ static void	handle_here_doc(t_shell *shell, t_redir_list *current_node)
 		ft_putstr_fd("> ", shell->stdin_copy);
 		line = get_next_line(shell->stdin_copy);
 		if (!line)
+		{
+			perror("line (nil)");
 			return ;
+		}
 		if (!ft_strncmp(line, current_node->fd_name, ft_strlen(current_node->fd_name)))
 		{
 			free(line);

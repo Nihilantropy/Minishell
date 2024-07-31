@@ -123,7 +123,6 @@ typedef struct s_arg
 typedef struct s_shell
 {
 	char	**envp_d;
-	int		fd;
 	char	*line;
 	t_bool	add_to_history;
 	t_arg	*arg;
@@ -193,6 +192,9 @@ void	handle_env_var(t_shell *shell, t_arg *arg);
 
 /* parser polish list */
 void	polish_list(t_shell *shell, t_arg *arg);
+
+/* parser polish list utils */
+int		check_arg_list(t_shell *shell);
 
 /* parser cmd */
 void	parse_matrix(t_shell *shell);

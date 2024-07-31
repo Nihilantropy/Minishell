@@ -14,7 +14,7 @@ void	handle_sigint(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	printf("\nminishell$ ");
+	printf("\n\nminishell$ ");
 }
 
 static void	sigint_handler(int signum)

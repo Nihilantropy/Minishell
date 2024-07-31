@@ -108,7 +108,7 @@ static void	find_total_path(t_shell *shell);
 */
 void	parse_args(t_shell *shell)
 {
-	shell->line = readline("minishell$ ");
+	shell->line = readline("\nminishell$ ");
 	if (!shell->line)
 		handle_eof(shell);
 	if (shell->line[0] == '\0')
@@ -117,6 +117,7 @@ void	parse_args(t_shell *shell)
 		return ;
 	}
 	parse_list(shell);
+	check_arg_list(shell);
 	handle_history(shell);
 	parse_matrix(shell);
 	find_total_path(shell);

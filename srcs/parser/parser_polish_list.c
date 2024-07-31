@@ -1,9 +1,8 @@
 #include "../../include/minishell.h"
 
 static void	set_node_index(t_arg *current_node);
-static void	set_fd_flag(t_shell *shell, t_arg *current_node);
+static void	set_fd_flag(t_arg *current_node);
 static void	count_pipes(t_shell *shell, t_arg *current_node);
-static void	check_token_index(t_arg *arg);
 
 /* 
 	After the list is fully created, we have to set thing up.
@@ -19,46 +18,16 @@ void	polish_list(t_shell *shell, t_arg *arg)
 	if (!arg)
 		return ;
 	current_node = arg;
-	check_token_index(current_node);
 	while (current_node)
 	{
 		if ((current_node->quote.NONE || current_node->quote.DOUBLE)
 			&& current_node->str && ft_strchr(current_node->str, '$'))
 			handle_env_var(shell, current_node);
 		set_node_index(current_node);
-		set_fd_flag(shell, current_node);
+		set_fd_flag(current_node);
 		count_pipes(shell, current_node);
 		current_node = current_node->next;
 	}
-}
-
-/*
-	Check if the pipe token is at the start or at
-	the end of the list. If so, we print an error message
-	and start a new prompt.
-*/
-static void	check_token_index(t_arg *first_node)
-{
-	t_arg	*last_node;
-
-	if (!first_node)
-		return ;
-	last_node = find_last_arg_node(first_node);
-	if (first_node->token.pipe)
-	{
-		rl_replace_line(ERR_PIPE_FIRST_INDEX, ft_strlen(ERR_PIPE_FIRST_INDEX));
-		rl_on_new_line();
-		rl_redisplay();
-		printf("\nminishell$ ");
-	}
-	else if (last_node->token.pipe)
-	{
-		rl_replace_line(ERR_PIPE_LAST_INDEX, ft_strlen(ERR_PIPE_LAST_INDEX));
-		rl_on_new_line();
-		rl_redisplay();
-		printf("\nminishell$ ");
-	}
-	return ;
 }
 
 /*
@@ -76,20 +45,13 @@ static void	set_node_index(t_arg *current_node)
 	Setting up the node flag, corrisponding to the 
 	previous token flag.
 */
-static void	set_fd_flag(t_shell *shell, t_arg *current_node)
+static void	set_fd_flag(t_arg *current_node)
 {
 	t_arg	*next_node;
 
 	next_node = current_node->next;
 	if (current_node && next_node)
 	{
-		if (current_node->token.is_token && next_node->token.is_token)
-		{
-			printf("bash: syntax error near unexpected token `%s'\n", next_node->str);
-			shell->last_exit_status = 2;
-			shell->error = true;
-			return ;
-		}
 		if (current_node->token.t_infile && next_node)
 			next_node->type.infile = true;
 		else if (current_node->token.t_outfile && next_node)
