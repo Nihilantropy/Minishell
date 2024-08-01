@@ -25,6 +25,7 @@ void	executor(t_shell *shell)
 			ft_exit_error(ERR_FORK);
 		if (pid == 0)
 		{
+			child_proc_signal_handler(shell);
 			process_command(shell);
 			exit(EXIT_SUCCESS);
 		}

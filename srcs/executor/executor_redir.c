@@ -1,7 +1,6 @@
 #include "../../include/minishell.h"
 
 static void	handle_here_doc(t_shell *shell, t_redir_list *current_node);
-static void	open_here_doc_r(int here_doc, char *here_doc_fd_name);
 
 /*
 	1) Loop all the redir list. Find each here_doc node to unset the file
@@ -96,11 +95,8 @@ static void	handle_here_doc(t_shell *shell, t_redir_list *current_node)
 	{
 		ft_putstr_fd("> ", shell->stdin_copy);
 		line = get_next_line(shell->stdin_copy);
-		if (!line)
-		{
-			perror("line (nil)");
-			return ;
-		}
+		if (handle_here_doc_sigterm(line, current_node))
+			break ;
 		if (!ft_strncmp(line, current_node->fd_name, ft_strlen(current_node->fd_name)))
 		{
 			free(line);
@@ -111,14 +107,4 @@ static void	handle_here_doc(t_shell *shell, t_redir_list *current_node)
 	}
 	close(here_doc);
 	open_here_doc_r(here_doc, current_node->here_doc->tmp_file_name);
-}
-
-static void	open_here_doc_r(int here_doc, char *here_doc_fd_name)
-{
-	here_doc = open(here_doc_fd_name, O_RDONLY);
-	if (here_doc == -1)
-		ft_exit_error(ERR_HERE_DOC);
-	if (dup2(here_doc, STDIN_FILENO) == -1)
-		perror("dup2 here_doc");
-	close(here_doc);
 }

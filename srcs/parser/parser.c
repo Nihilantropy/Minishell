@@ -1,5 +1,7 @@
 #include "../../include/minishell.h"
 
+void	find_total_path(t_shell *shell);
+
 static char	*create_quote_node(t_arg **arg, char *temp)
 {
 	char	quote;
@@ -96,8 +98,6 @@ static void	parse_list(t_shell *shell)
 	polish_list(shell, shell->arg);
 }
 
-static void	find_total_path(t_shell *shell);
-
 /*
 	1) Read from the user input with readline
 	2) Handle CTRL -D signal (EOF), exiting the shell
@@ -110,10 +110,13 @@ void	parse_args(t_shell *shell)
 {
 	shell->line = readline("\nminishell$ ");
 	if (!shell->line)
-		handle_eof(shell);
+		signal_sigterm(shell);
 	if (shell->line[0] == '\0')
 	{
-		handle_enter(shell);
+		free(shell->line);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 		return ;
 	}
 	parse_list(shell);
@@ -123,23 +126,4 @@ void	parse_args(t_shell *shell)
 	find_total_path(shell);
 	free(shell->line);
 	shell->line = NULL;
-}
-
-/*
-	Find the PATH for the executable
-*/
-static void	find_total_path(t_shell *shell)
-{
-	t_env	*current_node;
-
-	current_node = shell->env;
-	while (current_node)
-	{
-		if (!ft_strcmp(current_node->name, "PATH"))
-			break ;
-		current_node = current_node->next;
-	}
-	if (!current_node)
-		return ;
-	shell->path = ft_split(current_node->value, ':');
 }

@@ -44,3 +44,22 @@ static void	init_redir(t_arg *new_node)
 	new_node->type.here_doc = false;
 	new_node->type.append = false;
 }
+
+/*
+	Find the PATH for the executable
+*/
+void	find_total_path(t_shell *shell)
+{
+	t_env	*current_node;
+
+	current_node = shell->env;
+	while (current_node)
+	{
+		if (!ft_strcmp(current_node->name, "PATH"))
+			break ;
+		current_node = current_node->next;
+	}
+	if (!current_node)
+		return ;
+	shell->path = ft_split(current_node->value, ':');
+}

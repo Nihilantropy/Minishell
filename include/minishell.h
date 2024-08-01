@@ -146,12 +146,14 @@ void	print_matrix(char **matrix);
 char	**dup_matrix(char **matrix);
 void	free_matrix(char **matrix);
 
-/* signal handler */
+/* signal sigint */
 void	signal_handler(void);
-void	handle_eof(t_shell *shell);
 
-/* signal utils */
-void	handle_enter(t_shell *shell);
+/* signal sigterm */
+void	signal_sigterm(t_shell *shell);
+
+/* signal process */
+void	child_proc_signal_handler(t_shell *shell);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -276,6 +278,10 @@ void	executor(t_shell *shell);
 void	redir_input(t_shell *shell, t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
 void	reset_redir(t_shell *shell);
+
+/* executor redir utils */
+void	open_here_doc_r(int here_doc, char *here_doc_fd_name);
+int		handle_here_doc_sigterm(char *line, t_redir_list *current_node);
 
 /* executor process */
 void	process_command(t_shell *shell);
