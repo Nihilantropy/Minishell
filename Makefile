@@ -3,7 +3,55 @@ NAME		= minishell
 MINISHELL_DIR	= ./srcs
 MINISHELL_HEAD	= ./include
 
-SRCS		= main.c main_utils.c init_shell.c parser.c parser_utils.c signals.c history.c ft_free.c
+MAIN_DIR		= ./main
+PARSER_DIR		= ./parser
+BUILTIN_DIR		= ./builtin
+SIGNAL_DIR		= ./signal
+EXECUTOR_DIR	= ./executor
+
+SRCS		=	$(MAIN_DIR)/main.c \
+				$(MAIN_DIR)/main_utils.c \
+				$(MAIN_DIR)/init_shell.c \
+				$(MAIN_DIR)/init_env.c \
+				$(MAIN_DIR)/init_env_utils.c \
+				$(MAIN_DIR)/history.c \
+				$(MAIN_DIR)/ft_getenv.c \
+				$(PARSER_DIR)/parser.c \
+				$(PARSER_DIR)/parser_utils_1.c \
+				$(PARSER_DIR)/parser_utils_2.c \
+				$(PARSER_DIR)/parser_list_utils.c \
+				$(PARSER_DIR)/parser_polish_list.c \
+				$(PARSER_DIR)/parser_polish_list_utils.c \
+				$(PARSER_DIR)/parser_env.c \
+				$(PARSER_DIR)/parser_env_utils.c \
+				$(PARSER_DIR)/parser_cmd.c \
+				$(PARSER_DIR)/parser_cmd_utils.c \
+				$(PARSER_DIR)/parser_cmd_redir.c \
+				$(PARSER_DIR)/parser_cmd_redir_utils.c \
+				$(PARSER_DIR)/parser_cmd_list.c \
+				$(PARSER_DIR)/parser_cmd_list_utils.c \
+				$(SIGNAL_DIR)/signal_sigint.c \
+				$(SIGNAL_DIR)/signal_sigterm.c \
+				$(SIGNAL_DIR)/signal_child_proc_sigint.c \
+				$(BUILTIN_DIR)/builtin.c \
+				$(BUILTIN_DIR)/builtin_export.c \
+				$(BUILTIN_DIR)/builtin_export_utils_1.c \
+				$(BUILTIN_DIR)/builtin_export_utils_2.c \
+				$(BUILTIN_DIR)/builtin_export_print.c \
+				$(BUILTIN_DIR)/builtin_export_print_utils.c \
+				$(BUILTIN_DIR)/builtin_env.c \
+				$(BUILTIN_DIR)/builtin_unset.c \
+				$(BUILTIN_DIR)/builtin_unset_utils.c \
+				$(BUILTIN_DIR)/builtin_echo.c \
+				$(BUILTIN_DIR)/builtin_pwd.c \
+				$(BUILTIN_DIR)/builtin_exit.c \
+				$(BUILTIN_DIR)/builtin_cd.c \
+				$(BUILTIN_DIR)/builtin_cd_utils.c \
+				$(EXECUTOR_DIR)/executor.c \
+				$(EXECUTOR_DIR)/executor_redir.c \
+				$(EXECUTOR_DIR)/executor_redir_utils.c \
+				$(EXECUTOR_DIR)/executor_process.c \
+				$(EXECUTOR_DIR)/executor_command.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 
@@ -19,12 +67,11 @@ INC 		= -I$(MINISHELL_HEAD) -I$(LIBFT_DIR)
 
 # Compilation rule for the program
 $(NAME):	$(OBJS)
+			$(MAKE) -C $(LIBFT_DIR)
 			$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
-
 
 # Rule to compile object files
 %.o:		%.c
-			$(MAKE) -C $(LIBFT_DIR)
 			$(CC) -c $< $(CFLAGS) -o $@ $(INC)
 
 all:		$(NAME)
@@ -33,7 +80,8 @@ clean:
 			$(RM) $(OBJS)
 			$(MAKE) -C $(LIBFT_DIR) clean
 
-fclean:		clean
+fclean:
+			$(RM) $(OBJS)
 			$(RM) $(NAME)
 			$(MAKE) -C $(LIBFT_DIR) fclean
 
