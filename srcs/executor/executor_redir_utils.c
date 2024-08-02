@@ -2,9 +2,10 @@
 
 int	handle_here_doc_sigterm(char *line, t_redir_list *current_node)
 {
+	(void)current_node;
 	if (!line)
 	{
-		printf("\n-bash: warning: wanted `%s'\n", current_node->here_doc->limiter);
+		ft_putstr_fd("\n-bash: warning: here_document closed.\n", 2);
 		return (1);
 	}
 	return (0);
