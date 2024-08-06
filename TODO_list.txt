@@ -1,5 +1,7 @@
 Make the here_doc redirection works perfectly.
 
+We must redo the signals because they don't work in the best way
+
 When the pipeline chain process start, make the CTRL C signal exit the process
 
 See the cat | cat pipeline. (in general see the pipe)
