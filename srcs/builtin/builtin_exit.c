@@ -12,7 +12,8 @@ void	handle_builtin_exit(t_shell *shell)
 		shell->last_exit_status = EXIT_STATUS_SUCCESS; // TODO
 		free_shell_lists(shell);
 		free_prompt_lists(shell);
-		kill(getppid(), SIGTERM); // TODO can't use getppid()
+		//kill(getppid(), SIGTERM); // TODO can't use getppid()
+		exit(1);
 	}
 	else
 	{
@@ -30,9 +31,9 @@ static int	check_exit_invalid_arg(t_shell *shell)
 		return (1);
 	if (!matrix[1])
 		return (0);
-	if (check_exit_alpha_arg(matrix))
-		return (0);
-	if (check_exit_multi_arg(matrix))
+	if (check_exit_alpha_arg(matrix) == 0)
+		return (1);
+	if (check_exit_multi_arg(matrix) == 1)
 		return (1);
 	return (0);
 }
@@ -48,11 +49,11 @@ static int	check_exit_alpha_arg(char **matrix)
 		{
 			printf("-bash: exit: %s: ", matrix[1]);
 			printf("numeric argument required\n");
-			return (1);
+			return (0);
 		}
 		x++;
 	}
-	return (0);
+	return (1);
 }
 
 static int	check_exit_multi_arg(char **matrix)

@@ -2,7 +2,6 @@ Make the here_doc redirection works perfectly.
 
 Bultin echo: echo -n ciao > outfile. Doesn't write on the outfile, but write "ciao" on the 
 	old STDOUT.
-Builtin exit: exit goes into seg fault.
 
 When the pipeline chain process start, make the CTRL C signal exit the process
 
@@ -13,5 +12,6 @@ Check eventual memory leaks.
 Check if we want our shell to work exactly like the bash or not. The bash shell
 	can execute the pipeline not perfectly in order. The parent process doesn't necessary
 	wait the exit of the child process. Check this thing if it's an evaluation issue.
+	(i asked to frau and he confirmed that the shell must work like bash).
 
  Check the perror on the unset PATH event
