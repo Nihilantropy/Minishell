@@ -257,7 +257,7 @@ void	handle_builtin_unset(t_shell *shell, char **matrix);
 void	create_unset_list(char **matrix, t_env **unset);
 
 /* builtin echo */
-void	handle_builtin_echo(t_shell *shell, char **matrix);
+void	handle_builtin_echo(t_shell *shell, char **matrix, t_redir_list *redir);
 
 /* builtin pwd */
 void	handle_builtin_pwd(t_shell *shell);

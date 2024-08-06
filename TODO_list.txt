@@ -1,11 +1,8 @@
 Make the here_doc redirection works perfectly.
 
-Bultin echo: echo -n ciao > outfile. Doesn't write on the outfile, but write "ciao" on the 
-	old STDOUT.
-
 When the pipeline chain process start, make the CTRL C signal exit the process
 
-See the cat | cat pipeline.
+See the cat | cat pipeline. (in general see the pipe)
 
 Check eventual memory leaks.
 
