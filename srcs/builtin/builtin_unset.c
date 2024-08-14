@@ -42,7 +42,7 @@ static void	remove_node_from_env(t_env **env, t_env **unset)
 		while (current_env_node)
 		{
 			next_env_node = current_env_node->next;
-			if (!ft_strcmp(current_unset_node->name, current_env_node->name))
+			if (!ft_strcmp(current_unset_node->var, current_env_node->name))
 			{
 				remove_node(current_env_node, env);
 				break ;

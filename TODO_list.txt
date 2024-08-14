@@ -13,4 +13,6 @@ Check if we want our shell to work exactly like the bash or not. The bash shell
 	wait the exit of the child process. Check this thing if it's an evaluation issue.
 	(i asked to frau and he confirmed that the shell must work like bash).
 
- Check the perror on the unset PATH event
+Check the perror on the unset PATH event
+
+Check the execve path. The programs can be executed from any directory, not only the PATH

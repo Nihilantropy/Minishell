@@ -15,9 +15,7 @@ void	executor(t_shell *shell)
 	shell->stdout_copy = dup(STDOUT_FILENO);
 
 	if (shell->pipes_nbr == 0 && shell->cmd->builtin.is_builtin)
-	{
 		handle_single_builtin_cmd(shell);
-	}
 	else
 	{
 		pid = fork();
