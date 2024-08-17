@@ -47,7 +47,7 @@ int	check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export)
 		if (current_node->name[0] != '!' && (ft_isdigit(current_node->name[0]) ||
 			(!ft_isalnum(current_node->name[i]))) && current_node->name[i])
 		{
-			printf("-bash: export: `%s'", current_node->var);
+			printf("-minishell: export: `%s'", current_node->var);
 			printf(": not a valid identifier\n");
 			remove_node(current_node, export);
 			shell->last_exit_status = EXIT_STATUS_ERROR;
@@ -55,7 +55,7 @@ int	check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export)
 		}
 		else if (current_node->name[0] == '!')
 		{
-			printf("-bash: %s: event not found\n", current_node->var);
+			printf("-minishell: %s: event not found\n", current_node->var);
 			remove_node(current_node, export);
 			shell->last_exit_status = EXIT_STATUS_SUCCESS;
 			return (1);

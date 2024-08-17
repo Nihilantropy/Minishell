@@ -23,5 +23,5 @@ static void	child_proc_sigint_handler(int signum)
 static void	child_proc_handle_sigint(int sig)
 {
 	(void)sig;
-	ft_exit_success("\nSIGINT called on child process\n");
+	ft_exit_success("\n\n");
 }

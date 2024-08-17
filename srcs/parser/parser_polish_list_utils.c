@@ -7,7 +7,7 @@ int	check_arg_list(t_shell *shell)
 {
 	if (shell->arg->token.pipe)
 	{
-		printf("-bash: syntax error near unexpected token `%s'\n", shell->arg->str);
+		printf("-minishell: syntax error near unexpected token `%s'\n", shell->arg->str);
 		shell->last_exit_status = 2;
 		shell->error = true;
 		return (1);
@@ -44,7 +44,9 @@ static int	check_token_index(t_shell *shell)
 
 static void	syntax_error_near_token(t_shell *shell, char *str)
 {
-	printf("-bash: syntax error near unexpected token `%s'\n", str);
+	ft_putstr_fd("-minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("'\n", 2);
 	shell->last_exit_status = 2;
 	shell->error = true;
 }

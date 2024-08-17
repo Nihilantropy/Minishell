@@ -13,7 +13,8 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(MAIN_DIR)/main_utils.c \
 				$(MAIN_DIR)/init_shell.c \
 				$(MAIN_DIR)/init_env.c \
-				$(MAIN_DIR)/init_env_utils.c \
+				$(MAIN_DIR)/init_env_utils_1.c \
+				$(MAIN_DIR)/init_env_utils_2.c \
 				$(MAIN_DIR)/history.c \
 				$(MAIN_DIR)/ft_getenv.c \
 				$(PARSER_DIR)/parser.c \
@@ -51,7 +52,8 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(EXECUTOR_DIR)/executor_redir.c \
 				$(EXECUTOR_DIR)/executor_redir_utils.c \
 				$(EXECUTOR_DIR)/executor_process.c \
-				$(EXECUTOR_DIR)/executor_command.c
+				$(EXECUTOR_DIR)/executor_command.c \
+				$(EXECUTOR_DIR)/executor_command_utils.c
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 

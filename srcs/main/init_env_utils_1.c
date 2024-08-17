@@ -6,7 +6,7 @@ char	*copy_var(char *current_var)
 
 	var = ft_strdup(current_var);
 	if (!var)
-		ft_exit_error("var does not exist\n");
+		ft_exit_error(ERR_ENV_VAR);
 	return (var);
 }
 

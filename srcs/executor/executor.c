@@ -1,6 +1,7 @@
 #include "../../include/minishell.h"
 
 static void	handle_single_builtin_cmd(t_shell *shell);
+void	handle_exit_status(t_shell *shell, int status);
 
 /*
 	1) Make a copy of the STDIN and STDOUT to reset after each command
@@ -28,8 +29,8 @@ void	executor(t_shell *shell)
 			exit(EXIT_SUCCESS);
 		}
 		waitpid(pid, &status, 0);
+		handle_exit_status(shell, status);
 	}
-	shell->last_exit_status = status;
 	reset_redir(shell);
 	free_prompt_lists(shell);
 }
@@ -47,8 +48,20 @@ static void	handle_single_builtin_cmd(t_shell *shell)
 	redir_output(current_node->redir);
 	if (!shell->path)
 	{
-		printf("-bash: %s: No such file or directory\n", current_node->matrix[0]);
+		ft_putstr_fd("-minishell: ", 2);
+		ft_putstr_fd(current_node->matrix[0], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		return ;
 	}
 	handle_builtin(shell, current_node);
+}
+
+void	handle_exit_status(t_shell *shell, int status)
+{
+	if (WIFEXITED(status))
+		shell->last_exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->last_exit_status = 128 + WTERMSIG(status);
+	else
+		shell->last_exit_status = 1;
 }

@@ -59,7 +59,6 @@ static char	*build_env_str(t_arg *new_node, char *var_value, char *end)
 	free(first_str);
 	new_str = ft_strjoin(second_str, end);
 	free(second_str);
-	printf("new_node->str is: %s\n", new_node->str);
 	return (new_str);
 }
 

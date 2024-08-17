@@ -122,7 +122,7 @@ typedef struct s_arg
 
 typedef struct s_shell
 {
-	char	**envp_d;
+	char	**new_env;
 	char	*line;
 	t_bool	add_to_history;
 	t_arg	*arg;

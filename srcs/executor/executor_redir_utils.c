@@ -5,7 +5,7 @@ int	handle_here_doc_sigterm(char *line, t_redir_list *current_node)
 	(void)current_node;
 	if (!line)
 	{
-		ft_putstr_fd("\n-bash: warning: here_document closed.\n", 2);
+		ft_putstr_fd("\n-minishell: warning: here_document closed.\n", 2);
 		return (1);
 	}
 	return (0);

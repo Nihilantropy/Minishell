@@ -2,7 +2,7 @@
 
 static void	process_child(t_shell *shell, t_cmd *current_node, int fd[2]);
 static void	process_parent(t_shell *shell, t_cmd *current_node);
-static void	check_path(t_shell *shell, t_cmd *current_node);
+void		handle_exit_status(t_shell *shell, int status);
 
 /*
 	1) Create the fd[2] for the pipe communications between process (fd[0]=read, fd[1]=write)
@@ -35,7 +35,7 @@ void	process_command(t_shell *shell)
 		i++;
 	}
 	wait(&status);
-	shell->last_exit_status = status;
+	//handle_exit_status(shell, status);
 	process_parent(shell, current_node);
 }
 
@@ -60,7 +60,6 @@ static void	process_child(t_shell *shell, t_cmd *current_node, int fd[2])
 		redir_input(shell, current_node->redir);
 		redir_output(current_node->redir);
 		close(fd[0]);
-		check_path(shell, current_node);
 		if (current_node->builtin.is_builtin)
 		{
 			handle_builtin(shell, current_node);
@@ -83,7 +82,6 @@ static void	process_parent(t_shell *shell, t_cmd *current_node)
 {
 	redir_input(shell, current_node->redir);
 	redir_output(current_node->redir);
-	check_path(shell, current_node);
 	if (current_node->builtin.is_builtin)
 	{
 		handle_builtin(shell, current_node);
@@ -93,13 +91,4 @@ static void	process_parent(t_shell *shell, t_cmd *current_node)
 		exe_cmd(shell, current_node);
 	else
 		ft_exit_error("");
-}
-
-static void	check_path(t_shell *shell, t_cmd *current_node)
-{
-	if (!shell->path)
-	{
-		printf("-bash: %s: No such file or directory\n", current_node->matrix[0]); // maybe perror
-		exit(EXIT_FAILURE);
-	}
 }

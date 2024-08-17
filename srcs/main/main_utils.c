@@ -25,6 +25,8 @@ void	free_shell_lists(t_shell *shell)
 {
 	if (shell->env)
 		free_env_list(&shell->env);
+	if (shell->new_env[0])
+		free_matrix(shell->new_env);
 }
 
 void	print_matrix(char **matrix)
@@ -66,6 +68,8 @@ void	free_matrix(char **matrix)
 	int	y;
 
 	y = 0;
+	if (!matrix[y])
+		return ;
 	while (matrix[y])
 		free(matrix[y++]);
 	free(matrix);

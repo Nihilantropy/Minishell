@@ -12,7 +12,7 @@ void	handle_builtin_pwd(t_shell *shell)
 	else
 	{
 		shell->last_exit_status = EXIT_STATUS_ERROR;
-		perror(ERR_PWD);
+		ft_putstr_fd(ERR_PWD, 2);
 	}
 
 }

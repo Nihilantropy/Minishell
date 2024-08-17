@@ -16,9 +16,10 @@
 # define EXIT_MAIN "User wrote exit\n"
 
 # define ERR_ALLOC_ENV "Error. ENV allocation failed.\n"
+# define ERR_NEW_ENV_ALLOC "Error. NEW_ENV allocation failed.\n"
 # define ERR_ALLOC_NAME "Error. NAME allocation failed.\n"
 # define ERR_ALLOC_VALUE "Error. VALUE allocation failed.\n"
-
+# define ERR_ENV_VAR "Error. VAR does not exist.\n"
 # define ERR_NBR_ARG "Error. No argument should be provided.\n"
 # define ERR_PIPE_INPUT "Error. Pipe input is not correct.\n"
 # define ERR_ALLOC_STR "Error. STRING allocation failed.\n"
@@ -37,13 +38,14 @@
 # define ERR_ALLOC_PARSED_NAME "Error. PARSED NAME allocation failed.\n"
 # define ERR_ALLOR_EXPORT "Error. EXPORT allocation failed.\n"
 # define ERR_ALLOC_ARRAY "Error. ARRAY allocation failed.\n"
+# define ERR_CMD_ALLOC "Error. CMD allocation failed.\n"
 
 # define ERR_PWD "Error. PWD failed.\n"
 # define ERR_CD_PATH "Error. path not found.\n"
 
 # define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"
 
-# define ERR_PIPE_FIRST_INDEX "-bash: syntax error near unexpected token `|'"
+# define ERR_PIPE_FIRST_INDEX "-minishell: syntax error near unexpected token `|'"
 # define ERR_PIPE_LAST_INDEX "Error. Pipe at last index.\n"
 
 # define ERR_PIPE "Error. Pipe error -1\n"

@@ -4,21 +4,16 @@ static int	check_exit_invalid_arg(t_shell *shell);
 static int	check_exit_alpha_arg(char **matrix);
 static int	check_exit_multi_arg(char **matrix);
 
-
 void	handle_builtin_exit(t_shell *shell)
 {
 	if (check_exit_invalid_arg(shell) == 0)
 	{
-		shell->last_exit_status = EXIT_STATUS_SUCCESS; // TODO
 		free_shell_lists(shell);
 		free_prompt_lists(shell);
-		//kill(getppid(), SIGTERM); // TODO can't use getppid()
-		exit(1);
+		exit(EXIT_SUCCESS);
 	}
 	else
-	{
-		shell->last_exit_status = EXIT_STATUS_ERROR; // TODO
-	}
+		return ;
 	return ;
 }
 
@@ -47,7 +42,7 @@ static int	check_exit_alpha_arg(char **matrix)
 	{
 		if (!ft_isdigit(matrix[1][x]))
 		{
-			printf("-bash: exit: %s: ", matrix[1]);
+			printf("-minishell: exit: %s: ", matrix[1]);
 			printf("numeric argument required\n");
 			return (0);
 		}

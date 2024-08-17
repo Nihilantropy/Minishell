@@ -27,7 +27,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 	getcwd(current_pwd, 2048);
 	if (chdir(matrix[1]) == -1)
 	{
-		perror("bash");
+		perror("minishell");
 		shell->last_exit_status = EXIT_STATUS_ERROR;
 		return ;
 	}
