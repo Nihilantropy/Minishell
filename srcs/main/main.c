@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_shell		shell;
 
@@ -11,6 +11,7 @@ int main(int argc, char **argv, char **envp)
 	}
 	(void)argv;
 	init_shell(&shell, envp);
+	//child_proc_signal_handler();
 	signal_handler();
 	if (isatty(STDIN_FILENO))
 	{

@@ -60,8 +60,8 @@ void	redir_output(t_redir_list *redir)
 			write_file = open(current_node->fd_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 			if (write_file == -1)
 				ft_exit_error(ERR_WRITE_FILE);
-            if (dup2(write_file, STDOUT_FILENO) == -1)
-                perror("dup2 outfile");
+			if (dup2(write_file, STDOUT_FILENO) == -1)
+				perror("dup2 outfile");
 			close(write_file);
 		}
 		if (current_node->type.append)
@@ -69,7 +69,7 @@ void	redir_output(t_redir_list *redir)
 			write_file = open(current_node->fd_name, O_WRONLY | O_CREAT | O_APPEND, 0600);
 			if (write_file == -1)
 				ft_exit_error(ERR_WRITE_FILE);
-            if (dup2(write_file, STDOUT_FILENO) == -1)
+			if (dup2(write_file, STDOUT_FILENO) == -1)
 				perror("dup2 append");
 			close(write_file);
 		}

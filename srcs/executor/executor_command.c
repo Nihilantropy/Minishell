@@ -28,14 +28,14 @@ static void	handle_relative_path(t_shell *shell, t_cmd *current_node)
 	current_node->matrix[0] = cmd;
 	if (access(cmd_path, F_OK) != 0)
 	{
-		perror("minishell: no such file or directory\n");
+		ft_putstr_fd("minishell: no such file or directory\n", 2);
 		free(cmd_path);
 		free_matrix(shell->path);
 		exit(EXIT_FAILURE);
 	}
 	if (execve(cmd_path, current_node->matrix, shell->new_env) == -1)
 	{
-		perror("execve failed\n");
+		ft_putstr_fd("execve failed\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -48,7 +48,6 @@ static void	handle_env_path(t_shell *shell, t_cmd *current_node)
 	cmd_path = find_cmd_path(shell, current_node);
 	if (!cmd_path)
 	{
-		printf("EVVIVA!\n");
 		printf("%s: command not found\n", current_node->matrix[0]);
 		exit(EXIT_FAILURE);
 	}

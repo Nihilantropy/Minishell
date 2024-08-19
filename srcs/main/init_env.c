@@ -10,7 +10,7 @@ void		update_new_shell_env(t_shell *shell);
 */
 void	init_env(t_shell *shell, char **envp)
 {
-	char **current_var;
+	char	**current_var;
 
 	current_var = envp;
 	while (*current_var)

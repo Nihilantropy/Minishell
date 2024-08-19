@@ -5,11 +5,13 @@ static void	process_parent(t_shell *shell, t_cmd *current_node);
 void		handle_exit_status(t_shell *shell, int status);
 
 /*
-	1) Create the fd[2] for the pipe communications between process (fd[0]=read, fd[1]=write)
-	2) The child process handle all the command exept the last one. In case there is
-		just one command, only the parent process is called
-	3) Once each child process has finish his execution, the input is redirected to the read pipe
-		(the write pipe is handled in the child process itself)
+	1) Create the fd[2] for the pipe communications between process 
+		(fd[0]=read, fd[1]=write)
+	2) The child process handle all the command exept the last one. 
+		In case there is just one command, only the parent process is called
+	3) Once each child process has finish his execution, the input is 
+		redirected to the read pipe (the write pipe is handled in the 
+		child process itself)
 	4) Loop all the command list untill the last node
 	5) The parent process handle the last command node
 */
@@ -35,7 +37,7 @@ void	process_command(t_shell *shell)
 		i++;
 	}
 	wait(&status);
-	//handle_exit_status(shell, status);
+	handle_exit_status(shell, status);
 	process_parent(shell, current_node);
 }
 
@@ -70,8 +72,8 @@ static void	process_child(t_shell *shell, t_cmd *current_node, int fd[2])
 		else
 			ft_exit_error("");
 	}
-	wait(&status);
-	shell->last_exit_status = status;
+	waitpid(pid, &status, 0);
+	handle_exit_status(shell, status);
 }
 
 /*
@@ -80,6 +82,7 @@ static void	process_child(t_shell *shell, t_cmd *current_node, int fd[2])
 */
 static void	process_parent(t_shell *shell, t_cmd *current_node)
 {
+	printf("process pid is: %d\n", getpid());
 	redir_input(shell, current_node->redir);
 	redir_output(current_node->redir);
 	if (current_node->builtin.is_builtin)
@@ -88,7 +91,10 @@ static void	process_parent(t_shell *shell, t_cmd *current_node)
 		exit(EXIT_SUCCESS);
 	}
 	else if (current_node->matrix[0])
+	{
+		printf("EVVIVA! process parent\n");
 		exe_cmd(shell, current_node);
+	}
 	else
 		ft_exit_error("");
 }

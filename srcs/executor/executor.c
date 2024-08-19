@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 static void	handle_single_builtin_cmd(t_shell *shell);
-void	handle_exit_status(t_shell *shell, int status);
+void		handle_exit_status(t_shell *shell, int status);
 
 /*
 	1) Make a copy of the STDIN and STDOUT to reset after each command
@@ -12,9 +12,10 @@ void	executor(t_shell *shell)
 {
 	pid_t	pid;
 	int		status;
+
 	shell->stdin_copy = dup(STDIN_FILENO);
 	shell->stdout_copy = dup(STDOUT_FILENO);
-
+	printf("process pid is: %d\n", getpid());
 	if (shell->pipes_nbr == 0 && shell->cmd->builtin.is_builtin)
 		handle_single_builtin_cmd(shell);
 	else
@@ -24,7 +25,6 @@ void	executor(t_shell *shell)
 			ft_exit_error(ERR_FORK);
 		if (pid == 0)
 		{
-			child_proc_signal_handler(shell);
 			process_command(shell);
 			exit(EXIT_SUCCESS);
 		}
@@ -44,6 +44,7 @@ static void	handle_single_builtin_cmd(t_shell *shell)
 	t_cmd	*current_node;
 
 	current_node = shell->cmd;
+	printf("EVVIVA!\n");
 	redir_input(shell, current_node->redir);
 	redir_output(current_node->redir);
 	if (!shell->path)

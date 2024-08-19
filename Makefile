@@ -33,6 +33,7 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(PARSER_DIR)/parser_cmd_list_utils.c \
 				$(SIGNAL_DIR)/signal_sigint.c \
 				$(SIGNAL_DIR)/signal_sigterm.c \
+				$(SIGNAL_DIR)/signal_sigquit.c \
 				$(SIGNAL_DIR)/signal_child_proc_sigint.c \
 				$(BUILTIN_DIR)/builtin.c \
 				$(BUILTIN_DIR)/builtin_export.c \

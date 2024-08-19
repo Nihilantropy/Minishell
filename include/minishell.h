@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -28,13 +28,13 @@
 # define EXIT_STATUS_SUCCESS 0
 # define EXIT_STATUS_ERROR 1
 
-typedef	enum e_bool
+typedef enum e_bool
 {
 	false = 0,
 	true = 1,
 }	t_bool;
 
-typedef	struct s_quote
+typedef struct s_quote
 {
 	t_bool	NONE;
 	t_bool	SINGLE;
@@ -72,7 +72,7 @@ typedef struct s_builtin
 	t_bool	exit;
 }			t_builtin;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*var;
 	char			*name;
@@ -82,13 +82,12 @@ typedef struct	s_env
 	struct s_env	*prev;
 }					t_env;
 
-typedef struct	s_here_doc
+typedef struct s_here_doc
 {
 	char	*limiter;
 	char	*tmp_file_name;
 	int		index;
 }			t_here_doc;
-
 
 typedef struct s_redir_list
 {
@@ -152,8 +151,11 @@ void	signal_handler(void);
 /* signal sigterm */
 void	signal_sigterm(t_shell *shell);
 
+/* signal sigquit */
+void	sigquit_handler(int sig);
+
 /* signal process */
-void	child_proc_signal_handler(t_shell *shell);
+void	child_proc_signal_handler(void);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -224,7 +226,7 @@ void	free_all_redir_list(t_cmd *cmd);
 void	free_redir_list(t_redir_list **redir);
 
 /* builtin */
-void 	check_builtin(t_cmd *cmd);
+void	check_builtin(t_cmd *cmd);
 void	handle_builtin(t_shell *shell, t_cmd *current_node);
 
 /* builtin export */
@@ -234,7 +236,7 @@ void	handle_builtin_export(t_shell *shell, char **matrix);
 void	dup_ex_list(t_env *export, t_env **export_dup);
 
 /* builtin export utils 2 */
-void 	print_env_list(t_env *env);
+void	print_env_list(t_env *env);
 int		var_length(char *line);
 char	*copy_ex_var(char *str);
 char	*copy_ex_name(char *current_var);
@@ -290,4 +292,3 @@ void	process_command(t_shell *shell);
 void	exe_cmd(t_shell *shell, t_cmd *current_node);
 
 #endif
-
