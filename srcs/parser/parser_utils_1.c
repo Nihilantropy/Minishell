@@ -17,9 +17,9 @@ t_arg	*init_new_node(void)
 	new_node->str = NULL;
 	init_token(new_node);
 	init_redir(new_node);
-	new_node->quote.DOUBLE = false;
-	new_node->quote.SINGLE = false;
-	new_node->quote.NONE = false;
+	new_node->quote.double_q = false;
+	new_node->quote.single_q = false;
+	new_node->quote.none_q = false;
 	new_node->chained = false;
 	new_node->prev = NULL;
 	new_node->next = NULL;

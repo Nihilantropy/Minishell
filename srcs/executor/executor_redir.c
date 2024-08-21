@@ -1,7 +1,5 @@
 #include "../../include/minishell.h"
 
-static void	handle_here_doc(t_shell *shell, t_redir_list *current_node);
-
 /*
 	1) Loop all the redir list. Find each here_doc node to unset the file
 	2) Reset the STDIN and the STDOUT to the default one
@@ -75,37 +73,4 @@ void	redir_output(t_redir_list *redir)
 		}
 		current_node = current_node->next;
 	}
-}
-
-/*
-	1) Open the here_doc_*.temp in write mode
-	2) Write on the here_doc_*.tmp untill the limiter is called
-	3) Close the here_doc_*.tmp
-	4) Reopen the here_doc_*.tmp in read mode
-*/
-static void	handle_here_doc(t_shell *shell, t_redir_list *current_node)
-{
-	int		here_doc;
-	char	*line;
-
-	here_doc = open(current_node->here_doc->tmp_file_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-	if (here_doc == -1)
-		ft_exit_error(ERR_HERE_DOC);
-	while (1)
-	{
-		ft_putstr_fd("> ", shell->stdin_copy);
-		line = get_next_line(shell->stdin_copy);
-		if (handle_here_doc_sigterm(line, current_node))
-			break ;
-		if (!ft_strncmp(line, current_node->fd_name, ft_strlen(current_node->fd_name)) &&
-			ft_strlen(current_node->fd_name) == (ft_strlen(line) - 1))
-		{
-			free(line);
-			break ;
-		}
-		ft_putstr_fd(line, here_doc);
-		free(line);
-	}
-	close(here_doc);
-	open_here_doc_r(here_doc, current_node->here_doc->tmp_file_name);
 }

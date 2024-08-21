@@ -20,7 +20,7 @@ void	polish_list(t_shell *shell, t_arg *arg)
 	current_node = arg;
 	while (current_node)
 	{
-		if ((current_node->quote.NONE || current_node->quote.DOUBLE)
+		if ((current_node->quote.none_q || current_node->quote.double_q)
 			&& current_node->str && ft_strchr(current_node->str, '$'))
 			handle_env_var(shell, current_node);
 		set_node_index(current_node);

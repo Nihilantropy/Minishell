@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 15:54:01 by crea              #+#    #+#             */
-/*   Updated: 2024/06/04 21:47:34 by crea             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -36,9 +24,9 @@ typedef enum e_bool
 
 typedef struct s_quote
 {
-	t_bool	NONE;
-	t_bool	SINGLE;
-	t_bool	DOUBLE;
+	t_bool	none_q;
+	t_bool	single_q;
+	t_bool	double_q;
 }			t_quote;
 
 typedef struct s_token
@@ -145,17 +133,18 @@ void	print_matrix(char **matrix);
 char	**dup_matrix(char **matrix);
 void	free_matrix(char **matrix);
 
+/* signal */
+void	signal_handler_interactive(void);
+void	signal_handler_non_interactive(void);
+
 /* signal sigint */
-void	signal_handler(void);
+void	sigint_handler(void);
+
+/* signal sigquit */
+void	sigquit_handler(void);
 
 /* signal sigterm */
 void	signal_sigterm(t_shell *shell);
-
-/* signal sigquit */
-void	sigquit_handler(int sig);
-
-/* signal process */
-void	child_proc_signal_handler(void);
 
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
@@ -281,9 +270,8 @@ void	redir_input(t_shell *shell, t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
 void	reset_redir(t_shell *shell);
 
-/* executor redir utils */
-void	open_here_doc_r(int here_doc, char *here_doc_fd_name);
-int		handle_here_doc_sigterm(char *line, t_redir_list *current_node);
+/* executor redir heredoc */
+void	handle_here_doc(t_shell *shell, t_redir_list *current_node);
 
 /* executor process */
 void	process_command(t_shell *shell);

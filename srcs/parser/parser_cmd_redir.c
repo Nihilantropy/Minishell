@@ -2,7 +2,7 @@
 
 static void	init_redir_node(t_redir_list **redir);
 static void	copy_redir(t_redir_list *redir, t_shell *shell);
-static void	handle_here_doc(t_redir_list *redir, int here_doc_index);
+static void	create_here_doc_list(t_redir_list *redir, int here_doc_index);
 
 /*
 	1) Build all the necessary nodes for the redirection list, each inside the
@@ -66,7 +66,7 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 			set_node_type(redir, current_node);
 			redir->fd_name = ft_strdup(current_node->str);
 			if (redir->type.here_doc)
-				handle_here_doc(redir, here_doc_index++);
+				create_here_doc_list(redir, here_doc_index++);
 			redir = redir->next;
 		}
 		current_node = current_node->next;
@@ -80,7 +80,7 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 	Create a struct for the here_doc, saving the spiecific index
 	of the file, and the speicific name, based on the index
 */
-static void	handle_here_doc(t_redir_list *redir, int here_doc_index)
+static void	create_here_doc_list(t_redir_list *redir, int here_doc_index)
 {
 	char	*temp;
 	char	*file_name;

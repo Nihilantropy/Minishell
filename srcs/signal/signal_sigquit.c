@@ -1,10 +1,12 @@
 #include "../../include/minishell.h"
 
-void	sigquit_handler(int sig)
+/*
+	Replace SIGQUIT signal with SIG_IGN to do nothing
+*/
+void	sigquit_handler(void)
 {
 	struct sigaction	sa;
 
-	(void)sig;
 	sa.sa_handler = SIG_IGN;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;

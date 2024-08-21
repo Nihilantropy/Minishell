@@ -59,12 +59,12 @@ void	print_list(t_arg *arg)
 			printf("type = here_doc\n");
 		else if (arg->type.append)
 			printf("redir = append\n");
-		if (arg->quote.NONE)
+		if (arg->quote.none_q)
 			printf("not quoted\n");
-		else if (arg->quote.SINGLE)
-			printf("single quoted\n");
-		else if (arg->quote.DOUBLE)
-			printf("double quoted\n");
+		else if (arg->quote.single_q)
+			printf("single_q quoted\n");
+		else if (arg->quote.double_q)
+			printf("double_q quoted\n");
 		if (arg->chained)
 			printf("chained to next node\n");
 		printf("------------------\n");

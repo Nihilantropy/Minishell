@@ -6,13 +6,12 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 	{
-		printf(ERR_NBR_ARG);
-		return (0);
+		ft_putstr_fd(ERR_NBR_ARG, 2);
+		return (1);
 	}
 	(void)argv;
 	init_shell(&shell, envp);
-	//child_proc_signal_handler();
-	signal_handler();
+	signal_handler_interactive();
 	if (isatty(STDIN_FILENO))
 	{
 		shell_prompt(&shell);

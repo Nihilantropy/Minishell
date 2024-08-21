@@ -16,9 +16,9 @@ static char	*create_quote_node(t_arg **arg, char *temp)
 		ft_exit_error(ERR_ALLOC_QUOTE_NODE);
 	ft_strlcpy(new_node->str, temp + 1, len);
 	if (quote == '\'')
-		new_node->quote.SINGLE = true;
+		new_node->quote.single_q = true;
 	else if (quote == '\"')
-		new_node->quote.DOUBLE = true;
+		new_node->quote.double_q = true;
 	append_node(arg, new_node);
 	return (temp + len + 1);
 }
@@ -45,7 +45,7 @@ static char	*create_token_node(t_arg **arg, char *temp)
 	else if (!ft_strcmp(new_node->str, ">>"))
 		new_node->token.t_append = true;
 	new_node->token.is_token = true;
-	new_node->quote.NONE = true;
+	new_node->quote.none_q = true;
 	append_node(arg, new_node);
 	return (temp + len);
 }
@@ -61,7 +61,7 @@ static char	*create_new_node(t_arg **arg, char *temp)
 	if (!new_node->str)
 		ft_exit_error(ERR_ALLOC_STR);
 	ft_strlcpy(new_node->str, temp, len + 1);
-	new_node->quote.NONE = true;
+	new_node->quote.none_q = true;
 	append_node(arg, new_node);
 	return (temp + len);
 }
@@ -100,7 +100,7 @@ static void	parse_list(t_shell *shell)
 
 /*
 	1) Read from the user input with readline
-	2) Handle CTRL -D signal (EOF), exiting the shell
+	2) Handle CTRL + D signal (EOF), exiting the shell
 	3) Handle instant ENTER, displaying a new prompt
 	4) Parse the lise into a list
 	5) See if the command can go into the history

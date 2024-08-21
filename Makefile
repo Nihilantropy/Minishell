@@ -31,10 +31,10 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(PARSER_DIR)/parser_cmd_redir_utils.c \
 				$(PARSER_DIR)/parser_cmd_list.c \
 				$(PARSER_DIR)/parser_cmd_list_utils.c \
+				$(SIGNAL_DIR)/signal.c \
 				$(SIGNAL_DIR)/signal_sigint.c \
 				$(SIGNAL_DIR)/signal_sigterm.c \
 				$(SIGNAL_DIR)/signal_sigquit.c \
-				$(SIGNAL_DIR)/signal_child_proc_sigint.c \
 				$(BUILTIN_DIR)/builtin.c \
 				$(BUILTIN_DIR)/builtin_export.c \
 				$(BUILTIN_DIR)/builtin_export_utils_1.c \
@@ -51,7 +51,7 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(BUILTIN_DIR)/builtin_cd_utils.c \
 				$(EXECUTOR_DIR)/executor.c \
 				$(EXECUTOR_DIR)/executor_redir.c \
-				$(EXECUTOR_DIR)/executor_redir_utils.c \
+				$(EXECUTOR_DIR)/executor_redir_heredoc.c \
 				$(EXECUTOR_DIR)/executor_process.c \
 				$(EXECUTOR_DIR)/executor_command.c \
 				$(EXECUTOR_DIR)/executor_command_utils.c
