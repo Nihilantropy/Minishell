@@ -1,12 +1,14 @@
+Heredoc must be redo. Follow this step:
+	1) parse the string to find all the '<<' token occurence.
+	2) handle them right before the executor part and make as many temp files as the redirection needed
+	3) once all the necessary files are created, in the executor all is left to do is to redirect the standard input to the temp files
+This method should also handle correctly the signal calls when the Heredocs are open in write mode
+
 Implement NON-INTERACTIVE MODE. ex: "./minishell -c echo hello; ls". This calls the programm with the arguments to parse
 and to execute.
 
 We must redo the signals because they don't work in the best way
 
-See the cat | cat pipeline. (in general see the pipe)
-
 Check eventual memory leaks.
 
-Check the perror on the unset PATH event
-
-Check the execve path. The programs can be executed from any directory, not only the PATH
+Implement strong error messages on standard error.

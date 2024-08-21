@@ -19,7 +19,7 @@ void	reset_redir(t_shell *shell)
 	1) Loop all the redir list to find the here_doc nodes
 	2) Loop all the redir list to find the infile nodes
 */
-void	redir_input(t_shell *shell, t_redir_list *redir)
+void	redir_input(t_redir_list *redir)
 {
 	t_redir_list	*current_node;
 	int				read_file;
@@ -28,7 +28,14 @@ void	redir_input(t_shell *shell, t_redir_list *redir)
 	while (current_node)
 	{
 		if (current_node->type.here_doc)
-			handle_here_doc(shell, current_node);
+		{
+			read_file = open(current_node->here_doc->tmp_file_name, O_RDONLY);
+			if (read_file == -1)
+				ft_exit_error(ERR_HERE_DOC);
+			if (dup2(read_file, STDIN_FILENO) == -1)
+				perror("dup2 here_doc");
+			close(read_file);
+		}
 		else if (current_node->type.infile)
 		{
 			read_file = open(current_node->fd_name, O_RDONLY, 0777);

@@ -1,6 +1,12 @@
 #include "../../include/minishell.h"
 
-void	free_prompt_lists(t_shell *shell)
+/*	free prompt:
+		free all the memory of the read line and
+		the lists of the parsed line. 
+		Free also the path, so it will reset everytime
+		the user insert a prompt.
+*/
+void	free_prompt(t_shell *shell)
 {
 	if (shell->line && shell->line[0] == '\0')
 	{
@@ -21,7 +27,11 @@ void	free_prompt_lists(t_shell *shell)
 	}
 }
 
-void	free_shell_lists(t_shell *shell)
+/*	free shell:
+		at exit, free the duplicated env list
+		and the relative env matrix
+*/
+void	free_shell(t_shell *shell)
 {
 	if (shell->env)
 		free_env_list(&shell->env);
@@ -41,6 +51,9 @@ void	print_matrix(char **matrix)
 	}
 }
 
+/*	dup matrix:
+		duplicate a matrix
+*/
 char	**dup_matrix(char **matrix)
 {
 	char	**copy_matrix;

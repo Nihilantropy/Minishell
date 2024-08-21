@@ -8,8 +8,8 @@ void	handle_builtin_exit(t_shell *shell)
 {
 	if (check_exit_invalid_arg(shell) == 0)
 	{
-		free_shell_lists(shell);
-		free_prompt_lists(shell);
+		free_shell(shell);
+		free_prompt(shell);
 		exit(EXIT_SUCCESS);
 	}
 	else

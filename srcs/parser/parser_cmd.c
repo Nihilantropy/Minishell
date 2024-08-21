@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-static void	init_cmd_node(t_shell *shell);
+static void	init_cmd_node(t_shell *shell, int i);
 static void	build_nodes(t_shell *shell);
 static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell);
 
@@ -15,7 +15,7 @@ void	parse_matrix(t_shell *shell)
 	i = 0;
 	while (i < (shell->pipes_nbr + 1))
 	{
-		init_cmd_node(shell);
+		init_cmd_node(shell, i);
 		i++;
 	}
 	build_nodes(shell);
@@ -24,13 +24,14 @@ void	parse_matrix(t_shell *shell)
 /*
 	Initializing the command node and appending the node to the list
 */
-static void	init_cmd_node(t_shell *shell)
+static void	init_cmd_node(t_shell *shell, int i)
 {
 	t_cmd	*new_node;
 
 	new_node = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new_node)
 		ft_exit_error(ERR_ALLOC_NEW_NODE);
+	new_node->index = i + 1;
 	new_node->matrix = NULL;
 	new_node->redir = NULL;
 	new_node->builtin.is_builtin = false;

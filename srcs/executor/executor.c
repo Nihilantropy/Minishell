@@ -30,7 +30,7 @@ void	executor(t_shell *shell)
 		handle_exit_status(shell, status);
 	}
 	reset_redir(shell);
-	free_prompt_lists(shell);
+	free_prompt(shell);
 }
 
 /*
@@ -42,7 +42,7 @@ static void	handle_single_builtin_cmd(t_shell *shell)
 	t_cmd	*current_node;
 
 	current_node = shell->cmd;
-	redir_input(shell, current_node->redir);
+	redir_input(current_node->redir);
 	redir_output(current_node->redir);
 	if (!shell->path)
 	{

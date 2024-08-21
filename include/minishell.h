@@ -88,6 +88,7 @@ typedef struct s_redir_list
 
 typedef struct s_cmd
 {
+	int				index;
 	char			**matrix;
 	t_redir_list	*redir;
 	t_builtin		builtin;
@@ -127,8 +128,8 @@ typedef struct s_shell
 void	shell_prompt(t_shell *shell);
 
 /* main utils */
-void	free_prompt_lists(t_shell *shell);
-void	free_shell_lists(t_shell *shell);
+void	free_prompt(t_shell *shell);
+void	free_shell(t_shell *shell);
 void	print_matrix(char **matrix);
 char	**dup_matrix(char **matrix);
 void	free_matrix(char **matrix);
@@ -214,6 +215,9 @@ void	set_node_type(t_redir_list *redir, t_arg *current_node);
 void	free_all_redir_list(t_cmd *cmd);
 void	free_redir_list(t_redir_list **redir);
 
+/* parser heredoc */
+void	handle_heredoc(t_shell *shell);
+
 /* builtin */
 void	check_builtin(t_cmd *cmd);
 void	handle_builtin(t_shell *shell, t_cmd *current_node);
@@ -266,12 +270,9 @@ void	handle_history(t_shell *shell);
 void	executor(t_shell *shell);
 
 /* executor redir */
-void	redir_input(t_shell *shell, t_redir_list *redir);
+void	redir_input(t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
 void	reset_redir(t_shell *shell);
-
-/* executor redir heredoc */
-void	handle_here_doc(t_shell *shell, t_redir_list *current_node);
 
 /* executor process */
 void	process_command(t_shell *shell);

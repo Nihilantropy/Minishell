@@ -124,6 +124,7 @@ void	parse_args(t_shell *shell)
 	handle_history(shell);
 	parse_matrix(shell);
 	find_total_path(shell);
+	handle_heredoc(shell);
 	free(shell->line);
 	shell->line = NULL;
 }

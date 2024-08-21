@@ -30,7 +30,7 @@ void process_command(t_shell *shell) {
             close(fd[0]);
             close(fd[1]);
 
-            redir_input(shell, current_node->redir);
+            redir_input(current_node->redir);
             redir_output(current_node->redir);
             if (current_node->builtin.is_builtin)
                 handle_builtin(shell, current_node);
