@@ -4,3 +4,5 @@ and to execute.
 Check eventual memory leaks.
 
 Implement strong error messages on standard error.
+
+Fancy it up a little!

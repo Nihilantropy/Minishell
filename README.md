@@ -63,7 +63,7 @@ Minihell will also support several built-in commands, including:
 
 ## ⚙️ Bonus Challenges
 
-Once you’ve perfected the essentials, take on these bonus tasks:
+Once you’ve perfected the essentials, you can take on these bonus tasks (not present in this project):
 
 - [ ] **Logical Operators**: Implement **&&** and **||** for command chaining, with support for parentheses to dictate priority.
 
@@ -79,10 +79,22 @@ Once you’ve perfected the essentials, take on these bonus tasks:
 
  ### Installation
 
-To get your Minihell up and running:
+You can clode the repository by https protocol using git clone
 
 ```bash
-make
+git clone https://github.com/Nihilantropy/Minishell.git
+```
+
+or by using ssh protocol
+
+```bash
+git clone git@github.com:Nihilantropy/Minishell.git
+```
+
+then you can access the directory and run the make command
+
+```bash
+cd Minishell && make
 ```
 
 ### Usage
@@ -93,7 +105,8 @@ Fire up your shell:
 ./minishell
 ```
 
-From here, you can start typing commands, exploring directories, and even writing small scripts to see how your shell handles them.
+From here you can have some fun, testing basic commands, input and output redirections, builtin commands
+and pipelines :smile:!
 
 ### Testing
 
