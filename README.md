@@ -79,7 +79,7 @@ Once you’ve perfected the essentials, you can take on these bonus tasks (not p
 
  ### Installation
 
-You can clode the repository by https protocol using git clone
+You can git clone the repository by https protocol
 
 ```bash
 git clone https://github.com/Nihilantropy/Minishell.git
