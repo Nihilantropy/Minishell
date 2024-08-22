@@ -90,7 +90,7 @@ make
 Fire up your shell:
 
 ```bash
-./minihell
+./minishell
 ```
 
 From here, you can start typing commands, exploring directories, and even writing small scripts to see how your shell handles them.
