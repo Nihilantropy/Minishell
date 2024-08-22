@@ -67,7 +67,7 @@ Once you’ve perfected the essentials, you can take on these bonus tasks (not p
 
 - [ ] **Logical Operators**: Implement **`&&`** and **`||`** for command chaining, with support for parentheses to dictate priority.
 
-- [ ] **Wildcards**: Allow **`\*`** to match files in the current directory, adding a bit of flair to your command execution.
+- [ ] **Wildcards**: Allow **`*`** to match files in the current directory, adding a bit of flair to your command execution.
 
 ## 🚀 Getting Started
 
@@ -99,7 +99,7 @@ cd Minishell && make
 
 ### Usage
 
-Fire up your shell:
+The last thing is to fire up this bad boy :fire:!:
 
 ```bash
 ./minishell
