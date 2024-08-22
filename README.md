@@ -123,6 +123,6 @@ May your code be bug-free and your shell flawless!
 
 Happy hacking! 🎉
 
-## Leave a stra :star:!
+## Leave a strar :star:!
 
 If you'd like to see an in-depth analisy of this code, leave a star to let us know! :love_letter:
