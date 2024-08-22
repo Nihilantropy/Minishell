@@ -108,6 +108,10 @@ Fire up your shell:
 From here you can have some fun, testing basic commands, input and output redirections, builtin commands
 and pipelines :smile:!
 
+## It's your turn :muscle:!
+
+Now that you know how it works it's time to buil your own hell... ehm I mean shell :fireworks:!
+
 ### Testing
 
 While testing is not mandatory, it’s highly encouraged! Creating tests will help you understand
