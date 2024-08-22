@@ -21,27 +21,27 @@ and fancy GUIs.
 
 Your task is to create a shell that can:
 
-1. **Display a Prompt**: When it’s time for a new command, your shell will ask politely.
+1. **Display a Prompt**: When it’s time for a new command, your shell will await politely.
 
 2. **Handle History**: Like a good friend, your shell remembers what you’ve said before.
 
 3. **Execute Commands**: Whether it’s finding an executable in your PATH or running something
-	by absolute path, your shell’s got you covered.
+	by absolute or relative path, your shell’s got you covered.
 
 4. **Signal Handling**: It’s tough to avoid global variables, but try to use just one for signal handling.
 	It’s like a tiny flag your shell waves when something important happens.
 
-5. **Quotes and Meta-Characters**: Your shell understands the power of quotes (single ' and double "), and it won’t misinterpret them.
+5. **Quotes and Meta-Characters**: Your shell understands the power of quotes (single `'` and double `"`), and it won’t misinterpret them.
 
-6. **Redirections**: <, >, <<, and >> – these symbols have special meanings, and your shell knows them all.
+6. **Redirections**: `<`, `>`, `<<`, and `>>` – these symbols have special meanings, and your shell knows them all.
 
 7. **Pipes**: Your shell will expertly pass the output of one command to the input of another, just like bash.
 
-8. **Environment Variables**: $VARIABLES are magical tokens that your shell will expand to their corresponding values.
+8. **Environment Variables**: **`$VARIABLES are magical tokens that your shell will expand to their corresponding values.
 
-9. **Exit Status**: $? tells the story of the last command’s success or failure.
+9. **Exit Status**: `$?` tells the story of the last command’s success or failure.
 
-10. **Interactive Mode**: In the heat of command-line battle, your shell handles ctrl-C, ctrl-D, and ctrl-\ with grace, just like bash.
+10. **Interactive Mode**: In the heat of command-line battle, your shell handles `ctrl-C`, `ctrl-D`, and `ctrl-\` with grace, just like bash.
 
 ## 🛠️ Builtin Commands
 
