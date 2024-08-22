@@ -110,7 +110,7 @@ and pipelines :smile:!
 
 ## It's your turn :muscle:!
 
-Now that you know how it works it's time to buil your own hell... ehm I mean shell :fireworks:!
+Now that you know how it works it's time to buil your own hell... ehm I mean shell :eyes:!
 
 ### Testing
 
