@@ -74,6 +74,7 @@ typedef struct s_here_doc
 {
 	char	*limiter;
 	char	*tmp_file_name;
+	t_bool	expand;
 	int		index;
 }			t_here_doc;
 
@@ -183,6 +184,7 @@ char	*ft_getenv(t_env *env, char *var_name);
 
 /* parser env */
 void	handle_env_var(t_shell *shell, t_arg *arg);
+char	*parse_env_var(t_shell *shell, char *str); // TODO
 
 /* parser polish list */
 void	polish_list(t_shell *shell, t_arg *arg);

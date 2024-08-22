@@ -2,12 +2,12 @@
 
 static void	init_redir_node(t_redir_list **redir);
 static void	copy_redir(t_redir_list *redir, t_shell *shell);
-static void	create_here_doc_list(t_redir_list *redir, int here_doc_index);
+static void	create_heredoc_list(t_arg *current_node, t_redir_list *redir, int here_doc_index);
 
-/*
-	1) Build all the necessary nodes for the redirection list, each inside the
-		command node
-	2) Copy the redirection file name inside the node, with the corrisponding types
+/*	build redir list:
+		1) Build all the necessary nodes for the redirection list, each inside the
+			command node
+		2) Copy the redirection file name inside the node, with the corrisponding types
 */
 void	build_redir_list(t_cmd *cmd, t_shell *shell)
 {
@@ -25,8 +25,8 @@ void	build_redir_list(t_cmd *cmd, t_shell *shell)
 	copy_redir(cmd->redir, shell);
 }
 
-/*
-	Initializing the redirection node and appending the node to the list
+/*	init redir node:
+		Initializing the redirection node and appending the node to the list.
 */
 static void	init_redir_node(t_redir_list **redir)
 {
@@ -45,11 +45,11 @@ static void	init_redir_node(t_redir_list **redir)
 	append_redir_node(redir, new_node);
 }
 
-/*
-	1) Copy the redirections untill the end or the pipe and set the
-		corrisponding type
-	2) If the current node is a pipe, move the node to the next one
-	3) Move the head of the arg list to the current node
+/*	copy redir:
+		1) Copy the redirections untill the end or the pipe and set the
+			corrisponding type
+		2) If the current node is a pipe, move the node to the next one
+		3) Move the head of the arg list to the current node
 */
 static void	copy_redir(t_redir_list *redir, t_shell *shell)
 {
@@ -66,7 +66,7 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 			set_node_type(redir, current_node);
 			redir->fd_name = ft_strdup(current_node->str);
 			if (redir->type.here_doc)
-				create_here_doc_list(redir, here_doc_index++);
+				create_heredoc_list(current_node, redir, here_doc_index++);
 			redir = redir->next;
 		}
 		current_node = current_node->next;
@@ -76,11 +76,13 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 	shell->arg = current_node;
 }
 
-/*
-	Create a struct for the here_doc, saving the spiecific index
-	of the file, and the speicific name, based on the index
+/*	create heredoc list:
+		Create a struct for the here_doc, saving the spiecific index
+		of the file, and the speicific name, based on the index.
+		Also check what type of quotetion the node has in order to
+		check the $VAR expantion.
 */
-static void	create_here_doc_list(t_redir_list *redir, int here_doc_index)
+static void	create_heredoc_list(t_arg *current_node, t_redir_list *redir, int here_doc_index)
 {
 	char	*temp;
 	char	*file_name;
@@ -97,4 +99,8 @@ static void	create_here_doc_list(t_redir_list *redir, int here_doc_index)
 	file_name = ft_strjoin(".here_doc_", temp);
 	free(temp);
 	redir->here_doc->tmp_file_name = file_name;
+	if (current_node->quote.none_q || current_node->quote.double_q)
+		redir->here_doc->expand = true;
+	else
+		redir->here_doc->expand = false;
 }

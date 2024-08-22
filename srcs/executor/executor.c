@@ -3,10 +3,10 @@
 static void	handle_single_builtin_cmd(t_shell *shell);
 void		handle_exit_status(t_shell *shell, int status);
 
-/*
-	1) Make a copy of the STDIN and STDOUT to reset after each list of commands
-	2) Fork the main process to execute the list of command
-	3) reset the redirection to the STDIN and STDOUT
+/*	executor:
+		1) Make a copy of the STDIN and STDOUT to reset after each list of commands
+		2) Fork the main process to execute the list of command
+		3) reset the redirection to the STDIN and STDOUT
 */
 void	executor(t_shell *shell)
 {

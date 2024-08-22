@@ -2,8 +2,8 @@
 
 static char	*join_matrix_to_node(char *str, char *to_join);
 
-/*
-	Return the length of the command + flags untill the end or the pipe
+/*	len to pipe cmd:
+		Return the length of the command + flags untill the end or the pipe.
 */
 int	len_to_pipe_cmd(t_arg *arg)
 {
@@ -24,10 +24,12 @@ int	len_to_pipe_cmd(t_arg *arg)
 	return (len);
 }
 
-/*
-	1) Copy the command + flags untill the end or the pipe
-	2) If the current node is a pipe, move the node to the next one
-	3) Move the head of the arg list to the current node
+/*	copy command:
+		1) Copy the command + flags untill the end or the pipe
+		2) If the current node is a pipe, move to the next node
+		3) If the previous node has the 'chained' flag active, join
+			the current node string to the prevoius str
+		4) Move the head of the arg list to the current node
 */
 void	copy_command(t_cmd *cmd, t_shell *shell)
 {
@@ -41,7 +43,8 @@ void	copy_command(t_cmd *cmd, t_shell *shell)
 		if (!(current_node->token.is_token || current_node->type.is_redir))
 		{
 			if (current_node->prev && current_node->prev->chained)
-				cmd->matrix[y - 1] = join_matrix_to_node(cmd->matrix[y - 1], current_node->str);
+				cmd->matrix[y - 1] = join_matrix_to_node(cmd->matrix[y - 1],
+															current_node->str);
 			else
 				cmd->matrix[y++] = ft_strdup(current_node->str);
 		}

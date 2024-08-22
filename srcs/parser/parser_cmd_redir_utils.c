@@ -2,8 +2,8 @@
 
 static t_redir_list	*find_last_redir_node(t_redir_list *redir);
 
-/*
-	Set the corrisponding redirection type
+/*	set node type:
+		Set the corrisponding redirection type.
 */
 void	set_node_type(t_redir_list *redir, t_arg *current_node)
 {

@@ -11,7 +11,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	(void)argv;
 	init_shell(&shell, envp);
-	signal_handler_interactive();
 	if (isatty(STDIN_FILENO))
 	{
 		shell_prompt(&shell);
@@ -23,6 +22,7 @@ void	shell_prompt(t_shell *shell)
 {
 	while (1)
 	{
+		signal_handler_interactive();
 		parse_args(shell);
 		if (shell->arg && shell->error == false)
 		{
