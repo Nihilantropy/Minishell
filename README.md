@@ -47,19 +47,19 @@ Your task is to create a shell that can:
 
 Minihell will also support several built-in commands, including:
 
-- [x] echo (with -n option)
+- [x] **echo** (with -n option)
 
-- [x] cd (change directory)
+- [x] **cd** (change directory)
 
-- [x] pwd (print working directory)
+- [x] **pwd** (print working directory)
 
-- [x] export (set environment variables)
+- [x] **export** (set environment variables)
 
-- [x] unset (unset environment variables)
+- [x] **unset** (unset environment variables)
 
-- [x] env (print environment)
+- [x] **env** (print environment)
 
-- [x] exit (close the shell)
+- [x] **exit** (close the shell)
 
 ## ⚙️ Bonus Challenges
 
