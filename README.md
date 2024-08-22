@@ -1,12 +1,12 @@
 # Minishell: Your Own Tiny Bash
+## From now on it will be called Minihell :fire!
 
-Welcome to Minishell, your very own journey into the magical world of command-line interfaces! 
+Welcome to Minihell, your very own journey into the magical world of command-line interfaces! 
 🌟 Imagine it as your personal little bash, crafted from scratch, and, like all things small and wonderful, it’s as beautiful as a shell.
-
 
 ## 🐚 Project Overview
 
-Minishell is a project that lets you create a basic yet functional shell, akin to the one you use every day but with a twist: it’s your creation!
+Minihell is a project that lets you create a basic yet functional shell, akin to the one you use every day but with a twist: it’s your creation!
 You’ll dive deep into the inner workings of processes, file descriptors, and command execution.
 By the end of this adventure, you’ll have your own shell that mimics many of the features of bash, but with your unique touch.
 
@@ -15,7 +15,7 @@ By the end of this adventure, you’ll have your own shell that mimics many of t
 Once upon a time, developers communicated with computers by flipping 1/0 switches. This wasn’t
 just tedious—it was downright frustrating! So, they invented something more human: the shell. It
 allowed them to interact with computers using commands typed in plain (well, sort of) English. With
-Minishell, you’ll step into their shoes, tackling the challenges they faced before the days of Windows 
+Minihell, you’ll step into their shoes, tackling the challenges they faced before the days of Windows 
 and fancy GUIs.
 
 ## 🎯 The Mission
@@ -46,7 +46,7 @@ Your task is to create a shell that can:
 
 ## 🛠️ Builtin Commands
 
-Minishell will also support several built-in commands, including:
+Minihell will also support several built-in commands, including:
 
 - [x] echo (with -n option)
 
@@ -80,7 +80,7 @@ Once you’ve perfected the essentials, take on these bonus tasks:
 
  ### Installation
 
-To get your Minishell up and running:
+To get your Minihell up and running:
 
 ```bash
 make
@@ -91,7 +91,7 @@ make
 Fire up your shell:
 
 ```bash
-./minishell
+./Minihell
 ```
 
 From here, you can start typing commands, exploring directories, and even writing small scripts to see how your shell handles them.
@@ -103,11 +103,11 @@ how your shell behaves in various scenarios and is incredibly helpful during pee
 
 ## 📜 Final Submission
 
-When you’re done crafting your Minishell, submit your work to your assigned Git repository.
+When you’re done crafting your Minihell, submit your work to your assigned Git repository.
 Double-check everything because only what’s in your repo will be graded!
 
-And remember, Deepthought—the all-seeing grading system—will be inspecting your code after peer evaluations,
-so make sure your shell is as robust and error-free as possible.
+If you are just a c programmer enthusiast... Greate job! Upload it on your git hub and see
+if you can get any review!
 
 ## 👥 Peer Evaluations
 
