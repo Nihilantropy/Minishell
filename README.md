@@ -37,11 +37,14 @@ Your task is to create a shell that can:
 
 7. **Pipes**: Your shell will expertly pass the output of one command to the input of another, just like bash.
 
-8. **Environment Variables**: **`$VARIABLES are magical tokens that your shell will expand to their corresponding values.
+8. **Environment Variables**: `$VARIABLES` are magical tokens that your shell will expand to their corresponding values.
 
 9. **Exit Status**: `$?` tells the story of the last command’s success or failure.
 
-10. **Interactive Mode**: In the heat of command-line battle, your shell handles `ctrl-C`, `ctrl-D`, and `ctrl-\` with grace, just like bash.
+10. **Interactive Mode**: In the heat of command-line battle, your shell handles ctrl-C, ctrl-D, and ctrl-\ with grace:
+	- `ctrl-C` displays a new prompt on a new line.
+	- `ctrl-D` exits the shell.
+	- `ctrl-\` does nothing.
 
 ## 🛠️ Builtin Commands
 
