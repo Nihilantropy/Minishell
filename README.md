@@ -82,15 +82,17 @@ Once you’ve perfected the essentials, take on these bonus tasks:
 
 To get your Minishell up and running:
 
-bash
-```make```
+```bash
+    make
+```
 
 ### Usage
 
 Fire up your shell:
 
-bash
-```./minishell```
+```bash
+    ./minishell
+```
 
 From here, you can start typing commands, exploring directories, and even writing small scripts to see how your shell handles them.
 
