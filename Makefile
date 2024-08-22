@@ -1,4 +1,4 @@
-NAME		= minishell
+NAME			= minishell
 
 MINISHELL_DIR	= ./srcs
 MINISHELL_HEAD	= ./include

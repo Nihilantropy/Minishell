@@ -19,9 +19,9 @@ void print_env_list(t_env *env)
 	}
 }
 
-/*
-	Find the length of the entire variable,
-	aka the node parameter
+/*	var length:
+		find the length of the entire variable,
+		aka the node parameter.
 */
 int	var_length(char *line)
 {
@@ -48,8 +48,8 @@ int	var_length(char *line)
 	return (0);
 }
 
-/*
-	Copy the entire variable in the node and return it
+/*	copy export variable:
+		copy the entire variable in the node and return it.
 */
 char	*copy_ex_var(char *str)
 {
@@ -61,8 +61,8 @@ char	*copy_ex_var(char *str)
 	return (var);
 }
 
-/*
-	Copy the export node name
+/*	copy export name:
+		copy the export node name.
 */
 char	*copy_ex_name(char *current_var)
 {
@@ -79,8 +79,8 @@ char	*copy_ex_name(char *current_var)
 	return (name);
 }
 
-/*
-	Copy the export node value
+/*	copy export value:
+		copy the export node value.
 */
 char	*copy_ex_value(char *current_var)
 {

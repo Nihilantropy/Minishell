@@ -5,8 +5,8 @@ static void	handle_node_pointer(t_env *current_node, t_env *new_node);
 void		update_shell_env_level(t_shell *shell);
 void		update_new_shell_env(t_shell *shell);
 
-/*
-	Create a list copy of the envp
+/*	init env:
+		create a list copy of the envp (variable enviroment) at opening.
 */
 void	init_env(t_shell *shell, char **envp)
 {
@@ -22,11 +22,11 @@ void	init_env(t_shell *shell, char **envp)
 	update_new_shell_env(shell);
 }
 
-/*
-	Create the env node with 3 string:
-	1) the entire variable
-	2) the name of the variable
-	3) the value of the variable
+/*	crete new env node:
+		Create the env node with 3 string:
+		1) the entire variable
+		2) the name of the variable
+		3) the value of the variable
 */
 void	create_new_env_node(t_shell *shell, char *current_var)
 {
@@ -63,9 +63,9 @@ void	append_env_node(t_env **env, t_env *new_node)
 	new_node->next = NULL;
 }
 
-/*
-	If the name node that we are appending is already in the list,
-	we replace the old node with the new one
+/*	delete same name node:
+		if the name node that we are appending is already in the list,
+		we replace the old node with the new one.
 */
 static int	del_same_name_node(t_env **env, t_env *new_node)
 {
@@ -96,6 +96,10 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 	return (0);
 }
 
+/*	handle node pinter:
+		ensure that the node swapping is done correctly,
+		handling all the necessary pointers.
+*/
 static void	handle_node_pointer(t_env *current_node, t_env *new_node)
 {
 	if (current_node->prev->next)

@@ -34,7 +34,7 @@ void	create_pwd_node(t_shell *shell, char *new_pwd)
 	free(pwd_var);
 }
 
-void	substitute_pwd_node(t_env *current_node, char *new_pwd)
+void	update_pwd_node(t_env *current_node, char *new_pwd)
 {
 	char	*new_pwd_dup;
 

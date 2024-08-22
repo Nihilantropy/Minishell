@@ -7,9 +7,9 @@ static void		append_list_to_env(t_shell *shell, t_env *export);
 void			copy_ex_node(t_env *current_node, char **matrix, int y);
 int				check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export);
 
-/*
-	When export is called by the user we create a list to parse the
-	command and the arguments
+/*	handle builtin export:
+		when export is called by the user we create a list to parse the
+		command and the arguments.
 */
 void	handle_builtin_export(t_shell *shell, char **matrix)
 {
@@ -30,8 +30,8 @@ void	handle_builtin_export(t_shell *shell, char **matrix)
 	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
-/*
-	Loop the cmd matrix until all the parameter are placed in the list
+/*	create export list:
+		loop the cmd matrix until all the parameter are placed in the list.
 */
 static void	create_ex_list(t_shell *shell, char **matrix, t_env **export)
 {
@@ -58,9 +58,9 @@ static void	create_ex_list(t_shell *shell, char **matrix, t_env **export)
 	shell->last_exit_status = EXIT_STATUS_SUCCESS;
 }
 
-/*
-	Create the export node with the variable space
-	and append to the list
+/*	create export node:
+		create the export node with the variable space
+		and append to the list.
 */
 static t_env	*create_ex_node(t_env **export)
 {
@@ -78,9 +78,9 @@ static t_env	*create_ex_node(t_env **export)
 }
 
 
-/*
-	If the name of the argument is invalid, free the current export list
-	and display a new prompt
+/*	check invalid name:
+		if the name of the argument is invalid, free the current export list
+		and display a new prompt.
 */
 static int	check_invalid_name(t_shell *shell, t_env **export)
 {

@@ -2,6 +2,10 @@
 
 static void	search_here_doc(t_shell *shell, t_arg *arg);
 
+/*	handle history:
+		if the user input line contain an here document (<<),
+		the histoiry does not update.
+*/
 void	handle_history(t_shell *shell)
 {
 	search_here_doc(shell, shell->arg);

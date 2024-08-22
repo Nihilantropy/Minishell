@@ -3,8 +3,8 @@
 static void	dup_env_list(t_env *env, t_env **env_dup);
 static void	create_dup_env_node(t_env *current_env_node, t_env **env_dup);
 
-/*
-	Duplicate the env list to sort the node in ascending order
+/*	print export:
+		duplicate the env list to sort the node in ascending order.
 */
 void	print_export(t_env *env)
 {
