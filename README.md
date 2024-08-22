@@ -99,7 +99,7 @@ cd Minishell && make
 
 ### Usage
 
-Fire up your shell:
+Fire up your this bad boy:
 
 ```bash
 ./minishell
@@ -108,7 +108,7 @@ Fire up your shell:
 From here you can have some fun, testing basic commands, input and output redirections, builtin commands
 and pipelines :smile:!
 
-## It's your turn :muscle:!
+## :muscle: It's your turn!
 
 Now that you know how it works it's time to buil your own hell... ehm I mean shell :fireworks:!
 
