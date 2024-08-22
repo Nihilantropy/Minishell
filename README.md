@@ -1,5 +1,4 @@
-# Minishell: Your Own Tiny Bash
-## From now on it will be called Minihell :fire:!
+# Minishell: aka Minihell :fire:!
 
 Welcome to Minihell, your very own journey into the magical world of command-line interfaces! 
 🌟 Imagine it as your personal little bash, crafted from scratch, and, like all things small and wonderful, it’s as beautiful as a shell.
