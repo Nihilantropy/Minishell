@@ -65,9 +65,9 @@ Minihell will also support several built-in commands, including:
 
 Once you’ve perfected the essentials, you can take on these bonus tasks (not present in this project):
 
-- [ ] **Logical Operators**: Implement **&&** and **||** for command chaining, with support for parentheses to dictate priority.
+- [ ] **Logical Operators**: Implement **`&&`** and **`||`** for command chaining, with support for parentheses to dictate priority.
 
-- [ ] **Wildcards**: Allow **\*** to match files in the current directory, adding a bit of flair to your command execution.
+- [ ] **Wildcards**: Allow **`\*`** to match files in the current directory, adding a bit of flair to your command execution.
 
 ## 🚀 Getting Started
 
