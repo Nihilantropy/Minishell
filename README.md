@@ -105,8 +105,8 @@ how your shell behaves in various scenarios and is incredibly helpful during pee
 When you’re done crafting your Minihell, submit your work to your assigned Git repository.
 Double-check everything because only what’s in your repo will be graded!
 
-If you are just a c programmer enthusiast... Greate job! Upload it on your git hub and see
-if you can get any review!
+If you are just a C programmer enthusiast... Great job! Upload it to your GitHub and see
+if you can get any reviews!
 
 ## 👥 Peer Evaluations
 
@@ -122,3 +122,7 @@ it and walk away with a deeper understanding of how shells work under the hood.
 May your code be bug-free and your shell flawless!
 
 Happy hacking! 🎉
+
+## Leave a stra :star:!
+
+If you'd like to see an in-depth analisy of this code, leave a star to let us know! :love_letter:
