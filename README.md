@@ -88,12 +88,6 @@ You can git clone the repository by using https protocol
 git clone https://github.com/Nihilantropy/Minishell.git
 ```
 
-or by using ssh protocol
-
-```bash
-git clone git@github.com:Nihilantropy/Minishell.git
-```
-
 then you can access the directory and run the make command
 
 ```bash

@@ -72,7 +72,7 @@ char	**dup_matrix(char **matrix)
 		copy_matrix[y] = ft_strdup(matrix[y]);
 		y++;
 	}
-	copy_matrix[y] = '\0';
+	copy_matrix[y] = NULL;
 	return (copy_matrix);
 }
 
