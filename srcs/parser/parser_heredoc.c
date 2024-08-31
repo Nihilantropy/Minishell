@@ -2,7 +2,8 @@
 
 static int	handle_heredoc_eof(char *line);
 static void	open_heredoc_w(t_shell *shell, t_redir_list *current_node);
-static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_doc);
+static int	write_heredoc(t_shell *shell,
+			t_redir_list *current_node, int here_doc);
 static char	*handle_heredoc_env_var(t_shell *shell, char *line);
 
 /*	handle heredoc:
@@ -37,11 +38,12 @@ static void	open_heredoc_w(t_shell *shell, t_redir_list *current_node)
 	int		here_doc;
 
 	here_doc = open(current_node->here_doc->tmp_file_name,
-						O_WRONLY | O_CREAT | O_TRUNC, 0600);
+				O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (here_doc == -1)
 		ft_exit_error(ERR_HERE_DOC);
 	while (1)
 	{
+		sigint_handler_heredoc();
 		if (write_heredoc(shell, current_node, here_doc) == 1)
 			break ;
 	}
@@ -54,7 +56,8 @@ static void	open_heredoc_w(t_shell *shell, t_redir_list *current_node)
 		the env $VAR.
 		write the line on the heredoc file descriptor.
 */
-static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_doc)
+static int	write_heredoc(t_shell *shell,
+				t_redir_list *current_node, int here_doc)
 {
 	char	*line;
 	char	*parsed_line;
@@ -64,10 +67,11 @@ static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_do
 	if (handle_heredoc_eof(line))
 		return (1);
 	if (current_node->here_doc->expand == true)
-		parsed_line = handle_heredoc_env_var(shell, current_node, line);
+		parsed_line = handle_heredoc_env_var(shell, line);
 	else
 		parsed_line = line;
-	if (!ft_strncmp(parsed_line, current_node->fd_name, ft_strlen(current_node->fd_name)) &&
+	if (!ft_strncmp(parsed_line, current_node->fd_name,
+		ft_strlen(current_node->fd_name)) &&
 		ft_strlen(current_node->fd_name) == (ft_strlen(parsed_line) - 1))
 	{
 		free(parsed_line);

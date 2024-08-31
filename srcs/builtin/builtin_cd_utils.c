@@ -12,7 +12,7 @@ void	create_oldpwd_node(t_shell *shell, char *current_pwd)
 	free(oldpwd_var);
 }
 
-void	substitute_oldpwd_node(t_env *current_node, char *current_pwd)
+void	update_oldpwd_node(t_env *current_node, char *current_pwd)
 {
 	char	*current_pwd_dup;
 

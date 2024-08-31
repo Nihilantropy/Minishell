@@ -148,6 +148,9 @@ void	sigquit_handler(void);
 /* signal sigterm */
 void	signal_sigterm(t_shell *shell);
 
+/* signal sigint heredoc */
+void	sigint_handler_heredoc(void);
+
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
 
