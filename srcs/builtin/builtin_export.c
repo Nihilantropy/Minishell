@@ -5,7 +5,8 @@ static t_env	*create_ex_node(t_env **export);
 static int		check_invalid_name(t_shell *shell, t_env **export);
 static void		append_list_to_env(t_shell *shell, t_env *export);
 void			copy_ex_node(t_env *current_node, char **matrix, int y);
-int				check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export);
+int				check_name_arg_error(t_shell *shell,
+						t_env *current_node, t_env **export);
 
 /*	handle builtin export:
 		when export is called by the user we create a list to parse the
