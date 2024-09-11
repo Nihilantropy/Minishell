@@ -5,7 +5,7 @@ static void	handle_echo_print(char **echo_matrix, t_redir_list	*current_node);
 
 void	handle_builtin_echo(t_shell *shell, char **matrix, t_redir_list *redir)
 {
-	char	**echo_matrix;
+	char			**echo_matrix;
 	t_redir_list	*current_node;
 
 	current_node = redir;
@@ -30,8 +30,9 @@ static void	print_echo_matrix(char **echo_matrix, t_bool flag)
 			printf("%s", echo_matrix[y]);
 		y++;
 	}
-	if (flag == false)
-		printf("\n");
+	(void)flag;
+	//if (flag == false)
+	//	printf("\n");
 }
 
 static void	handle_echo_print(char **echo_matrix, t_redir_list	*current_node)

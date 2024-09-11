@@ -1,9 +1,9 @@
 #include "../../include/minishell.h"
 
-/*
-	1) Loop all the redir list. Find each here_doc node to unset the file
-	2) Reset the STDIN and the STDOUT to the default one
-	3) Close the old file descriptor
+/*	reset redir
+**	1) Loop all the redir list. Find each here_doc node to unset the file
+**	2) Reset the STDIN and the STDOUT to the default one
+**	3) Close the old file descriptor
 */
 void	reset_redir(t_shell *shell)
 {
@@ -15,9 +15,9 @@ void	reset_redir(t_shell *shell)
 	close(shell->stdout_copy);
 }
 
-/*
-	1) Loop all the redir list to find the here_doc nodes
-	2) Loop all the redir list to find the infile nodes
+/*	redir input
+**	1) Loop all the redir list to find the here_doc nodes
+**	2) Loop all the redir list to find the infile nodes
 */
 void	redir_input(t_redir_list *redir)
 {
@@ -49,8 +49,8 @@ void	redir_input(t_redir_list *redir)
 	}
 }
 
-/*
-	1) Loop all the redir list to find either the outfile node or the append node
+/*	redir output
+**	1) Loop all the redir list to find either the outfile node or the append node
 */
 void	redir_output(t_redir_list *redir)
 {

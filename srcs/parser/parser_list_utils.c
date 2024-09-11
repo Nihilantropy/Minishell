@@ -27,7 +27,7 @@ t_arg	*find_last_arg_node(t_arg *arg)
 		arg = arg->next;
 	return (arg);
 }
-
+/*
 void	print_list(t_arg *arg)
 {
 	if (!arg)
@@ -71,6 +71,7 @@ void	print_list(t_arg *arg)
 		arg = arg->next;
 	}
 }
+*/
 
 void	free_list(t_arg **arg)
 {

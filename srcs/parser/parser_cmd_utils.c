@@ -3,7 +3,7 @@
 static char	*join_matrix_to_node(char *str, char *to_join);
 
 /*	len to pipe cmd:
-		Return the length of the command + flags untill the end or the pipe.
+**	Return the length of the command + flags untill the end or the pipe.
 */
 int	len_to_pipe_cmd(t_arg *arg)
 {
@@ -25,11 +25,11 @@ int	len_to_pipe_cmd(t_arg *arg)
 }
 
 /*	copy command:
-		1) Copy the command + flags untill the end or the pipe
-		2) If the current node is a pipe, move to the next node
-		3) If the previous node has the 'chained' flag active, join
-			the current node string to the prevoius str
-		4) Move the head of the arg list to the current node
+**	1) Copy the command + flags untill the end or the pipe
+**	2) If the current node is a pipe, move to the next node
+**	3) If the previous node has the 'chained' flag active, join
+**		the current node string to the prevoius str
+**	4) Move the head of the arg list to the current node
 */
 void	copy_command(t_cmd *cmd, t_shell *shell)
 {

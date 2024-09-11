@@ -3,7 +3,7 @@
 static t_redir_list	*find_last_redir_node(t_redir_list *redir);
 
 /*	set node type:
-		Set the corrisponding redirection type.
+**	Set the corrisponding redirection type.
 */
 void	set_node_type(t_redir_list *redir, t_arg *current_node)
 {
@@ -46,8 +46,8 @@ static t_redir_list	*find_last_redir_node(t_redir_list *redir)
 	return (redir);
 }
 
-/*
-	Loop trough every cmd node to free each redir list
+/*	free all redir list
+**	Loop trough every cmd node to free each redir list
 */
 void	free_all_redir_list(t_cmd *cmd)
 {

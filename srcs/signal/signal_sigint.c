@@ -3,8 +3,8 @@
 static void	handle_sigint(int sig);
 
 /*	signal handler:
-		Capture the SIGNINT signal and
-		make it reset user prompt
+**	Capture the SIGNINT signal and
+**	make it reset user prompt
 */
 void	sigint_handler(void)
 {

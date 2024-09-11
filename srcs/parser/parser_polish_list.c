@@ -5,11 +5,11 @@ static void	set_fd_flag(t_arg *current_node);
 static void	count_pipes(t_shell *shell, t_arg *current_node);
 
 /*	polish list:
-		After the list is fully created, we have to set thing up:
-		1) Handle the env variables 
-		2) Setting the correct index of the node 
-		3) Find if the node contains a redirection 
-		4) Count the number of pipes in all the command line
+**	After the list is fully created, we have to set thing up:
+**	1) Handle the env variables 
+**	2) Setting the correct index of the node 
+**	3) Find if the node contains a redirection 
+**	4) Count the number of pipes in all the command line
 */
 void	polish_list(t_shell *shell, t_arg *arg)
 {
@@ -31,7 +31,7 @@ void	polish_list(t_shell *shell, t_arg *arg)
 }
 
 /*	set node index:
-		Setting up the index for each node of the list.
+**	Setting up the index for each node of the list.
 */
 static void	set_node_index(t_arg *current_node)
 {
@@ -42,8 +42,8 @@ static void	set_node_index(t_arg *current_node)
 }
 
 /*	set fd flag:
-		Setting up the node flag, corrisponding to the 
-		previous token flag.
+**	Setting up the node flag, corrisponding to the 
+**	previous token flag.
 */
 static void	set_fd_flag(t_arg *current_node)
 {
@@ -67,7 +67,7 @@ static void	set_fd_flag(t_arg *current_node)
 }
 
 /*	count pipes:
-		count the number of pipe token. 
+**	count the number of pipe token. 
 */
 static void	count_pipes(t_shell *shell, t_arg *current_node)
 {

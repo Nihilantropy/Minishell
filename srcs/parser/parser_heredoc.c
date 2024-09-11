@@ -6,8 +6,8 @@ static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_do
 static char	*handle_heredoc_env_var(t_shell *shell, char *line);
 
 /*	handle heredoc:
-		Loop all the command list and all the redirection lists to
-		open the here document in write mode.
+**	Loop all the command list and all the redirection lists to
+**	open the here document in write mode.
 */
 void	handle_heredoc(t_shell *shell)
 {
@@ -29,8 +29,8 @@ void	handle_heredoc(t_shell *shell)
 }
 
 /*	open heredoc w (write mode):
-		open the heredoc temp file and start the loop
-		until <<delimiter>> is found or 'eof' is found.
+**	open the heredoc temp file and start the loop
+**	until <<delimiter>> is found or 'eof' is found.
 */
 static void	open_heredoc_w(t_shell *shell, t_redir_list *current_node)
 {
@@ -49,10 +49,10 @@ static void	open_heredoc_w(t_shell *shell, t_redir_list *current_node)
 }
 
 /*	write heredoc:
-		read the line from STDIN utill \n is found, then parse the
-		line if the node is a none-quote or double-quote node, to expand
-		the env $VAR.
-		write the line on the heredoc file descriptor.
+**	read the line from STDIN utill \n is found, then parse the
+**	line if the node is a none-quote or double-quote node, to expand
+**	the env $VAR.
+**	write the line on the heredoc file descriptor.
 */
 static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_doc)
 {
@@ -79,10 +79,10 @@ static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_do
 }
 
 /*	handle heredoc env var:
-		Function that loops to replace all $VAR
-		with the correct variables.
-		If the string is parsed, point at the new string
-		and restart the loop until all '$' are correctly parsed.
+**	Function that loops to replace all $VAR
+**	with the correct variables.
+**	If the string is parsed, point at the new string
+**	and restart the loop until all '$' are correctly parsed.
 */
 static char	*handle_heredoc_env_var(t_shell *shell, char *line)
 {
@@ -110,7 +110,7 @@ static char	*handle_heredoc_env_var(t_shell *shell, char *line)
 }
 
 /*	handle heredoc eof:
-		if CTRL + D (EOF) is called, close the heredoc.
+**	if CTRL + D (EOF) is called, close the heredoc.
 */
 static int	handle_heredoc_eof(char *line)
 {

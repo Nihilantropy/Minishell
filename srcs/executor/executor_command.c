@@ -7,8 +7,8 @@ void		check_path(t_shell *shell, t_cmd *current_node);
 static void	handle_relative_path(t_shell *shell, t_cmd *current_node);
 static void	handle_env_path(t_shell *shell, t_cmd *current_node);
 
-/*
-	Handle relative and env path for the commands
+/*	exec cmd:
+**	Handle relative and env path for the commands
 */
 void	exe_cmd(t_shell *shell, t_cmd *current_node)
 {

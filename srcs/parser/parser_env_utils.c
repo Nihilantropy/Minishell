@@ -4,7 +4,7 @@ static char	*build_env_str(char *str, char *var_value, char *end);
 static int	len_to_token(char *str);
 
 /*	handle exit status var:
-		expand the last exit status to a string.
+**	expand the last exit status to a string.
 */
 char	*handle_exit_status_var(t_shell *shell, char *str, char *end)
 {
@@ -18,7 +18,7 @@ char	*handle_exit_status_var(t_shell *shell, char *str, char *end)
 }
 
 /*	handle env var:
-		expand the env var ($ARG) to a string
+**	expand the env var ($ARG) to a string
 */
 char	*hanlde_env_var(t_shell *shell, char *str, char *start, char *end)
 {
@@ -37,11 +37,11 @@ char	*hanlde_env_var(t_shell *shell, char *str, char *start, char *end)
 }
 
 /*	build env str:
-		function to split the main string into 2 parts:
-		the first part goes up to the $
-		the second part takes the first part and appends the environment variable
-		Then we join the new string with the modified VAR (var_value)
-		and make our current node string point to the new string.
+**	function to split the main string into 2 parts:
+**	the first part goes up to the $
+**	the second part takes the first part and appends the environment variable
+**	Then we join the new string with the modified VAR (var_value)
+**	and make our current node string point to the new string.
 */
 static char	*build_env_str(char *str, char *var_value, char *end)
 {

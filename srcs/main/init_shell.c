@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 /*	init shell:
-		init the main shell structure.
+**	init the main shell structure.
 */
 void	init_shell(t_shell *shell, char **envp)
 {
