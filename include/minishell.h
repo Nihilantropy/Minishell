@@ -66,6 +66,7 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	t_bool			show;
+	t_bool			chain;
 	struct s_env	*next;
 	struct s_env	*prev;
 }					t_env;
@@ -229,12 +230,13 @@ void	handle_builtin_export(t_shell *shell, char **matrix);
 
 /* builtin export utils 1 */
 void	dup_ex_list(t_env *export, t_env **export_dup);
+void	chain_env_value(t_env **env, t_env *new_node);
 
 /* builtin export utils 2 */
 void	print_env_list(t_env *env);
 int		var_length(char *line);
 char	*copy_ex_var(char *str);
-char	*copy_ex_name(char *current_var);
+char	*copy_ex_name(t_env *current_node, char *current_var);
 char	*copy_ex_value(char *current_var);
 
 /* builtin export print */

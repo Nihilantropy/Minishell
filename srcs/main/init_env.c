@@ -39,6 +39,7 @@ void	create_new_env_node(t_shell *shell, char *current_var)
 	new_node->name = copy_name(current_var);
 	new_node->value = copy_value(current_var);
 	new_node->show = true;
+	new_node->chain = false;
 	append_env_node(&shell->env, new_node);
 }
 
@@ -51,6 +52,8 @@ void	append_env_node(t_env **env, t_env *new_node)
 		*env = new_node;
 		new_node->prev = new_node;
 	}
+	else if (new_node->chain)
+		chain_env_value(env, new_node);
 	else if (del_same_name_node(env, new_node))
 		return ;
 	else

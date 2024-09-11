@@ -73,6 +73,7 @@ static t_env	*create_ex_node(t_env **export)
 	new_node->name = NULL;
 	new_node->value = NULL;
 	new_node->show = false;
+	new_node->chain = false;
 	append_env_node(export, new_node);
 	return (new_node);
 }
