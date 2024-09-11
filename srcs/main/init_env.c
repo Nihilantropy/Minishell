@@ -6,7 +6,7 @@ void		update_shell_env_level(t_shell *shell);
 void		update_new_shell_env(t_shell *shell);
 
 /*	init env:
-		create a list copy of the envp (variable enviroment) at opening.
+**	create a list copy of the envp (variable enviroment) at opening.
 */
 void	init_env(t_shell *shell, char **envp)
 {
@@ -23,10 +23,10 @@ void	init_env(t_shell *shell, char **envp)
 }
 
 /*	crete new env node:
-		Create the env node with 3 string:
-		1) the entire variable
-		2) the name of the variable
-		3) the value of the variable
+**	Create the env node with 3 string:
+**	1) the entire variable
+**	2) the name of the variable
+**	3) the value of the variable
 */
 void	create_new_env_node(t_shell *shell, char *current_var)
 {
@@ -38,8 +38,8 @@ void	create_new_env_node(t_shell *shell, char *current_var)
 	new_node->var = copy_var(current_var);
 	new_node->name = copy_name(current_var);
 	new_node->value = copy_value(current_var);
-	new_node->show = true;
 	new_node->chain = false;
+	new_node->show = true;
 	append_env_node(&shell->env, new_node);
 }
 
@@ -52,8 +52,6 @@ void	append_env_node(t_env **env, t_env *new_node)
 		*env = new_node;
 		new_node->prev = new_node;
 	}
-	else if (new_node->chain)
-		chain_env_value(env, new_node);
 	else if (del_same_name_node(env, new_node))
 		return ;
 	else
@@ -67,8 +65,8 @@ void	append_env_node(t_env **env, t_env *new_node)
 }
 
 /*	delete same name node:
-		if the name node that we are appending is already in the list,
-		we replace the old node with the new one.
+**	if the name node that we are appending is already in the list,
+**	we replace the old node with the new one.
 */
 static int	del_same_name_node(t_env **env, t_env *new_node)
 {
@@ -82,6 +80,8 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 		if ((current_node->name && new_node->name)
 			&& !ft_strcmp(current_node->name, new_node->name))
 		{
+			if (new_node->chain)
+				chain_env_value(current_node, new_node);
 			if (current_node == *env)
 				*env = new_node;
 			handle_node_pointer(current_node, new_node);
@@ -100,8 +100,8 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 }
 
 /*	handle node pinter:
-		ensure that the node swapping is done correctly,
-		handling all the necessary pointers.
+**	ensure that the node swapping is done correctly,
+**	handling all the necessary pointers.
 */
 static void	handle_node_pointer(t_env *current_node, t_env *new_node)
 {

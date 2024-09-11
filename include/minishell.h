@@ -230,7 +230,7 @@ void	handle_builtin_export(t_shell *shell, char **matrix);
 
 /* builtin export utils 1 */
 void	dup_ex_list(t_env *export, t_env **export_dup);
-void	chain_env_value(t_env **env, t_env *new_node);
+void	chain_env_value(t_env *current_node, t_env *new_node);
 
 /* builtin export utils 2 */
 void	print_env_list(t_env *env);

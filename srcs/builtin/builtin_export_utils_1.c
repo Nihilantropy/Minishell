@@ -25,6 +25,7 @@ static void	create_dup_ex_node(t_env *current_ex_node, t_env **export_dup)
 	new_node->name = ft_strdup(current_ex_node->name);
 	new_node->value = ft_strdup(current_ex_node->value);
 	new_node->show = current_ex_node->show;
+	new_node->chain = current_ex_node->chain;
 	append_env_node(export_dup, new_node);
 }
 
@@ -64,29 +65,19 @@ int	check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export)
 **	if export += was called, we join the
 **	same name node value
 */
-void	chain_env_value(t_env **env, t_env *new_node)
+void	chain_env_value(t_env *current_node, t_env *new_node)
 {
-	t_env	*current_node;
 	char	*new_value;
 	char	*temp;
 
-	if (!env || !*env || !new_node)
-		return ;
-	current_node = *env;
-	new_value = NULL;
-	while (current_node)
+	if ((current_node->name && new_node->name)
+		&& !ft_strcmp(current_node->name, new_node->name))
 	{
-		printf("%s\n%s\n", current_node->name, new_node->name);
-		if ((current_node->name && new_node->name)
-			&& !ft_strcmp(current_node->name, new_node->name))
-		{
-			new_value = ft_strjoin(current_node->value, new_node->value);
-			if (!new_value)
-				ft_exit_error(ERR_ENV_CHAIN_VALUE);
-			temp = current_node->value;
-			current_node->value = new_value;
-			free(temp);
-		}
-		current_node = current_node->next;
+		new_value = ft_strjoin(current_node->value, new_node->value);
+		if (!new_value)
+			ft_exit_error(ERR_ENV_CHAIN_VALUE);
+		temp = new_node->value;
+		new_node->value = new_value;
+		free(temp);
 	}
 }

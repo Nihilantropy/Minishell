@@ -4,8 +4,8 @@ static void	create_new_shell_level_node(t_shell *shell, char *new_level);
 static int	env_list_length(t_env *env);
 
 /*	update shell env level:
-		finding the shell level (SHLVL) env var and incrising 
-		the level of the shell by 1.
+**	finding the shell level (SHLVL) env var and incrising 
+**	the level of the shell by 1.
 */
 void	update_shell_env_level(t_shell *shell)
 {
@@ -41,13 +41,13 @@ static void	create_new_shell_level_node(t_shell *shell, char *new_level)
 }
 
 /*	update new shell env:
-		create a matrix copy of the modified env
-		before passing it to a command.
-		This way we ensure that (for exmpl.), if the
-		user open a subsshell writing ./minishell,
-		the variable enviroment is passed to the new
-		shell correctly, otherwise it would be opened with
-		the old envp.
+**	create a matrix copy of the modified env
+**	before passing it to a command.
+**	This way we ensure that (for exmpl.), if the
+**	user open a subsshell writing ./minishell,
+**	the variable enviroment is passed to the new
+**	shell correctly, otherwise it would be opened with
+**	the old envp.
 */
 void	update_new_shell_env(t_shell *shell)
 {

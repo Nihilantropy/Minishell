@@ -77,7 +77,10 @@ char	*copy_ex_name(t_env *current_node, char *current_var)
 		ft_exit_error(ERR_ALLOC_NAME);
 	if (current_var[i] == '=' && current_var[i - 1] == '+')
 		current_node->chain = true;
-	ft_strlcpy(name, current_var, i + 1);
+	if (current_node->chain)
+		ft_strlcpy(name, current_var, i);
+	else
+		ft_strlcpy(name, current_var, i + 1);
 	return (name);
 }
 
