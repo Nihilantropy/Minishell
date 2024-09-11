@@ -64,7 +64,7 @@ static int	write_heredoc(t_shell *shell, t_redir_list *current_node, int here_do
 	if (handle_heredoc_eof(line))
 		return (1);
 	if (current_node->here_doc->expand == true)
-		parsed_line = handle_heredoc_env_var(shell, current_node, line);
+		parsed_line = handle_heredoc_env_var(shell, line);
 	else
 		parsed_line = line;
 	if (!ft_strncmp(parsed_line, current_node->fd_name, ft_strlen(current_node->fd_name)) &&

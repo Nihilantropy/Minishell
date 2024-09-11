@@ -59,7 +59,7 @@ static void	update_oldpwd(t_shell *shell, char *current_pwd)
 	if (!current_node)
 		create_oldpwd_node(shell, current_pwd);
 	else
-		update_oldpwd_node(current_node, current_pwd);
+		update_pwd_node(current_node, current_pwd);
 }
 
 /*	update pwd:
