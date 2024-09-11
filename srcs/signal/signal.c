@@ -29,3 +29,12 @@ static void	signal_print_newline(int sig)
 	(void)sig;
 	rl_on_new_line();
 }
+
+void	handleback(int sig)
+{
+	(void)sig;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	exit(137);
+}

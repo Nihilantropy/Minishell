@@ -13,19 +13,29 @@ void	handle_heredoc(t_shell *shell)
 {
 	t_cmd			*current_cmd_node;
 	t_redir_list	*current_redir_node;
+	pid_t			pid;
 
 	current_cmd_node = shell->cmd;
-	while (current_cmd_node)
+	pid = fork();
+	if (pid == -1)
+		ft_exit_error(ERR_FORK);
+	if (pid == 0)
 	{
-		current_redir_node = current_cmd_node->redir;
-		while (current_redir_node)
+		sigint_handler_heredoc();
+		while (current_cmd_node)
 		{
-			if (current_redir_node->here_doc)
-				open_heredoc_w(shell, current_redir_node);
-			current_redir_node = current_redir_node->next;
+			current_redir_node = current_cmd_node->redir;
+			while (current_redir_node)
+			{
+				if (current_redir_node->here_doc)
+					open_heredoc_w(shell, current_redir_node);
+				current_redir_node = current_redir_node->next;
+			}
+			current_cmd_node = current_cmd_node->next;
 		}
-		current_cmd_node = current_cmd_node->next;
+		exit(EXIT_SUCCESS);
 	}
+	wait(NULL);
 }
 
 /*	open heredoc w (write mode):

@@ -30,9 +30,8 @@ static void	print_echo_matrix(char **echo_matrix, t_bool flag)
 			printf("%s", echo_matrix[y]);
 		y++;
 	}
-	(void)flag;
-	//if (flag == false)
-	//	printf("\n");
+	if (flag == false)
+		printf("\n");
 }
 
 static void	handle_echo_print(char **echo_matrix, t_redir_list	*current_node)

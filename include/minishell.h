@@ -139,9 +139,13 @@ void	free_matrix(char **matrix);
 /* signal */
 void	signal_handler_interactive(void);
 void	signal_handler_non_interactive(void);
+void	handleback(int sig);
 
 /* signal sigint */
 void	sigint_handler(void);
+
+/* signal sigint heredoc */
+void	sigint_handler_heredoc(void);
 
 /* signal sigquit */
 void	sigquit_handler(void);
@@ -185,7 +189,7 @@ char	*ft_getenv(t_env *env, char *var_name);
 
 /* parser env */
 void	handle_env_var(t_shell *shell, t_arg *arg);
-char	*parse_env_var(t_shell *shell, char *str); // TODO
+char	*parse_env_var(t_shell *shell, char *str);
 
 /* parser polish list */
 void	polish_list(t_shell *shell, t_arg *arg);
