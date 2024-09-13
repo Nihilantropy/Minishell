@@ -14,6 +14,7 @@ void	handle_heredoc(t_shell *shell)
 	t_cmd			*current_cmd_node;
 	t_redir_list	*current_redir_node;
 	pid_t			pid;
+	int				status;
 
 	current_cmd_node = shell->cmd;
 	pid = fork();
@@ -35,7 +36,8 @@ void	handle_heredoc(t_shell *shell)
 		}
 		exit(EXIT_SUCCESS);
 	}
-	wait(NULL);
+	wait(&status);
+	g_exit_status = handle_exit_status(status);
 }
 
 /*	open heredoc w (write mode):

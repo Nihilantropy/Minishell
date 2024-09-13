@@ -3,18 +3,18 @@
 /*	handle builtin pwd:
 		use the getcwd() function to find the current folder path.
 */
-void	handle_builtin_pwd(t_shell *shell)
+void	handle_builtin_pwd(void)
 {
 	char	pwd[2048];
 
 	if (getcwd(pwd, 2048) != NULL)
 	{
 		printf("%s\n", pwd);
-		shell->last_exit_status = EXIT_STATUS_SUCCESS;
+		g_exit_status = EXIT_STATUS_SUCCESS;
 	}
 	else
 	{
-		shell->last_exit_status = EXIT_STATUS_ERROR;
+		g_exit_status = EXIT_STATUS_ERROR;
 		ft_putstr_fd(ERR_PWD, 2);
 	}
 

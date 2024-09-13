@@ -38,7 +38,7 @@ void	copy_ex_node(t_env *current_node, char **matrix, int y)
 		current_node->show = true;
 }
 
-int	check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export)
+int	check_name_arg_error(t_env *current_node, t_env **export)
 {
 	int	i;
 	int	len;
@@ -53,7 +53,7 @@ int	check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export)
 			printf("-minishell: export: `%s'", current_node->var);
 			printf(": not a valid identifier\n");
 			remove_node(current_node, export);
-			shell->last_exit_status = EXIT_STATUS_ERROR;
+			g_exit_status = EXIT_STATUS_ERROR;
 			return (1);
 		}
 		i++;

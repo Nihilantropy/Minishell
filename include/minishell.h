@@ -16,6 +16,10 @@
 # define EXIT_STATUS_SUCCESS 0
 # define EXIT_STATUS_ERROR 1
 
+# define HERE_DOC_SIGINT 130
+
+extern int	g_exit_status;
+
 typedef enum e_bool
 {
 	false = 0,
@@ -119,7 +123,6 @@ typedef struct s_shell
 	t_cmd	*cmd;
 	t_env	*env;
 	char	**path;
-	int		last_exit_status;
 	int		pipes_nbr;
 	t_bool	error;
 	int		stdin_copy;
@@ -260,10 +263,10 @@ void	handle_builtin_unset(t_shell *shell, char **matrix);
 void	create_unset_list(char **matrix, t_env **unset);
 
 /* builtin echo */
-void	handle_builtin_echo(t_shell *shell, char **matrix, t_redir_list *redir);
+void	handle_builtin_echo(char **matrix, t_redir_list *redir);
 
 /* builtin pwd */
-void	handle_builtin_pwd(t_shell *shell);
+void	handle_builtin_pwd(void);
 
 /* builtin exit */
 void	handle_builtin_exit(t_shell *shell);
@@ -276,6 +279,7 @@ void	handle_history(t_shell *shell);
 
 /* executor */
 void	executor(t_shell *shell);
+int		handle_exit_status(int status);
 
 /* executor redir */
 void	redir_input(t_redir_list *redir);

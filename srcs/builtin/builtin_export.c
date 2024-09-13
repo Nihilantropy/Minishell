@@ -1,11 +1,11 @@
 #include "../../include/minishell.h"
 
-static void		create_ex_list(t_shell *shell, char **matrix, t_env **export);
+static void		create_ex_list(char **matrix, t_env **export);
 static t_env	*create_ex_node(t_env **export);
-static int		check_invalid_name(t_shell *shell, t_env **export);
+static int		check_invalid_name(t_env **export);
 static void		append_list_to_env(t_shell *shell, t_env *export);
 void			copy_ex_node(t_env *current_node, char **matrix, int y);
-int				check_name_arg_error(t_shell *shell, t_env *current_node, t_env **export);
+int				check_name_arg_error(t_env *current_node, t_env **export);
 
 /*	handle builtin export:
 **	when export is called by the user we create a list to parse the
@@ -16,7 +16,7 @@ void	handle_builtin_export(t_shell *shell, char **matrix)
 	t_env	*export;
 
 	export = NULL;
-	create_ex_list(shell, matrix, &export);
+	create_ex_list(matrix, &export);
 	if (export->prev == export)
 	{
 		print_export(shell->env);
@@ -27,13 +27,13 @@ void	handle_builtin_export(t_shell *shell, char **matrix)
 		append_list_to_env(shell, export);
 	else
 		free_env_list(&export);
-	shell->last_exit_status = EXIT_STATUS_SUCCESS;
+	g_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 /*	create export list:
 **	loop the cmd matrix until all the parameter are placed in the list.
 */
-static void	create_ex_list(t_shell *shell, char **matrix, t_env **export)
+static void	create_ex_list(char **matrix, t_env **export)
 {
 	char	**matrix_copy;
 	int		y;
@@ -49,13 +49,13 @@ static void	create_ex_list(t_shell *shell, char **matrix, t_env **export)
 		copy_ex_node(current_node, matrix, y);
 		y++;
 	}
-	if (check_invalid_name(shell, export) == 1)
+	if (check_invalid_name(export) == 1)
 	{
 		free_matrix(matrix_copy);
 		return ;
 	}
 	free_matrix(matrix_copy);
-	shell->last_exit_status = EXIT_STATUS_SUCCESS;
+	g_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 /*	create export node:
@@ -83,7 +83,7 @@ static t_env	*create_ex_node(t_env **export)
 **	if the name of the argument is invalid, free the current export list
 **	and display a new prompt.
 */
-static int	check_invalid_name(t_shell *shell, t_env **export)
+static int	check_invalid_name(t_env **export)
 {
 	int		i;
 	t_env	*current_node;
@@ -94,7 +94,7 @@ static int	check_invalid_name(t_shell *shell, t_env **export)
 		i = 0;
 		while (current_node->name[i])
 		{
-			if (check_name_arg_error(shell, current_node, export) == 1)
+			if (check_name_arg_error(current_node, export) == 1)
 				return (1);
 			i++;
 		}

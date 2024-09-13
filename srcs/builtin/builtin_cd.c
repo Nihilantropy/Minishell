@@ -21,14 +21,14 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 	if (!matrix[1] || matrix[2])
 	{
 		printf(ERR_CD_PATH);
-		shell->last_exit_status = EXIT_STATUS_SUCCESS;
+		g_exit_status = EXIT_STATUS_SUCCESS;
 		return ;
 	}
 	getcwd(current_pwd, 2048);
 	if (chdir(matrix[1]) == -1)
 	{
 		perror("minishell");
-		shell->last_exit_status = EXIT_STATUS_ERROR;
+		g_exit_status = EXIT_STATUS_ERROR;
 		return ;
 	}
 	else
@@ -36,7 +36,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 		getcwd(new_pwd, 2048);
 		update_oldpwd(shell, current_pwd);
 		update_pwd(shell, new_pwd);
-		shell->last_exit_status = EXIT_STATUS_SUCCESS;
+		g_exit_status = EXIT_STATUS_SUCCESS;
 	}
 }
 

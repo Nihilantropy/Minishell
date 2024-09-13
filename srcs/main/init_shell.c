@@ -13,7 +13,6 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->new_env = NULL;
 	init_env(shell, envp);
 	shell->path = NULL;
-	shell->last_exit_status = 0;
 	shell->cmd = NULL;
 	shell->error = false;
 }

@@ -6,12 +6,12 @@ static int	len_to_token(char *str);
 /*	handle exit status var:
 **	expand the last exit status to a string.
 */
-char	*handle_exit_status_var(t_shell *shell, char *str, char *end)
+char	*handle_exit_status_var(char *str, char *end)
 {
 	char	*var_value;
 	char	*new_str;
 
-	var_value = ft_itoa(shell->last_exit_status);
+	var_value = ft_itoa(g_exit_status);
 	new_str = build_env_str(str, var_value, end);
 	free(var_value);
 	return (new_str);

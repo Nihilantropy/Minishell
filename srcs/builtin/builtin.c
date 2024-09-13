@@ -10,11 +10,11 @@ void	handle_builtin(t_shell *shell, t_cmd *current_node)
 	else if (current_node->builtin.env)
 		handle_builtin_env(shell);
 	else if (current_node->builtin.echo)
-		handle_builtin_echo(shell, current_node->matrix, current_node->redir);
+		handle_builtin_echo(current_node->matrix, current_node->redir);
 	else if (current_node->builtin.unset)
 		handle_builtin_unset(shell, current_node->matrix);
 	else if (current_node->builtin.pwd)
-		handle_builtin_pwd(shell);
+		handle_builtin_pwd();
 	else if (current_node->builtin.exit)
 		handle_builtin_exit(shell);
 	else if (current_node->builtin.cd)

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-char	*handle_exit_status_var(t_shell *shell, char *str, char *end);
+char	*handle_exit_status_var(char *str, char *end);
 char	*hanlde_env_var(t_shell *shell, char *str, char *start, char *end);
 
 /*	handle env var:
@@ -55,7 +55,7 @@ char	*parse_env_var(t_shell *shell, char *str)
 	if (*end == '?')
 	{
 		end++;
-		new_str = handle_exit_status_var(shell, str, end);
+		new_str = handle_exit_status_var(str, end);
 	}
 	else
 		new_str = hanlde_env_var(shell, str, start, end);

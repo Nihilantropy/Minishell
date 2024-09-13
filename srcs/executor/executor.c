@@ -1,7 +1,6 @@
 #include "../../include/minishell.h"
 
 static void	handle_single_builtin_cmd(t_shell *shell);
-void		handle_exit_status(t_shell *shell, int status);
 
 /*	executor:
 **	1) Make a copy of the STDIN and STDOUT to reset after each list of commands
@@ -27,7 +26,7 @@ void	executor(t_shell *shell)
 		if (pid == 0)
 			process_command(shell);
 		waitpid(pid, &status, 0);
-		handle_exit_status(shell, status);
+		g_exit_status = handle_exit_status(status);
 	}
 	reset_redir(shell);
 	free_prompt(shell);
@@ -54,12 +53,15 @@ static void	handle_single_builtin_cmd(t_shell *shell)
 	handle_builtin(shell, current_node);
 }
 
-void	handle_exit_status(t_shell *shell, int status)
+int	handle_exit_status(int status)
 {
+	int	new_status;
+
 	if (WIFEXITED(status))
-		shell->last_exit_status = WEXITSTATUS(status);
+		new_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		shell->last_exit_status = 128 + WTERMSIG(status);
+		new_status = 128 + WTERMSIG(status);
 	else
-		shell->last_exit_status = 1;
+		new_status = 1;
+	return (new_status);
 }
