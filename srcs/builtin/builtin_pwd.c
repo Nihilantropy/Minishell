@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 /*	handle builtin pwd:
-		use the getcwd() function to find the current folder path.
+**	use the getcwd() function to find the current folder path.
 */
 void	handle_builtin_pwd(void)
 {

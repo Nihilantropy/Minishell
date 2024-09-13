@@ -3,8 +3,8 @@
 static void	remove_node_from_env(t_env **env, t_env **unset);
 
 /*	handle builtin unset:
-		create the argument list with the var name to remove from
-		the env list.
+**	create the argument list with the var name to remove from
+**	the env list.
 */
 void	handle_builtin_unset(t_shell *shell, char **matrix)
 {
@@ -24,9 +24,9 @@ void	handle_builtin_unset(t_shell *shell, char **matrix)
 }
 
 /*	remove node from env:
-		search the env node to remove from the env list.
-		while doing that we remove the unset node that after
-		each loop.
+**	search the env node to remove from the env list.
+**	while doing that we remove the unset node that after
+**	each loop.
 */
 static void	remove_node_from_env(t_env **env, t_env **unset)
 {

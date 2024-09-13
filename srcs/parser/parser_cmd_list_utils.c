@@ -1,5 +1,5 @@
 #include "../../include/minishell.h"
-
+/*
 void	print_redir_list(t_cmd *cmd)
 {
 	t_redir_list	*redir;
@@ -28,6 +28,7 @@ void	print_redir_list(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
+*/
 
 void	print_cmd_list(t_cmd *cmd)
 {

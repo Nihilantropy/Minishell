@@ -8,10 +8,10 @@ void		create_pwd_node(t_shell *shell, char *new_pwd);
 void		update_pwd_node(t_env *current_node, char *new_pwd);
 
 /*	handle builtin cd:
-		1) saving the current workign directory in the stack
-		2) changing the current working directory with chdir
-		3) saving the new working directory in the stack
-		4) updating the oldpwd and the pwd in the env list
+**	1) saving the current workign directory in the stack
+**	2) changing the current working directory with chdir
+**	3) saving the new working directory in the stack
+**	4) updating the oldpwd and the pwd in the env list
 */
 void	handle_builtin_cd(t_shell *shell, char **matrix)
 {
@@ -41,9 +41,9 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 }
 
 /*	update oldpwd:
-		If the OLDPWD node is not in the env list (ex. has been unset or the user never
-		moved from the start of the session), create the node.
-		Else substitute the old value.
+**	if the OLDPWD node is not in the env list (ex. has been unset or the user never
+**	moved from the start of the session), create the node.
+**	else substitute the old value.
 */
 static void	update_oldpwd(t_shell *shell, char *current_pwd)
 {
@@ -63,9 +63,9 @@ static void	update_oldpwd(t_shell *shell, char *current_pwd)
 }
 
 /*	update pwd:
-		If the PWD node is not in the env list (ex. has been unset or the user never
-		moved from the start of the session), create the node.
-		Else update the old value.
+**	if the PWD node is not in the env list (ex. has been unset or the user never
+**	moved from the start of the session), create the node.
+**	else update the old value.
 */
 static void	update_pwd(t_shell *shell, char *new_pwd)
 {
