@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 /*	signal handler interactive:
-		Handle signals SIGINT & SIGQUIT for interactive mode
+**	Handle signals SIGINT & SIGQUIT for interactive mode
 */
 void	signal_handler_interactive(void)
 {
@@ -12,7 +12,7 @@ void	signal_handler_interactive(void)
 static void	signal_print_newline(int sig);
 
 /*	signal handler non-interactive:
-		Handle signals SIGINT & SIGQUIT for non-interactive mode
+**	Handle signals SIGINT & SIGQUIT for non-interactive mode
 */
 void	signal_handler_non_interactive(void)
 {
@@ -28,4 +28,13 @@ static void	signal_print_newline(int sig)
 {
 	(void)sig;
 	rl_on_new_line();
+}
+
+void	handleback(int sig)
+{
+	(void)sig;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	exit(137);
 }

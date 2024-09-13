@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-char	*handle_exit_status_var(t_shell *shell, char *str, char *end);
+char	*handle_exit_status_var(char *str, char *end);
 char	*hanlde_env_var(t_shell *shell, char *str, char *start, char *end);
 
 /*	handle env var:
-		Function that loops to replace all $VAR
-		with the correct variables.
-		If the string is parsed, point at the new string
-		and restart the loop until all '$' are correctly parsed.
+**	Function that loops to replace all $VAR
+**	with the correct variables.
+**	If the string is parsed, point at the new string
+**	and restart the loop until all '$' are correctly parsed.
 */
 
 void	handle_env_var(t_shell *shell, t_arg *new_node)
@@ -35,12 +35,12 @@ void	handle_env_var(t_shell *shell, t_arg *new_node)
 }
 
 /*	parse env var:
-		search for the variable name, save it in 
-		a string, and use getenv to retrieve its value.
-		temp should take the value of the last character + 1 (if any)
-		of the main string, taken up to the $, attached to the value
-		of the environment variable.
-		Handle $? expander status.
+**	search for the variable name, save it in 
+**	a string, and use getenv to retrieve its value.
+**	temp should take the value of the last character + 1 (if any)
+**	of the main string, taken up to the $, attached to the value
+**	of the environment variable.
+**	Handle $? expander status.
 */
 char	*parse_env_var(t_shell *shell, char *str)
 {
@@ -55,7 +55,7 @@ char	*parse_env_var(t_shell *shell, char *str)
 	if (*end == '?')
 	{
 		end++;
-		new_str = handle_exit_status_var(shell, str, end);
+		new_str = handle_exit_status_var(str, end);
 	}
 	else
 		new_str = hanlde_env_var(shell, str, start, end);

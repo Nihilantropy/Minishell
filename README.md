@@ -96,7 +96,7 @@ cd Minishell && make
 
 ### Usage
 
-The last thing is to fire up this bad boy :fire:!:
+Fire up your this bad boy:
 
 ```bash
 ./minishell
@@ -105,7 +105,7 @@ The last thing is to fire up this bad boy :fire:!:
 From here you can have some fun, testing basic commands, input and output redirections, builtin commands
 and pipelines :smile:!
 
-## It's your turn :muscle:!
+## :muscle: It's your turn!
 
 Now that you know how it works it's time to buil your own hell... ehm I mean shell :eyes:!
 

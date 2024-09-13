@@ -5,8 +5,8 @@ static void	build_cmd_nodes(t_shell *shell);
 static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell);
 
 /*	parse matrix:
-		1) Initialize the nodes based on the number of pipes
-		2) Build the list with the commands and the redirections
+**	1) Initialize the nodes based on the number of pipes
+**	2) Build the list with the commands and the redirections
 */
 void	parse_matrix(t_shell *shell)
 {
@@ -22,7 +22,7 @@ void	parse_matrix(t_shell *shell)
 }
 
 /*	init cmd node:
-		initializing the command node and appending the node to the list.
+**	initializing the command node and appending the node to the list.
 */
 static void	init_cmd_node(t_shell *shell, int i)
 {
@@ -46,13 +46,13 @@ static void	init_cmd_node(t_shell *shell, int i)
 }
 
 /*	build cmd nodes:
-	1) Saving the real head of the arg list
-	2) Inside the loop, make the current head move to the node
-		after the pipe to build the command matrix
-	3) Need to reset the head on the start of the list or at the last pipe
-	4) The head will move again while building the redirection list, and it will
-		restart one node after the last pipe
-	5) Reset the arg head to point to it's real head, so we can free the list
+**	1) Saving the real head of the arg list
+**	2) Inside the loop, make the current head move to the node
+**		after the pipe to build the command matrix
+**	3) Need to reset the head on the start of the list or at the last pipe
+**	4) The head will move again while building the redirection list, and it will
+**		restart one node after the last pipe
+**	5) Reset the arg head to point to it's real head, so we can free the list
 */
 static void	build_cmd_nodes(t_shell *shell)
 {
@@ -76,9 +76,9 @@ static void	build_cmd_nodes(t_shell *shell)
 }
 
 /*	build cmd matrix:
-		1) Search how many space we need for the command and the eventual flags,
-			skipping the redirection nodes
-		2) Copy the commands inside the matrix cells, moving the arg head meanwhile
+**	1) Search how many space we need for the command and the eventual flags,
+**		skipping the redirection nodes
+**	2) Copy the commands inside the matrix cells, moving the arg head meanwhile
 */
 static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell)
 {

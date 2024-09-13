@@ -3,7 +3,7 @@
 static void	print_echo_matrix(char **echo_matrix, t_bool flag);
 static void	handle_echo_print(char **echo_matrix, t_redir_list	*current_node);
 
-void	handle_builtin_echo(t_shell *shell, char **matrix, t_redir_list *redir)
+void	handle_builtin_echo(char **matrix, t_redir_list *redir)
 {
 	char			**echo_matrix;
 	t_redir_list	*current_node;
@@ -14,7 +14,7 @@ void	handle_builtin_echo(t_shell *shell, char **matrix, t_redir_list *redir)
 		ft_exit_error(ERR_ALLOC_MATRIX_COPY);
 	handle_echo_print(echo_matrix, current_node);
 	free_matrix(echo_matrix);
-	shell->last_exit_status = EXIT_STATUS_SUCCESS;
+	g_exit_status = EXIT_STATUS_SUCCESS;
 }
 
 static void	print_echo_matrix(char **echo_matrix, t_bool flag)

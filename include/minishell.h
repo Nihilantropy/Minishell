@@ -16,6 +16,10 @@
 # define EXIT_STATUS_SUCCESS 0
 # define EXIT_STATUS_ERROR 1
 
+# define HERE_DOC_SIGINT 130
+
+extern int	g_exit_status;
+
 typedef enum e_bool
 {
 	false = 0,
@@ -66,6 +70,7 @@ typedef struct s_env
 	char			*name;
 	char			*value;
 	t_bool			show;
+	t_bool			chain;
 	struct s_env	*next;
 	struct s_env	*prev;
 }					t_env;
@@ -118,7 +123,6 @@ typedef struct s_shell
 	t_cmd	*cmd;
 	t_env	*env;
 	char	**path;
-	int		last_exit_status;
 	int		pipes_nbr;
 	t_bool	error;
 	int		stdin_copy;
@@ -138,9 +142,13 @@ void	free_matrix(char **matrix);
 /* signal */
 void	signal_handler_interactive(void);
 void	signal_handler_non_interactive(void);
+void	handleback(int sig);
 
 /* signal sigint */
 void	sigint_handler(void);
+
+/* signal sigint heredoc */
+void	sigint_handler_heredoc(void);
 
 /* signal sigquit */
 void	sigquit_handler(void);
@@ -187,7 +195,7 @@ char	*ft_getenv(t_env *env, char *var_name);
 
 /* parser env */
 void	handle_env_var(t_shell *shell, t_arg *arg);
-char	*parse_env_var(t_shell *shell, char *str); // TODO
+char	*parse_env_var(t_shell *shell, char *str);
 
 /* parser polish list */
 void	polish_list(t_shell *shell, t_arg *arg);
@@ -232,12 +240,13 @@ void	handle_builtin_export(t_shell *shell, char **matrix);
 
 /* builtin export utils 1 */
 void	dup_ex_list(t_env *export, t_env **export_dup);
+void	chain_env_value(t_env *current_node, t_env *new_node);
 
 /* builtin export utils 2 */
 void	print_env_list(t_env *env);
 int		var_length(char *line);
 char	*copy_ex_var(char *str);
-char	*copy_ex_name(char *current_var);
+char	*copy_ex_name(t_env *current_node, char *current_var);
 char	*copy_ex_value(char *current_var);
 
 /* builtin export print */
@@ -257,10 +266,10 @@ void	handle_builtin_unset(t_shell *shell, char **matrix);
 void	create_unset_list(char **matrix, t_env **unset);
 
 /* builtin echo */
-void	handle_builtin_echo(t_shell *shell, char **matrix, t_redir_list *redir);
+void	handle_builtin_echo(char **matrix, t_redir_list *redir);
 
 /* builtin pwd */
-void	handle_builtin_pwd(t_shell *shell);
+void	handle_builtin_pwd(void);
 
 /* builtin exit */
 void	handle_builtin_exit(t_shell *shell);
@@ -273,6 +282,7 @@ void	handle_history(t_shell *shell);
 
 /* executor */
 void	executor(t_shell *shell);
+int		handle_exit_status(int status);
 
 /* executor redir */
 void	redir_input(t_redir_list *redir);

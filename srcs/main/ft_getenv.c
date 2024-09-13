@@ -1,8 +1,8 @@
 #include "../../include/minishell.h"
 
 /*	ft_getevn:
-		Function to get the corrisponding name value form the
-		env list. Like getenv() function but for the env list.
+**	Function to get the corrisponding name value form the
+**	env list. Like getenv() function but for the env list.
 */
 char	*ft_getenv(t_env *env, char *var_name)
 {

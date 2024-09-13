@@ -4,7 +4,7 @@ static void	init_redir(t_arg *new_node);
 static void	init_token(t_arg *new_node);
 
 /*	init new node:
-		Initializing the new node to have all known values.
+**	Initializing the new node to have all known values.
 */
 t_arg	*init_new_node(void)
 {
@@ -46,7 +46,7 @@ static void	init_redir(t_arg *new_node)
 }
 
 /*	find total path:
-		Find the PATH for the executable
+**	Find the PATH for the executable
 */
 void	find_total_path(t_shell *shell)
 {

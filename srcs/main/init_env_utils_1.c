@@ -1,8 +1,8 @@
 #include "../../include/minishell.h"
 
 /*	copy variable:
-		copy the entire variable in the
-		'var' field (ex. USER=gino).
+**	copy the entire variable in the
+**	'var' field (ex. USER=gino).
 */
 char	*copy_var(char *current_var)
 {
@@ -15,8 +15,8 @@ char	*copy_var(char *current_var)
 }
 
 /*	copy name:
-		copy the name part of the variable in
-		the 'name' field (ex. USER).
+**	copy the name part of the variable in
+**	the 'name' field (ex. USER).
 */
 char	*copy_name(char *current_var)
 {
@@ -40,8 +40,8 @@ char	*copy_name(char *current_var)
 }
 
 /*	copy value:
-		copy the value part of the variable in
-		the 'value' field (ex. gino).
+**	copy the value part of the variable in
+**	the 'value' field (ex. gino).
 */
 char	*copy_value(char *current_var)
 {

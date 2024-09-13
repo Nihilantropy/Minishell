@@ -1,5 +1,7 @@
 #include "../../include/minishell.h"
 
+int	g_exit_status = 0;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell		shell;
@@ -24,10 +26,9 @@ void	shell_prompt(t_shell *shell)
 	{
 		signal_handler_interactive();
 		parse_args(shell);
-		if (shell->arg && shell->error == false)
-		{
+		if (shell->arg && shell->error == false
+			&& g_exit_status != HERE_DOC_SIGINT)
 			executor(shell);
-		}
 		shell->pipes_nbr = 0;
 		shell->error = false;
 	}

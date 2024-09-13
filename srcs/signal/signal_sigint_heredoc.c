@@ -3,8 +3,8 @@
 static void	handle_sigint_heredoc(int sig);
 
 /*	signal handler:
-		Capture the SIGNINT signal and
-		make it reset user prompt
+**	Capture the SIGNINT signal and
+**	make it reset user prompt
 */
 void	sigint_handler_heredoc(void)
 {
@@ -19,7 +19,5 @@ void	sigint_handler_heredoc(void)
 static void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	exit(HERE_DOC_SIGINT);
 }

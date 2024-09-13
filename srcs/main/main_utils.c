@@ -1,10 +1,10 @@
 #include "../../include/minishell.h"
 
 /*	free prompt:
-		free all the memory of the read line and
-		the lists of the parsed line. 
-		Free also the path, so it will reset everytime
-		the user insert a prompt.
+**	free all the memory of the read line and
+**	the lists of the parsed line. 
+**	Free also the path, so it will reset everytime
+**	the user insert a prompt.
 */
 void	free_prompt(t_shell *shell)
 {
@@ -86,4 +86,5 @@ void	free_matrix(char **matrix)
 	while (matrix[y])
 		free(matrix[y++]);
 	free(matrix);
+	matrix = NULL;
 }

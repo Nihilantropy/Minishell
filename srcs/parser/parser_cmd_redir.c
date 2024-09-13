@@ -5,9 +5,9 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell);
 static void	create_heredoc_list(t_arg *current_node, t_redir_list *redir, int here_doc_index);
 
 /*	build redir list:
-		1) Build all the necessary nodes for the redirection list, each inside the
-			command node
-		2) Copy the redirection file name inside the node, with the corrisponding types
+**	1) Build all the necessary nodes for the redirection list, each inside the
+**		command node
+**	2) Copy the redirection file name inside the node, with the corrisponding types
 */
 void	build_redir_list(t_cmd *cmd, t_shell *shell)
 {
@@ -26,7 +26,7 @@ void	build_redir_list(t_cmd *cmd, t_shell *shell)
 }
 
 /*	init redir node:
-		Initializing the redirection node and appending the node to the list.
+**	Initializing the redirection node and appending the node to the list.
 */
 static void	init_redir_node(t_redir_list **redir)
 {
@@ -46,10 +46,10 @@ static void	init_redir_node(t_redir_list **redir)
 }
 
 /*	copy redir:
-		1) Copy the redirections untill the end or the pipe and set the
-			corrisponding type
-		2) If the current node is a pipe, move the node to the next one
-		3) Move the head of the arg list to the current node
+**	1) Copy the redirections untill the end or the pipe and set the
+**		corrisponding type
+**	2) If the current node is a pipe, move the node to the next one
+**	3) Move the head of the arg list to the current node
 */
 static void	copy_redir(t_redir_list *redir, t_shell *shell)
 {
@@ -77,10 +77,10 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 }
 
 /*	create heredoc list:
-		Create a struct for the here_doc, saving the spiecific index
-		of the file, and the speicific name, based on the index.
-		Also check what type of quotetion the node has in order to
-		check the $VAR expantion.
+**	Create a struct for the here_doc, saving the spiecific index
+**	of the file, and the speicific name, based on the index.
+**	Also check what type of quotetion the node has in order to
+**	check the $VAR expantion.
 */
 static void	create_heredoc_list(t_arg *current_node, t_redir_list *redir, int here_doc_index)
 {

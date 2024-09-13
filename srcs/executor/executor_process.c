@@ -1,8 +1,11 @@
 #include "../../include/minishell.h"
 
 static void	process_pipeline(t_shell *shell, t_cmd *current_node, int fd[2]);
-void		handle_exit_status(t_shell *shell, int status);
 
+/*	process command:
+**	use the pipe to syncronyze the
+**	processes in the pipeline.
+*/
 void process_command(t_shell *shell)
 {
 	int		fd[2];
@@ -29,11 +32,16 @@ void process_command(t_shell *shell)
 			current_node = current_node->next;
 		}
 	}
+	close(STDIN_FILENO);
 	while (wait(&status) > 0)
-		handle_exit_status(shell, status);
-	exit(EXIT_SUCCESS);
+		g_exit_status = handle_exit_status(status);
+	exit(g_exit_status);
 }
 
+/*	process pipeline:
+**	redirect input & output and execute
+**	command or builtins
+*/
 static void	process_pipeline(t_shell *shell, t_cmd *current_node, int fd[2])
 {
 	if (current_node->next)

@@ -34,6 +34,7 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(PARSER_DIR)/parser_heredoc.c \
 				$(SIGNAL_DIR)/signal.c \
 				$(SIGNAL_DIR)/signal_sigint.c \
+				$(SIGNAL_DIR)/signal_sigint_heredoc.c \
 				$(SIGNAL_DIR)/signal_sigterm.c \
 				$(SIGNAL_DIR)/signal_sigquit.c \
 				$(SIGNAL_DIR)/signal_sigint_heredoc.c \

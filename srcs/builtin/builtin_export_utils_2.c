@@ -20,8 +20,8 @@ void print_env_list(t_env *env)
 }
 
 /*	var length:
-		find the length of the entire variable,
-		aka the node parameter.
+**	find the length of the entire variable,
+**	aka the node parameter.
 */
 int	var_length(char *line)
 {
@@ -49,7 +49,7 @@ int	var_length(char *line)
 }
 
 /*	copy export variable:
-		copy the entire variable in the node and return it.
+**	copy the entire variable in the node and return it.
 */
 char	*copy_ex_var(char *str)
 {
@@ -62,9 +62,9 @@ char	*copy_ex_var(char *str)
 }
 
 /*	copy export name:
-		copy the export node name.
+**	copy the export node name.
 */
-char	*copy_ex_name(char *current_var)
+char	*copy_ex_name(t_env *current_node, char *current_var)
 {
 	int		i;
 	char	*name;
@@ -75,12 +75,17 @@ char	*copy_ex_name(char *current_var)
 	name = malloc(i + 1);
 	if (!name)
 		ft_exit_error(ERR_ALLOC_NAME);
-	ft_strlcpy(name, current_var, i + 1);
+	if (current_var[i] == '=' && current_var[i - 1] == '+')
+		current_node->chain = true;
+	if (current_node->chain)
+		ft_strlcpy(name, current_var, i);
+	else
+		ft_strlcpy(name, current_var, i + 1);
 	return (name);
 }
 
 /*	copy export value:
-		copy the export node value.
+**	copy the export node value.
 */
 char	*copy_ex_value(char *current_var)
 {

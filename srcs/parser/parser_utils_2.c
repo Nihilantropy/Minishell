@@ -4,7 +4,7 @@ static int	quote_node_length(char *temp, t_arg *new_node);
 static int	none_quote_node_length(char *temp, t_arg *new_node);
 
 /*	arg length:
-		Find the length of the node string argument
+**	Find the length of the node string argument
 */
 int	arg_length(char *temp, t_arg *new_node)
 {
@@ -19,7 +19,7 @@ int	arg_length(char *temp, t_arg *new_node)
 }
 
 /*	token legth:
-		Find the length of the node token argument.
+**	Find the length of the node token argument.
 */
 int	token_length(char *temp)
 {
@@ -39,8 +39,8 @@ int	token_length(char *temp)
 }
 
 /*	auote node length:
-		Return the length of the quoted argument and activate the 'chained'
-		flag if the node is chained to the next one.
+**	Return the length of the quoted argument and activate the 'chained'
+**	flag if the node is chained to the next one.
 */
 static int	quote_node_length(char *temp, t_arg *new_node)
 {
@@ -60,8 +60,8 @@ static int	quote_node_length(char *temp, t_arg *new_node)
 }
 
 /*	none quote node length:
-		Return the length of the non-quoted argument and activate the 'chained'
-		flag if the node is chained to the next one.
+**	Return the length of the non-quoted argument and activate the 'chained'
+**	flag if the node is chained to the next one.
 */
 static int	none_quote_node_length(char *temp, t_arg *new_node)
 {

@@ -4,6 +4,7 @@
 # define EXIT_MAIN "User wrote exit\n"
 
 # define ERR_ALLOC_ENV "Error. ENV allocation failed.\n"
+# define ERR_ENV_CHAIN_VALUE "Error. CHAIN VALUE allocation failed.\n"
 # define ERR_NEW_ENV_ALLOC "Error. NEW_ENV allocation failed.\n"
 # define ERR_ALLOC_NAME "Error. NAME allocation failed.\n"
 # define ERR_ALLOC_VALUE "Error. VALUE allocation failed.\n"

@@ -1,20 +1,17 @@
 #include "../../include/minishell.h"
 
-static int	check_exit_invalid_arg(t_shell *shell);
-static int	check_exit_alpha_arg(char **matrix);
-static int	check_exit_multi_arg(char **matrix);
+static int		check_exit_invalid_arg(t_shell *shell);
+static t_bool	check_exit_alpha_arg(char **matrix);
+static t_bool	check_exit_multi_arg(char **matrix);
 
 void	handle_builtin_exit(t_shell *shell)
 {
-	if (check_exit_invalid_arg(shell) == 0)
-	{
-		free_shell(shell);
-		free_prompt(shell);
-		exit(EXIT_SUCCESS);
-	}
-	else
+	g_exit_status = check_exit_invalid_arg(shell);
+	if (g_exit_status == 1)
 		return ;
-	return ;
+	free_shell(shell);
+	free_prompt(shell);
+	exit(g_exit_status);
 }
 
 static int	check_exit_invalid_arg(t_shell *shell)
@@ -22,18 +19,16 @@ static int	check_exit_invalid_arg(t_shell *shell)
 	char	**matrix;
 
 	matrix = shell->cmd->matrix;
-	if (shell->pipes_nbr != 0)
-		return (1);
 	if (!matrix[1])
 		return (0);
-	if (check_exit_alpha_arg(matrix) == 0)
+	if (check_exit_multi_arg(matrix) == true)
 		return (1);
-	if (check_exit_multi_arg(matrix) == 1)
-		return (1);
+	if (check_exit_alpha_arg(matrix) == true)
+		return (2);
 	return (0);
 }
 
-static int	check_exit_alpha_arg(char **matrix)
+static t_bool	check_exit_alpha_arg(char **matrix)
 {
 	int	x;
 
@@ -42,21 +37,23 @@ static int	check_exit_alpha_arg(char **matrix)
 	{
 		if (!ft_isdigit(matrix[1][x]))
 		{
-			printf("-minishell: exit: %s: ", matrix[1]);
-			printf("numeric argument required\n");
-			return (0);
+			ft_putstr_fd("\n-minishell: exit: ", 2);
+			ft_putstr_fd(matrix[1], 2);
+			ft_putstr_fd(": \n", 2);
+			ft_putstr_fd("numeric argument required\n", 2);
+			return (true);
 		}
 		x++;
 	}
-	return (1);
+	return (false);
 }
 
-static int	check_exit_multi_arg(char **matrix)
+static t_bool	check_exit_multi_arg(char **matrix)
 {
 	if (matrix[2] != NULL)
 	{
-		printf("too many arguments\n");
-		return (1);
+		ft_putstr_fd("too many arguments\n", 2);
+		return (true);
 	}
-	return (0);
+	return (false);
 }
