@@ -28,8 +28,8 @@ void	free_prompt(t_shell *shell)
 }
 
 /*	free shell:
-		at exit, free the duplicated env list
-		and the relative env matrix
+**	at exit, free the duplicated env list
+**	and the relative env matrix
 */
 void	free_shell(t_shell *shell)
 {
@@ -51,9 +51,6 @@ void	print_matrix(char **matrix)
 	}
 }
 
-/*	dup matrix:
-		duplicate a matrix
-*/
 char	**dup_matrix(char **matrix)
 {
 	char	**copy_matrix;

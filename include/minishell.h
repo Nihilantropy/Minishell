@@ -141,8 +141,6 @@ void	free_matrix(char **matrix);
 
 /* signal */
 void	signal_handler_interactive(void);
-void	signal_handler_non_interactive(void);
-void	handleback(int sig);
 
 /* signal sigint */
 void	sigint_handler(void);

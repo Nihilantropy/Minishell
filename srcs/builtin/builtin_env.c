@@ -9,8 +9,8 @@ void	handle_builtin_env(t_shell *shell)
 }
 
 /*	print env builtin:
-		print the name and then the value of each node that
-		has the show flag active.
+**	print the name and then the value of each node that
+**	has the show flag active.
 */
 static void	print_env_builtin(t_env *env)
 {
@@ -30,9 +30,9 @@ static void	print_env_builtin(t_env *env)
 }
 
 /*	remove node:
-		This function is not related to the env builtin.
-		It is used in the export and unset builtin.
-		Remove the current node from the env list.
+**	This function is not related to the env builtin.
+**	It is used in the export and unset builtin.
+**	Remove the current node from the env list.
 */
 void	remove_node(t_env *current_node, t_env **head)
 {

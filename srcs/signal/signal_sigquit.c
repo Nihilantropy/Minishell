@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 /*	sigquit handler:
-**	Replace SIGQUIT signal with SIG_IGN to do nothing
+**	Replace SIGQUIT signal with SIG_IGN: do nothing
 */
 void	sigquit_handler(void)
 {

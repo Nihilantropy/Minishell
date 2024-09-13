@@ -3,7 +3,7 @@
 static void	swap_nodes(t_env *current_node, t_env *next_node);
 
 /*	sort nodes:
-		sort in ascending order.
+**	sort in ascending order.
 */
 void	sort_nodes(t_env **env_dup)
 {
@@ -25,7 +25,7 @@ void	sort_nodes(t_env **env_dup)
 }
 
 /*	swap nodes:
-		swap the content of the nodes.
+**	swap the content of the nodes.
 */
 static void	swap_nodes(t_env *current_node, t_env *next_node)
 {
