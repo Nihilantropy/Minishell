@@ -41,16 +41,9 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 }
 
 /*	update oldpwd:
-<<<<<<< HEAD
-		If the OLDPWD node is not in the env list
-		(ex. has been unset or the user never
-		moved from the start of the session), create the node.
-		Else substitute the old value.
-=======
 **	if the OLDPWD node is not in the env list (ex. has been unset or the user never
 **	moved from the start of the session), create the node.
 **	else substitute the old value.
->>>>>>> 5717575f23ccfca886db6410cdef7c3909500b18
 */
 static void	update_oldpwd(t_shell *shell, char *current_pwd)
 {
@@ -70,16 +63,9 @@ static void	update_oldpwd(t_shell *shell, char *current_pwd)
 }
 
 /*	update pwd:
-<<<<<<< HEAD
-		If the PWD node is not in the env list
-		(ex. has been unset or the user never
-		moved from the start of the session), create the node.
-		Else update the old value.
-=======
 **	if the PWD node is not in the env list (ex. has been unset or the user never
 **	moved from the start of the session), create the node.
 **	else update the old value.
->>>>>>> 5717575f23ccfca886db6410cdef7c3909500b18
 */
 static void	update_pwd(t_shell *shell, char *new_pwd)
 {
