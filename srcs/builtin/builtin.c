@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 /*	handle builtin:
-		enter the correct builtin.
+**	enter the correct builtin.
 */
 void	handle_builtin(t_shell *shell, t_cmd *current_node)
 {
@@ -22,9 +22,9 @@ void	handle_builtin(t_shell *shell, t_cmd *current_node)
 }
 
 /*	check builtin:
-		set the right builtin type for the current node.
+**	set the right builtin type for the current node.
 */
-void check_builtin(t_cmd *current_node)
+void	check_builtin(t_cmd *current_node)
 {
 	if (!current_node->matrix[0])
 		return ;
