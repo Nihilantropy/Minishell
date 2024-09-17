@@ -231,6 +231,12 @@ void	handle_builtin_pwd(void);
 void	handle_builtin_exit(t_shell *shell);
 /* builtin cd */
 void	handle_builtin_cd(t_shell *shell, char **matrix);
+/* builtin cd utils */
+void	create_oldpwd_node(t_shell *shell, char *current_pwd);
+void	update_oldpwd_node(t_env *current_node, char *current_pwd);
+void	create_pwd_node(t_shell *shell, char *new_pwd);
+void	update_pwd_node(t_env *current_node, char *new_pwd);
+int		matrix_len(char **matrix);
 
 /*** executor ***/
 /* executor */
