@@ -1,8 +1,5 @@
-Implement NON-INTERACTIVE MODE. ex: "./minishell -c echo hello; ls". This calls the programm with the arguments to parse
-and to execute.
+handle here_doc temp file unlinking
 
-Check eventual memory leaks.
+check memory leaks
 
-Implement strong error messages on standard error.
-
-Fancy it up a little!
+check exit status
