@@ -123,13 +123,14 @@ void	parse_args(t_shell *shell)
 {
 	shell->line = readline("\nminishell$ ");
 	if (!shell->line)
-		signal_sigterm(shell);
+		exit(EXIT_SUCCESS);
 	if (shell->line[0] == '\0')
 	{
 		free(shell->line);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		shell->line = NULL;
 		return ;
 	}
 	parse_list(shell);

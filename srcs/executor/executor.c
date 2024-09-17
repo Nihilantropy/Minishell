@@ -20,16 +20,19 @@ void	executor(t_shell *shell)
 		handle_single_builtin_cmd(shell);
 	else
 	{
+		signal_ign();
 		pid = fork();
 		if (pid == -1)
 			ft_exit_error(ERR_FORK);
 		if (pid == 0)
 			process_command(shell);
+		signal(SIGINT, signal_handler_execve);
+		signal(SIGQUIT, signal_handler_execve);
 		waitpid(pid, &status, 0);
+		signal_handler_interactive();
 		g_exit_status = handle_exit_status(status);
 	}
 	reset_redir(shell);
-	free_prompt(shell);
 }
 
 /* handle single builtin cmd

@@ -13,10 +13,8 @@ int	main(int argc, char **argv, char **envp)
 	}
 	(void)argv;
 	init_shell(&shell, envp);
-	if (isatty(STDIN_FILENO))
-	{
-		shell_prompt(&shell);
-	}
+
+	shell_prompt(&shell);
 	return (0);
 }
 
@@ -31,5 +29,6 @@ void	shell_prompt(t_shell *shell)
 			executor(shell);
 		shell->pipes_nbr = 0;
 		shell->error = false;
+		free_prompt(shell);
 	}
 }

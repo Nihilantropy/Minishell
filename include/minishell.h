@@ -153,14 +153,11 @@ t_env	*find_last_env_node(t_env *env);
 /*** signal ***/
 /* signal */
 void	signal_handler_interactive(void);
-/* signal sigint */
-void	sigint_handler(void);
-/* signal sigquit */
-void	sigquit_handler(void);
-/* signal sigterm */
-void	signal_sigterm(t_shell *shell);
+void	signal_ign(void);
 /* signal sigint heredoc */
 void	sigint_handler_heredoc(void);
+/* signal executor */
+void	signal_handler_execve(int signum);
 
 /*** parser ***/
 /* parser */
