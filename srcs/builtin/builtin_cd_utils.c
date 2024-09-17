@@ -43,13 +43,3 @@ void	update_pwd_node(t_env *current_node, char *new_pwd)
 		free(current_node->value);
 	current_node->value = new_pwd_dup;
 }
-
-int	matrix_len(char **matrix)
-{
-	int	len;
-
-	len = 0;
-	while (matrix[len])
-		len++;
-	return (len);
-}
