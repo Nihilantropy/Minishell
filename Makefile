@@ -11,7 +11,6 @@ EXECUTOR_DIR	= ./executor
 UTILS_DIR		= ./utils
 
 SRCS		=	$(MAIN_DIR)/main.c \
-				$(MAIN_DIR)/main_utils.c \
 				$(MAIN_DIR)/init_shell.c \
 				$(MAIN_DIR)/init_env.c \
 				$(MAIN_DIR)/init_env_utils_1.c \

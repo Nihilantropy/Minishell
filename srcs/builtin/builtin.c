@@ -18,7 +18,7 @@ void	handle_builtin(t_shell *shell, t_cmd *current_node)
 	else if (current_node->builtin.exit)
 		handle_builtin_exit(shell);
 	else if (current_node->builtin.cd)
-		handle_builtin_cd(shell, current_node->matrix);
+		handle_builtin_cd(shell, current_node, current_node->matrix);
 }
 
 /*	check builtin:

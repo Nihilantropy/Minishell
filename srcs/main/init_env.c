@@ -2,8 +2,6 @@
 
 static int	del_same_name_node(t_env **env, t_env *new_node);
 static void	handle_node_pointer(t_env *current_node, t_env *new_node);
-void		update_shell_env_level(t_shell *shell);
-void		update_new_shell_env(t_shell *shell);
 
 /*	init env:
 **	create a list copy of the envp (variable enviroment) at opening.

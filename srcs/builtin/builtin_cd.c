@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 static int	handle_home_cd(t_shell *shell);
-static int	handle_path_cd(char *path);
+static int	handle_path_cd(t_env *env, char *path);
 static void	update_oldpwd(t_shell *shell, char *current_pwd);
 static void	update_pwd(t_shell *shell, char *new_pwd);
 
@@ -11,13 +11,14 @@ static void	update_pwd(t_shell *shell, char *new_pwd);
 **	3) saving the new working directory in the stack
 **	4) updating the oldpwd and the pwd in the env list
 */
-void	handle_builtin_cd(t_shell *shell, char **matrix)
+void	handle_builtin_cd(t_shell *shell, t_cmd *current_node, char **matrix)
 {
 	char	current_pwd[2048];
 	char	new_pwd[2048];
 	int		cd_return;
 
 	cd_return = 0;
+	(void)current_node;
 	if (matrix_len(matrix) >= 3)
 	{
 		ft_putstr_fd(ERR_CD_PATH, 2);
@@ -28,7 +29,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 	if (matrix_len(matrix) == 1)
 		cd_return = handle_home_cd(shell);
 	else if (matrix_len(matrix) == 2)
-	 	cd_return = handle_path_cd(matrix[1]);
+	 	cd_return = handle_path_cd(shell->env, matrix[1]);
 	if (cd_return == -1)
 	{
 		g_exit_status = EXIT_STATUS_ERROR;
@@ -45,7 +46,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 
 /*	update oldpwd:
 **	if the OLDPWD node is not in the env list (ex. has been unset or the user never
-**	moved from the start of the session), create the node.
+**	moved from the start of the session), return.
 **	else substitute the old value.
 */
 static void	update_oldpwd(t_shell *shell, char *current_pwd)
@@ -60,14 +61,14 @@ static void	update_oldpwd(t_shell *shell, char *current_pwd)
 		current_node = current_node->next;
 	}
 	if (!current_node)
-		create_oldpwd_node(shell, current_pwd);
+		return ;
 	else
 		update_pwd_node(current_node, current_pwd);
 }
 
 /*	update pwd:
 **	if the PWD node is not in the env list (ex. has been unset or the user never
-**	moved from the start of the session), create the node.
+**	moved from the start of the session), return.
 **	else update the old value.
 */
 static void	update_pwd(t_shell *shell, char *new_pwd)
@@ -82,7 +83,7 @@ static void	update_pwd(t_shell *shell, char *new_pwd)
 		current_node = current_node->next;
 	}
 	if (!current_node)
-		create_pwd_node(shell, new_pwd);
+		return ;
 	else
 		update_pwd_node(current_node, new_pwd);
 }
@@ -114,9 +115,26 @@ static int	handle_home_cd(t_shell *shell)
 	return (0);
 }
 
-static int	handle_path_cd(char *path)
+static int	handle_path_cd(t_env *env, char *path)
 {
-	if (chdir(path) == -1)
+	char	*old_pwd;
+
+	if (ft_strcmp(path, "-") == 0)
+	{
+		old_pwd = ft_getenv(env, "OLDPWD");
+		if (!old_pwd)
+		{
+			ft_putstr_fd(ERR_OLDPWD_UNSET, 2);
+			return (-1);
+		}
+		if (chdir(old_pwd) == -1)
+		{
+			perror("chdir");
+			return (-1);
+		}
+		printf("%s\n", old_pwd);
+	}
+	else if (chdir(path) == -1)
 	{
 		perror("chdir");
 		return (-1);

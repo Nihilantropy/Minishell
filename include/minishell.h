@@ -132,8 +132,6 @@ typedef struct s_shell
 /*** main ***/
 /* main */
 void	shell_prompt(t_shell *shell);
-/* main utils */
-char	**dup_matrix(char **matrix);
 /* history */
 void	handle_history(t_shell *shell);
 /* ft_getenv */
@@ -144,11 +142,14 @@ void	init_shell(t_shell *shell, char **envp);
 void	init_env(t_shell *shell, char **envp);
 void	create_new_env_node(t_shell *shell, char *current_var);
 void	append_env_node(t_env **env, t_env *new_node);
-/* init env utils */
+/* init env utils 1 */
 char	*copy_var(char *current_var);
 char	*copy_name(char *current_var);
 char	*copy_value(char *current_var);
 t_env	*find_last_env_node(t_env *env);
+/* ini env utils 2 */
+void		update_shell_env_level(t_shell *shell);
+void		update_new_shell_env(t_shell *shell);
 
 /*** signal ***/
 /* signal */
@@ -227,11 +228,9 @@ void	handle_builtin_pwd(void);
 /* builtin exit */
 void	handle_builtin_exit(t_shell *shell);
 /* builtin cd */
-void	handle_builtin_cd(t_shell *shell, char **matrix);
+void	handle_builtin_cd(t_shell *shell, t_cmd *current_node, char **matrix);
 /* builtin cd utils */
-void	create_oldpwd_node(t_shell *shell, char *current_pwd);
 void	update_oldpwd_node(t_env *current_node, char *current_pwd);
-void	create_pwd_node(t_shell *shell, char *new_pwd);
 void	update_pwd_node(t_env *current_node, char *new_pwd);
 
 /*** executor ***/
@@ -255,6 +254,7 @@ void	free_shell(t_shell *shell);
 void	print_matrix(char **matrix);
 void	free_matrix(char **matrix);
 int		matrix_len(char **matrix);
+char	**dup_matrix(char **matrix);
 /* cmd */
 void	print_cmd_list(t_cmd *cmd);
 void	free_cmd_list(t_cmd **cmd);

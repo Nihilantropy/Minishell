@@ -45,10 +45,12 @@ int	check_name_arg_error(t_env *current_node, t_env **export)
 
 	i = 0;
 	len = ft_strlen(current_node->name);
-	while ((current_node->chain && i < (len - 1)) || (current_node->name[i] && !current_node->chain))
+	while ((current_node->chain && i < (len - 1))
+		|| (current_node->name[i] && !current_node->chain))
 	{
-		if (current_node->name[0] != '!' && (ft_isdigit(current_node->name[0]) ||
-			(!ft_isalnum(current_node->name[i]))) && current_node->name[i])
+		if (current_node->name[0] != '!' && (ft_isdigit(current_node->name[0])
+				|| (!ft_isalnum(current_node->name[i])))
+				&& current_node->name[i])
 		{
 			printf("-minishell: export: `%s'", current_node->var);
 			printf(": not a valid identifier\n");

@@ -55,6 +55,8 @@ void	update_new_shell_env(t_shell *shell)
 	int		len;
 	t_env	*current_node;
 
+	if (shell->new_env)
+		free_matrix(shell->new_env);
 	y = 0;
 	current_node = shell->env;
 	len = env_list_length(shell->env);

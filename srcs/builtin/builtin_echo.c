@@ -47,7 +47,8 @@ static void	handle_echo_print(char **echo_matrix, t_redir_list	*current_node)
 		printf("\n");
 	else if (flag && echo_matrix[2])
 	{
-		if (current_node && (current_node->type.outfile || current_node->type.append))
+		if (current_node && (current_node->type.outfile
+			|| current_node->type.append))
 			flag = false;
 		print_echo_matrix(echo_matrix + 2, flag);
 	}

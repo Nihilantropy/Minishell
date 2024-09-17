@@ -23,10 +23,8 @@ void	handle_builtin_export(t_shell *shell, char **matrix)
 		free_env_list(&export);
 		return ;
 	}
-	if (shell->pipes_nbr == 0)
-		append_list_to_env(shell, export);
-	else
-		free_env_list(&export);
+	append_list_to_env(shell, export);
+	update_new_shell_env(shell);
 	g_exit_status = EXIT_STATUS_SUCCESS;
 }
 

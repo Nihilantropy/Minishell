@@ -33,6 +33,8 @@ static void	handle_relative_path(t_shell *shell, t_cmd *current_node)
 		free_matrix(shell->path);
 		exit(EXIT_FAILURE);
 	}
+	if (ft_strncmp(current_node->matrix[0], "", 1) == 0)
+		exit(EXIT_SUCCESS);
 	if (execve(cmd_path, current_node->matrix, shell->new_env) == -1)
 	{
 		ft_putstr_fd("execve failed\n", 2);
@@ -51,6 +53,8 @@ static void	handle_env_path(t_shell *shell, t_cmd *current_node)
 		printf("%s: command not found\n", current_node->matrix[0]);
 		exit(EXIT_FAILURE);
 	}
+	if (ft_strncmp(current_node->matrix[0], "", 1) == 0)
+		exit(EXIT_SUCCESS);
 	if (execve(cmd_path, current_node->matrix, shell->new_env) == -1)
 	{
 		perror("execve failed\n");

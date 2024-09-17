@@ -10,9 +10,9 @@ void	print_export(t_env *env)
 {
 	t_env	*env_dup;
 	t_env	*current_node;
+
 	if (!env)
 		return ;
-
 	env_dup = NULL;
 	dup_env_list(env, &env_dup);
 	sort_nodes(&env_dup);
