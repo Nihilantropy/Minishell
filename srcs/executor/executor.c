@@ -43,13 +43,6 @@ static void	handle_single_builtin_cmd(t_shell *shell)
 	current_node = shell->cmd;
 	redir_input(current_node->redir);
 	redir_output(current_node->redir);
-	if (!shell->path)
-	{
-		ft_putstr_fd("-minishell: ", 2);
-		ft_putstr_fd(current_node->matrix[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		return ;
-	}
 	handle_builtin(shell, current_node);
 }
 

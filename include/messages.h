@@ -30,7 +30,8 @@
 # define ERR_CMD_ALLOC "Error. CMD allocation failed.\n"
 
 # define ERR_PWD "Error. PWD failed.\n"
-# define ERR_CD_PATH "Error. path not found.\n"
+# define ERR_CD_PATH "Error. cd path not found.\n"
+# define ERR_HOME_CD "minishell: cd: HOME not set\n"
 
 # define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"
 

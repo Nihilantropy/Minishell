@@ -1,5 +1,7 @@
 #include "../../include/minishell.h"
 
+static int	handle_home_cd(t_shell *shell);
+static int	handle_path_cd(char *path);
 static void	update_oldpwd(t_shell *shell, char *current_pwd);
 static void	update_pwd(t_shell *shell, char *new_pwd);
 void		create_oldpwd_node(t_shell *shell, char *current_pwd);
@@ -17,17 +19,22 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 {
 	char	current_pwd[2048];
 	char	new_pwd[2048];
+	int		cd_return;
 
-	if (!matrix[1] || matrix[2])
+	cd_return = 0;
+	if (matrix_len(matrix) >= 3)
 	{
-		printf(ERR_CD_PATH);
-		g_exit_status = EXIT_STATUS_SUCCESS;
+		ft_putstr_fd(ERR_CD_PATH, 2);
+		g_exit_status = EXIT_STATUS_ERROR;
 		return ;
 	}
 	getcwd(current_pwd, 2048);
-	if (chdir(matrix[1]) == -1)
+	if (matrix_len(matrix) == 1)
+		cd_return = handle_home_cd(shell);
+	else if (matrix[1])
+	 	cd_return = handle_path_cd(matrix[1]);
+	if (cd_return == -1)
 	{
-		perror("minishell");
 		g_exit_status = EXIT_STATUS_ERROR;
 		return ;
 	}
@@ -84,3 +91,35 @@ static void	update_pwd(t_shell *shell, char *new_pwd)
 		update_pwd_node(current_node, new_pwd);
 }
 
+static int	handle_home_cd(t_shell *shell)
+{
+	char	*home_path;
+
+	home_path = ft_getenv(shell->env, "HOME");
+	printf("home_path is: %s\n", home_path);
+	if (!home_path)
+	{
+		ft_putstr_fd(ERR_HOME_CD, 2);
+		return (-1);
+	}
+	else
+	{
+		if (chdir(home_path) == -1)
+		{
+			perror("chdir");
+			return (-1);
+		}
+	}
+	free(home_path);
+	return (0);
+}
+
+static int	handle_path_cd(char *path)
+{
+	if (chdir(path) == -1)
+	{
+		perror("chdir");
+		return (-1);
+	}
+	return (0);
+}
