@@ -24,3 +24,13 @@ void	free_matrix(char **matrix)
 	free(matrix);
 	matrix = NULL;
 }
+
+int	matrix_len(char **matrix)
+{
+	int	len;
+
+	len = 0;
+	while (matrix[len])
+		len++;
+	return (len);
+}

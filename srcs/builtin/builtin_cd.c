@@ -27,7 +27,7 @@ void	handle_builtin_cd(t_shell *shell, char **matrix)
 	getcwd(current_pwd, 2048);
 	if (matrix_len(matrix) == 1)
 		cd_return = handle_home_cd(shell);
-	else if (matrix[1])
+	else if (matrix_len(matrix) == 2)
 	 	cd_return = handle_path_cd(matrix[1]);
 	if (cd_return == -1)
 	{
@@ -87,12 +87,17 @@ static void	update_pwd(t_shell *shell, char *new_pwd)
 		update_pwd_node(current_node, new_pwd);
 }
 
+/*	handle home cd:
+**	if command is "cd" with no path,
+**	get the HOME env var value and use
+**	chdir function to enter the user 
+**	home directory
+*/
 static int	handle_home_cd(t_shell *shell)
 {
 	char	*home_path;
 
 	home_path = ft_getenv(shell->env, "HOME");
-	printf("home_path is: %s\n", home_path);
 	if (!home_path)
 	{
 		ft_putstr_fd(ERR_HOME_CD, 2);
@@ -106,7 +111,6 @@ static int	handle_home_cd(t_shell *shell)
 			return (-1);
 		}
 	}
-	free(home_path);
 	return (0);
 }
 

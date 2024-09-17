@@ -236,7 +236,6 @@ void	create_oldpwd_node(t_shell *shell, char *current_pwd);
 void	update_oldpwd_node(t_env *current_node, char *current_pwd);
 void	create_pwd_node(t_shell *shell, char *new_pwd);
 void	update_pwd_node(t_env *current_node, char *new_pwd);
-int		matrix_len(char **matrix);
 
 /*** executor ***/
 /* executor */
@@ -258,6 +257,7 @@ void	free_shell(t_shell *shell);
 /* matrix */
 void	print_matrix(char **matrix);
 void	free_matrix(char **matrix);
+int		matrix_len(char **matrix);
 /* cmd */
 void	print_cmd_list(t_cmd *cmd);
 void	free_cmd_list(t_cmd **cmd);
