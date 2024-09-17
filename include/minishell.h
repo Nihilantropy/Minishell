@@ -129,165 +129,138 @@ typedef struct s_shell
 	int		stdout_copy;
 }			t_shell;
 
+/*** main ***/
 /* main */
 void	shell_prompt(t_shell *shell);
-
 /* main utils */
-void	free_prompt(t_shell *shell);
-void	free_shell(t_shell *shell);
-void	print_matrix(char **matrix);
 char	**dup_matrix(char **matrix);
-void	free_matrix(char **matrix);
-
-/* signal */
-void	signal_handler_interactive(void);
-
-/* signal sigint */
-void	sigint_handler(void);
-
-/* signal sigint heredoc */
-void	sigint_handler_heredoc(void);
-
-/* signal sigquit */
-void	sigquit_handler(void);
-
-/* signal sigterm */
-void	signal_sigterm(t_shell *shell);
-
+/* history */
+void	handle_history(t_shell *shell);
+/* ft_getenv */
+char	*ft_getenv(t_env *env, char *var_name);
 /* init shell */
 void	init_shell(t_shell *shell, char **envp);
-
 /* init env */
 void	init_env(t_shell *shell, char **envp);
 void	create_new_env_node(t_shell *shell, char *current_var);
 void	append_env_node(t_env **env, t_env *new_node);
-
 /* init env utils */
 char	*copy_var(char *current_var);
 char	*copy_name(char *current_var);
 char	*copy_value(char *current_var);
-void	free_env_list(t_env **env);
 t_env	*find_last_env_node(t_env *env);
 
+/*** signal ***/
+/* signal */
+void	signal_handler_interactive(void);
+/* signal sigint */
+void	sigint_handler(void);
+/* signal sigquit */
+void	sigquit_handler(void);
+/* signal sigterm */
+void	signal_sigterm(t_shell *shell);
+/* signal sigint heredoc */
+void	sigint_handler_heredoc(void);
+
+/*** parser ***/
 /* parser */
 void	parse_args(t_shell *shell);
-
 /* parser utils 1 */
 t_arg	*init_new_node(void);
-
 /* parser utils 2 */
 int		arg_length(char *temp, t_arg *new_node);
 int		token_length(char *temp);
-
 /* parser list utls */
 void	append_node(t_arg **arg, t_arg *new_node);
 t_arg	*find_last_arg_node(t_arg *arg);
 void	print_list(t_arg *arg);
 void	free_list(t_arg **arg);
-
-/* ft_getenv */
-char	*ft_getenv(t_env *env, char *var_name);
-
 /* parser env */
 void	handle_env_var(t_shell *shell, t_arg *arg);
 char	*parse_env_var(t_shell *shell, char *str);
-
 /* parser polish list */
 void	polish_list(t_shell *shell, t_arg *arg);
-
 /* parser polish list utils */
 int		check_arg_list(t_shell *shell);
-
 /* parser cmd */
 void	parse_matrix(t_shell *shell);
-
 /* parser cmd utils */
 int		len_to_pipe_cmd(t_arg *arg);
 void	copy_command(t_cmd *cmd, t_shell *shell);
-
 /* parser cmd list */
 void	append_cmd_node(t_cmd **cmd, t_cmd *new_node);
 void	append_redir_node(t_redir_list **redir, t_redir_list *new_node);
-
-/* parser cmd list utils */
-void	print_cmd_list(t_cmd *cmd);
-void	print_redir_list(t_cmd *cmd);
-void	free_cmd_list(t_cmd **cmd);
-
 /* parser cmd redir */
 void	build_redir_list(t_cmd *cmd, t_shell *shell);
-
 /* parser cmd redir utils */
 void	append_redir_node(t_redir_list **redir, t_redir_list *new_node);
 void	set_node_type(t_redir_list *redir, t_arg *current_node);
-void	free_all_redir_list(t_cmd *cmd);
-void	free_redir_list(t_redir_list **redir);
-
 /* parser heredoc */
 void	handle_heredoc(t_shell *shell);
 
+/*** builtin ***/
 /* builtin */
 void	check_builtin(t_cmd *cmd);
 void	handle_builtin(t_shell *shell, t_cmd *current_node);
-
 /* builtin export */
 void	handle_builtin_export(t_shell *shell, char **matrix);
-
 /* builtin export utils 1 */
 void	dup_ex_list(t_env *export, t_env **export_dup);
 void	chain_env_value(t_env *current_node, t_env *new_node);
-
 /* builtin export utils 2 */
-void	print_env_list(t_env *env);
 int		var_length(char *line);
 char	*copy_ex_var(char *str);
 char	*copy_ex_name(t_env *current_node, char *current_var);
 char	*copy_ex_value(char *current_var);
-
 /* builtin export print */
 void	print_export(t_env *env);
-
 /* builtin export print utils */
 void	sort_nodes(t_env **env_dup);
-
 /* builtin env */
 void	handle_builtin_env(t_shell *shell);
 void	remove_node(t_env *current_node, t_env **head);
-
 /* builtin unset */
 void	handle_builtin_unset(t_shell *shell, char **matrix);
-
 /* builtin unset utils */
 void	create_unset_list(char **matrix, t_env **unset);
-
 /* builtin echo */
 void	handle_builtin_echo(char **matrix, t_redir_list *redir);
-
 /* builtin pwd */
 void	handle_builtin_pwd(void);
-
 /* builtin exit */
 void	handle_builtin_exit(t_shell *shell);
-
 /* builtin cd */
 void	handle_builtin_cd(t_shell *shell, char **matrix);
 
-/* history */
-void	handle_history(t_shell *shell);
-
+/*** executor ***/
 /* executor */
 void	executor(t_shell *shell);
 int		handle_exit_status(int status);
-
 /* executor redir */
 void	redir_input(t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
 void	reset_redir(t_shell *shell);
-
 /* executor process */
 void	process_command(t_shell *shell);
-
 /* executor command */
 void	exe_cmd(t_shell *shell, t_cmd *current_node);
+
+/*** utils ***/
+/* main */
+void	free_prompt(t_shell *shell);
+void	free_shell(t_shell *shell);
+/* matrix */
+void	print_matrix(char **matrix);
+void	free_matrix(char **matrix);
+/* cmd */
+void	print_cmd_list(t_cmd *cmd);
+void	free_cmd_list(t_cmd **cmd);
+/* redir */
+void	print_redir_list(t_cmd *cmd);
+void	free_all_redir_list(t_cmd *cmd);
+void	free_redir_list(t_redir_list **redir);
+/* env */
+void	print_env_list(t_env *env);
+void	free_env_list(t_env **env);
 
 #endif

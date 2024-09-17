@@ -8,6 +8,7 @@ PARSER_DIR		= ./parser
 BUILTIN_DIR		= ./builtin
 SIGNAL_DIR		= ./signal
 EXECUTOR_DIR	= ./executor
+UTILS_DIR		= ./utils
 
 SRCS		=	$(MAIN_DIR)/main.c \
 				$(MAIN_DIR)/main_utils.c \
@@ -30,13 +31,13 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(PARSER_DIR)/parser_cmd_redir.c \
 				$(PARSER_DIR)/parser_cmd_redir_utils.c \
 				$(PARSER_DIR)/parser_cmd_list.c \
-				$(PARSER_DIR)/parser_cmd_list_utils.c \
 				$(PARSER_DIR)/parser_heredoc.c \
 				$(SIGNAL_DIR)/signal.c \
 				$(SIGNAL_DIR)/signal_sigint.c \
 				$(SIGNAL_DIR)/signal_sigint_heredoc.c \
 				$(SIGNAL_DIR)/signal_sigterm.c \
 				$(SIGNAL_DIR)/signal_sigquit.c \
+				$(SIGNAL_DIR)/signal_sigint_heredoc.c \
 				$(BUILTIN_DIR)/builtin.c \
 				$(BUILTIN_DIR)/builtin_export.c \
 				$(BUILTIN_DIR)/builtin_export_utils_1.c \
@@ -55,7 +56,13 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(EXECUTOR_DIR)/executor_redir.c \
 				$(EXECUTOR_DIR)/executor_process.c \
 				$(EXECUTOR_DIR)/executor_command.c \
-				$(EXECUTOR_DIR)/executor_command_utils.c
+				$(EXECUTOR_DIR)/executor_command_utils.c \
+				$(UTILS_DIR)/main.c \
+				$(UTILS_DIR)/matrix.c \
+				$(UTILS_DIR)/arg.c \
+				$(UTILS_DIR)/cmd.c \
+				$(UTILS_DIR)/redir.c \
+				$(UTILS_DIR)/env.c \
 
 OBJS		= $(patsubst %.c, $(MINISHELL_DIR)/%.o, $(SRCS))
 

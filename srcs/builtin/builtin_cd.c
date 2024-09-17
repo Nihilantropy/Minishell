@@ -5,7 +5,7 @@ static int	handle_path_cd(char *path);
 static void	update_oldpwd(t_shell *shell, char *current_pwd);
 static void	update_pwd(t_shell *shell, char *new_pwd);
 void		create_oldpwd_node(t_shell *shell, char *current_pwd);
-void		substitute_oldpwd_node(t_env *current_node, char *current_pwd);
+void		update_oldpwd_node(t_env *current_node, char *current_pwd);
 void		create_pwd_node(t_shell *shell, char *new_pwd);
 void		update_pwd_node(t_env *current_node, char *new_pwd);
 

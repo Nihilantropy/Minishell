@@ -60,29 +60,6 @@ char	*copy_value(char *current_var)
 	return (value);
 }
 
-void	free_env_list(t_env **env)
-{
-	t_env	*current;
-	t_env	*next_node;
-
-	if (!*env)
-		return ;
-	current = *env;
-	while (current)
-	{
-		next_node = current->next;
-		if (current->var)
-			free(current->var);
-		if (current->name)
-			free(current->name);
-		if (current->value)
-			free(current->value);
-		free(current);
-		current = next_node;
-	}
-	*env = NULL;
-}
-
 t_env	*find_last_env_node(t_env *env)
 {
 	if (!env)
