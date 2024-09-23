@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_process.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcantell <mcantell@student.42roma.it>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:57:36 by mcantell          #+#    #+#             */
+/*   Updated: 2024/09/23 13:57:37 by mcantell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	process_pipeline(t_shell *shell, t_cmd *current_node, int fd[2]);
