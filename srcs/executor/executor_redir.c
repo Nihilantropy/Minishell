@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_redir.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:44:12 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 14:53:12 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*	reset redir
@@ -22,29 +34,14 @@ void	reset_redir(t_shell *shell)
 void	redir_input(t_redir_list *redir)
 {
 	t_redir_list	*current_node;
-	int				read_file;
 
 	current_node = redir;
 	while (current_node)
 	{
 		if (current_node->type.here_doc)
-		{
-			read_file = open(current_node->here_doc->tmp_file_name, O_RDONLY);
-			if (read_file == -1)
-				ft_exit_error(ERR_HERE_DOC);
-			if (dup2(read_file, STDIN_FILENO) == -1)
-				perror("dup2 here_doc");
-			close(read_file);
-		}
+			open_heredoc(current_node);
 		else if (current_node->type.infile)
-		{
-			read_file = open(current_node->fd_name, O_RDONLY, 0777);
-			if (read_file == -1)
-				ft_exit_error(ERR_READ_FILE);
-			if (dup2(read_file, STDIN_FILENO) == -1)
-				perror("dup2 infile");
-			close(read_file);
-		}
+			open_infile(current_node);
 		current_node = current_node->next;
 	}
 }
@@ -55,29 +52,14 @@ void	redir_input(t_redir_list *redir)
 void	redir_output(t_redir_list *redir)
 {
 	t_redir_list	*current_node;
-	int				write_file;
 
 	current_node = redir;
 	while (current_node)
 	{
 		if (current_node->type.outfile)
-		{
-			write_file = open(current_node->fd_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-			if (write_file == -1)
-				ft_exit_error(ERR_WRITE_FILE);
-			if (dup2(write_file, STDOUT_FILENO) == -1)
-				perror("dup2 outfile");
-			close(write_file);
-		}
+			open_outfile(current_node);
 		if (current_node->type.append)
-		{
-			write_file = open(current_node->fd_name, O_WRONLY | O_CREAT | O_APPEND, 0600);
-			if (write_file == -1)
-				ft_exit_error(ERR_WRITE_FILE);
-			if (dup2(write_file, STDOUT_FILENO) == -1)
-				perror("dup2 append");
-			close(write_file);
-		}
+			open_append(current_node);
 		current_node = current_node->next;
 	}
 }

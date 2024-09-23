@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:45:18 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:22:18 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	find_total_path(t_shell *shell);
@@ -78,7 +90,8 @@ static char	*create_new_node(t_arg **arg, char *temp)
 /*	parse list:
 **	1) Duplicate the original string to work on a separete memory space
 **	2) Navigate the string to see if we have to build a quote node ("" or ''),
-**		a token node (|, <, >, <<, or >>), that will always be valid, or a simple node.
+**		a token node (|, <, >, <<, or >>),
+**		that will always be valid, or a simple node.
 **	3) Polish list to set up all the node correctly.
 **	4) Free the duplicated string.
 */
@@ -98,7 +111,7 @@ static void	parse_list(t_shell *shell)
 		else if (*temp == '|' || *temp == '<' || *temp == '>')
 			temp = create_token_node(&shell->arg, temp);
 		else if (*temp != ' ' && *temp != '\t' && *temp != '|'
-				&& *temp != '<' && *temp != '>')
+			&& *temp != '<' && *temp != '>')
 			temp = create_new_node(&shell->arg, temp);
 		else
 			temp++;
@@ -121,18 +134,15 @@ static void	parse_list(t_shell *shell)
 */
 void	parse_args(t_shell *shell)
 {
-	shell->line = readline("\nminishell$ ");
+	shell->line = readline("minishell$ ");
 	if (!shell->line)
 	{
 		free_shell(shell);
 		exit(EXIT_SUCCESS);
 	}
-	if (shell->line[0] == '\0')
+	if (shell->line[0] == '\0' || !ft_isspace_str(shell->line))
 	{
 		free(shell->line);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
 		shell->line = NULL;
 		return ;
 	}

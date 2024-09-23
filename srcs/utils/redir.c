@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:45:41 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:26:16 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*	free all redir list
@@ -5,7 +17,7 @@
 */
 void	free_all_redir_list(t_cmd *cmd)
 {
-	t_cmd 			*current_cmd_node;
+	t_cmd	*current_cmd_node;
 
 	current_cmd_node = cmd;
 	while (current_cmd_node)
@@ -31,7 +43,7 @@ void	free_redir_list(t_redir_list **redir)
 		if (current->here_doc)
 		{
 			if (!access(current->here_doc->tmp_file_name, F_OK))
-					unlink(current->here_doc->tmp_file_name);
+				unlink(current->here_doc->tmp_file_name);
 			free(current->here_doc->limiter);
 			free(current->here_doc->tmp_file_name);
 			free(current->here_doc);

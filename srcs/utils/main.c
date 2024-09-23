@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:45:35 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:26:24 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*	free prompt:
@@ -14,11 +26,17 @@ void	free_prompt(t_shell *shell)
 		shell->line = NULL;
 		return ;
 	}
-	free_all_redir_list(shell->cmd);
-	free_cmd_list(&shell->cmd);
-	free_list(&shell->arg);
-	free_matrix(shell->path);
-	shell->path = NULL;
+	if (shell->cmd)
+		free_all_redir_list(shell->cmd);
+	if (shell->cmd)
+		free_cmd_list(&shell->cmd);
+	if (shell->arg)
+		free_list(&shell->arg);
+	if (shell->path)
+	{
+		free_matrix(shell->path);
+		shell->path = NULL;
+	}
 }
 
 /*	free shell:

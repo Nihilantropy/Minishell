@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:43:52 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 13:55:17 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void		create_ex_list(char **matrix, t_env **export);
@@ -76,7 +88,6 @@ static t_env	*create_ex_node(t_env **export)
 	return (new_node);
 }
 
-
 /*	check invalid name:
 **	if the name of the argument is invalid, free the current export list
 **	and display a new prompt.
@@ -87,7 +98,7 @@ static int	check_invalid_name(t_env **export)
 	t_env	*current_node;
 
 	current_node = (*export)->next;
-	while (current_node)	
+	while (current_node)
 	{
 		i = 0;
 		while (current_node->name[i])

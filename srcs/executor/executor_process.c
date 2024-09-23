@@ -1,17 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_process.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:44:09 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 14:14:35 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
+static void	handle_process(t_shell *shell);
 static void	process_pipeline(t_shell *shell, t_cmd *current_node, int fd[2]);
 
 /*	process command:
 **	use the pipe to syncronyze the
 **	processes in the pipeline.
 */
-void process_command(t_shell *shell)
+void	process_command(t_shell *shell)
+{
+	int		status;
+
+	handle_process(shell);
+	while (wait(&status) > 0)
+		g_exit_status = handle_exit_status(status);
+	free_shell(shell);
+	free_prompt(shell);
+	exit(g_exit_status);
+}
+
+static void	handle_process(t_shell *shell)
 {
 	int		fd[2];
 	t_cmd	*current_node;
 	pid_t	pid;
-	int		status;
 
 	current_node = shell->cmd;
 	while (current_node)
@@ -33,11 +57,6 @@ void process_command(t_shell *shell)
 		}
 	}
 	close(STDIN_FILENO);
-	while (wait(&status) > 0)
-		g_exit_status = handle_exit_status(status);
-	free_shell(shell);
-	free_prompt(shell);
-	exit(g_exit_status);
 }
 
 /*	process pipeline:

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_env_utils_2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:44:29 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:28:31 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	create_new_shell_level_node(t_shell *shell, char *new_level);
@@ -85,4 +97,15 @@ static int	env_list_length(t_env *env)
 		len++;
 	}
 	return (len);
+}
+
+void	free_current_node(t_env *current_node)
+{
+	if (current_node->var)
+		free(current_node->var);
+	if (current_node->name)
+		free(current_node->name);
+	if (current_node->value)
+		free(current_node->value);
+	free(current_node);
 }

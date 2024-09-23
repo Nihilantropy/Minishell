@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   messages.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 15:26:47 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:26:47 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
@@ -34,7 +46,7 @@
 
 # define ERR_ALLOC_MATRIX_COPY "Error. MATRIX COPY allocation failed.\n"
 
-# define ERR_PIPE_FIRST_INDEX "-minishell: syntax error near unexpected token `|'"
+# define ERR_PIPE_FIRST_INDEX "-minishell: syntax error unexpected token `|'"
 # define ERR_PIPE_LAST_INDEX "Error. Pipe at last index.\n"
 
 # define ERR_PIPE "Error. Pipe error -1\n"

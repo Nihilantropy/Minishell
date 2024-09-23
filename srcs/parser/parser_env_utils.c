@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_env_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:45:01 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:22:45 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*build_env_str(char *str, char *var_value, char *end);
@@ -27,7 +39,7 @@ char	*hanlde_env_var(t_shell *shell, char *str, char *start, char *end)
 	char	*new_str;
 
 	while ((*end && ft_isalnum(*end)) || *end == '_')
-				end++;
+		end++;
 	ft_strlcpy(var_name, start + 1, end - start);
 	var_value = ft_getenv(shell->env, var_name);
 	if (!var_value)
