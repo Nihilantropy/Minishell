@@ -123,7 +123,10 @@ void	parse_args(t_shell *shell)
 {
 	shell->line = readline("\nminishell$ ");
 	if (!shell->line)
+	{
+		free_shell(shell);
 		exit(EXIT_SUCCESS);
+	}
 	if (shell->line[0] == '\0')
 	{
 		free(shell->line);
