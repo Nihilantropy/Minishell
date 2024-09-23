@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:43:50 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:43:51 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 17:13:08 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*copy_ex_var(char *str)
 	char	*var;
 
 	var = ft_strdup(str);
+	printf("var is: %s\n", var);
+	printf("var pointer is: %p\n", var);
 	if (!var)
 		ft_exit_error(ERR_ALLOC_VAR);
 	return (var);
@@ -68,6 +70,11 @@ char	*copy_ex_name(t_env *current_node, char *current_var)
 	name = malloc(i + 1);
 	if (!name)
 		ft_exit_error(ERR_ALLOC_NAME);
+	if (ft_strncmp(current_var, "=", 1) == 0)
+		{
+			free(name);
+			return (NULL);
+		}
 	if (current_var[i] == '=' && current_var[i - 1] == '+')
 		current_node->chain = true;
 	if (current_node->chain)

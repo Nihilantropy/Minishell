@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:43:52 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:55:17 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 16:56:55 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,15 @@ static int	check_invalid_name(t_env **export)
 	current_node = (*export)->next;
 	while (current_node)
 	{
+		if (current_node->name == NULL)
+		{
+			ft_putstr_fd("-minishell: export: `", 2);
+			ft_putstr_fd(current_node->var, 2);
+			ft_putstr_fd("'", 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
+			remove_node(current_node, export);
+			return (1);
+		}
 		i = 0;
 		while (current_node->name[i])
 		{
@@ -126,7 +135,8 @@ static void	append_list_to_env(t_shell *shell, t_env *export)
 	while (current_node)
 	{
 		next_node = current_node->next;
-		append_env_node(&shell->env, current_node);
+		if (ft_strcmp(current_node->name, "") != 0)	
+			append_env_node(&shell->env, current_node);
 		current_node = next_node;
 	}
 	free_env_list(&export);
