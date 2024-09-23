@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:44:49 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:44:50 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:16:33 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static void	init_redir_node(t_redir_list **redir);
 static void	copy_redir(t_redir_list *redir, t_shell *shell);
-static void	create_heredoc_list(t_arg *current_node, t_redir_list *redir, int here_doc_index);
+static void	create_heredoc_list(t_arg *current_node,
+				t_redir_list *redir, int here_doc_index);
 
 /*	build redir list:
-**	1) Build all the necessary nodes for the redirection list, each inside the
-**		command node
-**	2) Copy the redirection file name inside the node, with the corrisponding types
+**	1) Build all the necessary nodes for the redirection list,
+**	each inside the command node
+**	2) Copy the redirection file name inside the node,
+**	with the corrisponding types
 */
 void	build_redir_list(t_cmd *cmd, t_shell *shell)
 {
@@ -72,7 +74,6 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 	current_node = shell->arg;
 	while (current_node && !current_node->token.pipe)
 	{
-		
 		if (current_node->type.is_redir)
 		{
 			set_node_type(redir, current_node);
@@ -94,7 +95,8 @@ static void	copy_redir(t_redir_list *redir, t_shell *shell)
 **	Also check what type of quotetion the node has in order to
 **	check the $VAR expantion.
 */
-static void	create_heredoc_list(t_arg *current_node, t_redir_list *redir, int here_doc_index)
+static void	create_heredoc_list(t_arg *current_node,
+				t_redir_list *redir, int here_doc_index)
 {
 	char	*temp;
 	char	*file_name;

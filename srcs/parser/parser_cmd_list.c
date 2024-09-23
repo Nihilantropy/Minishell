@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:44:44 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:44:45 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:21:49 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ static t_cmd	*find_last_cmd_node(t_cmd *cmd)
 		cmd = cmd->next;
 	return (cmd);
 }
-

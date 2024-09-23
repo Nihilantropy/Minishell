@@ -6,13 +6,13 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:45:34 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:45:35 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:25:56 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void print_env_list(t_env *env)
+void	print_env_list(t_env *env)
 {
 	t_env	*current_node;
 

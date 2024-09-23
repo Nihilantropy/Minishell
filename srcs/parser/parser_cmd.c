@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:44:54 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:44:55 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:21:20 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ static void	build_cmd_nodes(t_shell *shell)
 /*	build cmd matrix:
 **	1) Search how many space we need for the command and the eventual flags,
 **		skipping the redirection nodes
-**	2) Copy the commands inside the matrix cells, moving the arg head meanwhile
+**	2) Copy the commands inside the matrix cells,
+**		moving the arg head meanwhile
 */
 static void	build_cmd_matrix(t_cmd *cmd, t_shell *shell)
 {

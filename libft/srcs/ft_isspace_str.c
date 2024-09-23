@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_executor.c                                  :+:      :+:    :+:   */
+/*   ft_isspace_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 13:45:21 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 15:24:58 by crea             ###   ########.fr       */
+/*   Created: 2024/09/23 14:42:18 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:29:04 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/libft.h"
 
-void	signal_handler_execve(int signum)
+int	ft_isspace_str(char *str)
 {
-	if (signum == SIGINT)
-		g_exit_status = 130;
-	if (signum == SIGQUIT)
-		g_exit_status = 131;
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t'
+			&& str[i] != '\r' && str[i] != '\f')
+			return (1);
+		i++;
+	}
+	return (0);
 }

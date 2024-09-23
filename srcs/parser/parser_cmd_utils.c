@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:44:51 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:44:52 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:24:37 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	copy_command(t_cmd *cmd, t_shell *shell)
 		{
 			if (current_node->prev && current_node->prev->chained)
 				cmd->matrix[y - 1] = join_matrix_to_node(cmd->matrix[y - 1],
-															current_node->str);
+						current_node->str);
 			else
 				cmd->matrix[y++] = ft_strdup(current_node->str);
 		}

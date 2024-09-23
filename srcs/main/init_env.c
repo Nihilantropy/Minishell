@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:44:31 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:44:32 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:04:25 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,7 @@ static int	del_same_name_node(t_env **env, t_env *new_node)
 			if (current_node == *env)
 				*env = new_node;
 			handle_node_pointer(current_node, new_node);
-			if (current_node->var)
-				free(current_node->var);
-			if (current_node->name)
-				free(current_node->name);
-			if (current_node->value)
-				free(current_node->value);
-			free(current_node);
+			free_current_node(current_node);
 			return (1);
 		}
 		current_node = current_node->next;

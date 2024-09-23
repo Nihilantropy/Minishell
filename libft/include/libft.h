@@ -92,5 +92,6 @@ void	ft_exit_error(char *error);
 void	ft_exit_success(char *success);
 int		ft_isdigit_str(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_isspace_str(char *str);
 
 #endif

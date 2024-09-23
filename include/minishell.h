@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 15:27:22 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 15:27:22 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -147,9 +159,10 @@ char	*copy_var(char *current_var);
 char	*copy_name(char *current_var);
 char	*copy_value(char *current_var);
 t_env	*find_last_env_node(t_env *env);
-/* ini env utils 2 */
+/* init env utils 2 */
 void	update_shell_env_level(t_shell *shell);
 void	update_new_shell_env(t_shell *shell);
+void	free_current_node(t_env *current_node);
 
 /*** signal ***/
 /* signal */
@@ -195,6 +208,8 @@ void	append_redir_node(t_redir_list **redir, t_redir_list *new_node);
 void	set_node_type(t_redir_list *redir, t_arg *current_node);
 /* parser heredoc */
 void	handle_heredoc(t_shell *shell);
+/* parser heredoc utils */
+void	handle_heredoc_process(t_shell *shell);
 
 /*** builtin ***/
 /* builtin */
@@ -242,7 +257,10 @@ void	redir_input(t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
 void	reset_redir(t_shell *shell);
 /* executor redir utils */
-
+void	open_heredoc(t_redir_list *current_node);
+void	open_infile(t_redir_list *current_node);
+void	open_outfile(t_redir_list *current_node);
+void	open_append(t_redir_list *current_node);
 /* executor process */
 void	process_command(t_shell *shell);
 /* executor command */

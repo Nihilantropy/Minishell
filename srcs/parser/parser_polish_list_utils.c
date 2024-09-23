@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:45:09 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:45:10 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:23:59 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	check_arg_list(t_shell *shell)
 {
 	if (shell->arg->token.pipe)
 	{
-		printf("-minishell: syntax error near unexpected token `%s'\n", shell->arg->str);
+		printf("-minishell: syntax error near unexpected token `%s'\n",
+			shell->arg->str);
 		g_exit_status = 2;
 		shell->error = true;
 		return (1);
@@ -43,8 +44,9 @@ static int	check_token_index(t_shell *shell)
 			syntax_error_near_token(shell, current_node->str);
 			return (1);
 		}
-		else if (next_node && ((current_node->token.is_token && !current_node->token.pipe) 
-					&& next_node->token.is_token))
+		else if (next_node && ((current_node->token.is_token
+					&& !current_node->token.pipe)
+				&& next_node->token.is_token))
 		{
 			syntax_error_near_token(shell, next_node->str);
 			return (1);

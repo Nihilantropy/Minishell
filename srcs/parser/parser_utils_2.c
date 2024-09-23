@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:45:17 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:45:18 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 15:17:00 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ static int	none_quote_node_length(char *temp, t_arg *new_node)
 
 	i = 0;
 	while ((temp[i] != '\'' && temp[i] != '\"'
-				&& temp[i] != '>' && temp[i] != '<'
-				&& temp[i] != '|' && temp[i] != ' '
-				&& temp[i] != '\t') && temp[i])
+			&& temp[i] != '>' && temp[i] != '<'
+			&& temp[i] != '|' && temp[i] != ' '
+			&& temp[i] != '\t') && temp[i])
 		i++;
 	if (temp[i])
 	{
