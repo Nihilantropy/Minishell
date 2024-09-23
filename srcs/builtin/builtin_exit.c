@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:43:34 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 13:50:46 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static int		check_exit_invalid_arg(t_shell *shell);
-static int	check_exit_alpha_arg(char **matrix);
+static int		check_exit_alpha_arg(char **matrix);
 static t_bool	check_exit_multi_arg(char **matrix);
 
 void	handle_builtin_exit(t_shell *shell)

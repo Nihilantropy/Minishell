@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:44:00 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 13:55:38 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	remove_node_from_env(t_env **env, t_env **unset);
@@ -54,4 +66,3 @@ static void	remove_node_from_env(t_env **env, t_env **unset)
 		current_unset_node = next_unset_node;
 	}
 }
-

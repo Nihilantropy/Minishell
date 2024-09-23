@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_command_utils.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:44:05 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 14:08:11 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	check_relative_path(t_cmd *current_node)
@@ -77,4 +89,3 @@ void	check_path(t_shell *shell, t_cmd *current_node)
 		exit(EXIT_FAILURE);
 	}
 }
-

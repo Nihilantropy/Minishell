@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export_utils_1.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:43:47 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 13:54:21 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	create_dup_ex_node(t_env *current_ex_node, t_env **export_dup);
@@ -48,9 +60,10 @@ int	check_name_arg_error(t_env *current_node, t_env **export)
 	while ((current_node->chain && i < (len - 1))
 		|| (current_node->name[i] && !current_node->chain))
 	{
-		if (current_node->name[0] != '!' && (ft_isdigit(current_node->name[0])
+		if (current_node->name[0] != '!'
+			&& (ft_isdigit(current_node->name[0])
 				|| (!ft_isalnum(current_node->name[i])))
-				&& current_node->name[i])
+			&& current_node->name[i])
 		{
 			printf("-minishell: export: `%s'", current_node->var);
 			printf(": not a valid identifier\n");

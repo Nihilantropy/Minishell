@@ -148,8 +148,8 @@ char	*copy_name(char *current_var);
 char	*copy_value(char *current_var);
 t_env	*find_last_env_node(t_env *env);
 /* ini env utils 2 */
-void		update_shell_env_level(t_shell *shell);
-void		update_new_shell_env(t_shell *shell);
+void	update_shell_env_level(t_shell *shell);
+void	update_new_shell_env(t_shell *shell);
 
 /*** signal ***/
 /* signal */
@@ -228,7 +228,7 @@ void	handle_builtin_pwd(void);
 /* builtin exit */
 void	handle_builtin_exit(t_shell *shell);
 /* builtin cd */
-void	handle_builtin_cd(t_shell *shell, t_cmd *current_node, char **matrix);
+void	handle_builtin_cd(t_shell *shell, char **matrix);
 /* builtin cd utils */
 void	update_oldpwd_node(t_env *current_node, char *current_pwd);
 void	update_pwd_node(t_env *current_node, char *new_pwd);
@@ -241,6 +241,8 @@ int		handle_exit_status(int status);
 void	redir_input(t_redir_list *redir);
 void	redir_output(t_redir_list *redir);
 void	reset_redir(t_shell *shell);
+/* executor redir utils */
+
 /* executor process */
 void	process_command(t_shell *shell);
 /* executor command */

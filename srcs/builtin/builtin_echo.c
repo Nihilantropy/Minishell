@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 13:43:28 by crea              #+#    #+#             */
+/*   Updated: 2024/09/23 13:51:48 by crea             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	print_echo_matrix(char **echo_matrix, t_bool flag);
@@ -48,7 +60,7 @@ static void	handle_echo_print(char **echo_matrix, t_redir_list	*current_node)
 	else if (flag && echo_matrix[2])
 	{
 		if (current_node && (current_node->type.outfile
-			|| current_node->type.append))
+				|| current_node->type.append))
 			flag = false;
 		print_echo_matrix(echo_matrix + 2, flag);
 	}

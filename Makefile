@@ -50,6 +50,7 @@ SRCS		=	$(MAIN_DIR)/main.c \
 				$(BUILTIN_DIR)/builtin_cd_utils.c \
 				$(EXECUTOR_DIR)/executor.c \
 				$(EXECUTOR_DIR)/executor_redir.c \
+				$(EXECUTOR_DIR)/executor_redir_utils.c \
 				$(EXECUTOR_DIR)/executor_process.c \
 				$(EXECUTOR_DIR)/executor_command.c \
 				$(EXECUTOR_DIR)/executor_command_utils.c \
