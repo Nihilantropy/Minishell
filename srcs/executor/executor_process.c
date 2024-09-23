@@ -35,6 +35,8 @@ void process_command(t_shell *shell)
 	close(STDIN_FILENO);
 	while (wait(&status) > 0)
 		g_exit_status = handle_exit_status(status);
+	free_shell(shell);
+	free_prompt(shell);
 	exit(g_exit_status);
 }
 
@@ -51,10 +53,14 @@ static void	process_pipeline(t_shell *shell, t_cmd *current_node, int fd[2])
 	redir_input(current_node->redir);
 	redir_output(current_node->redir);
 	if (current_node->builtin.is_builtin)
+	{
 		handle_builtin(shell, current_node);
+	}
 	else if (current_node->matrix[0])
 		exe_cmd(shell, current_node);
 	else
 		ft_exit_error("");
+	free_shell(shell);
+	free_prompt(shell);
 	exit(EXIT_SUCCESS);
 }

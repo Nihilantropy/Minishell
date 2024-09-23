@@ -13,7 +13,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	(void)argv;
 	init_shell(&shell, envp);
-
 	shell_prompt(&shell);
 	return (0);
 }
