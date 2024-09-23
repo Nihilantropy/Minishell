@@ -14,17 +14,11 @@ void	free_prompt(t_shell *shell)
 		shell->line = NULL;
 		return ;
 	}
-	if (shell->cmd)
-		free_all_redir_list(shell->cmd);
-	if (shell->cmd)
-		free_cmd_list(&shell->cmd);
-	if (shell->arg)
-		free_list(&shell->arg);
-	if (shell->path)
-	{
-		free_matrix(shell->path);
-		shell->path = NULL;
-	}
+	free_all_redir_list(shell->cmd);
+	free_cmd_list(&shell->cmd);
+	free_list(&shell->arg);
+	free_matrix(shell->path);
+	shell->path = NULL;
 }
 
 /*	free shell:

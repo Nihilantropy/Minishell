@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 static int		check_exit_invalid_arg(t_shell *shell);
-static t_bool	check_exit_alpha_arg(char **matrix);
+static int	check_exit_alpha_arg(char **matrix);
 static t_bool	check_exit_multi_arg(char **matrix);
 
 void	handle_builtin_exit(t_shell *shell)
@@ -25,10 +25,15 @@ static int	check_exit_invalid_arg(t_shell *shell)
 		return (1);
 	if (check_exit_alpha_arg(matrix) == true)
 		return (2);
+	if (g_exit_status != 0)
+	{
+		handle_exit_status(g_exit_status);
+		return (g_exit_status);
+	}
 	return (0);
 }
 
-static t_bool	check_exit_alpha_arg(char **matrix)
+static int	check_exit_alpha_arg(char **matrix)
 {
 	int	x;
 
@@ -41,11 +46,12 @@ static t_bool	check_exit_alpha_arg(char **matrix)
 			ft_putstr_fd(matrix[1], 2);
 			ft_putstr_fd(": \n", 2);
 			ft_putstr_fd("numeric argument required\n", 2);
-			return (true);
+			return (1);
 		}
 		x++;
 	}
-	return (false);
+	g_exit_status = ft_atoi(matrix[1]);
+	return (g_exit_status);
 }
 
 static t_bool	check_exit_multi_arg(char **matrix)
