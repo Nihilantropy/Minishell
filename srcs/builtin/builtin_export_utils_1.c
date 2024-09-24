@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:43:47 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:54:21 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/23 17:03:23 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int	check_name_arg_error(t_env *current_node, t_env **export)
 				|| (!ft_isalnum(current_node->name[i])))
 			&& current_node->name[i])
 		{
-			printf("-minishell: export: `%s'", current_node->var);
-			printf(": not a valid identifier\n");
+			ft_putstr_fd("-minishell: export: `", 2);
+			ft_putstr_fd(current_node->var, 2);
+			ft_putstr_fd("'", 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
 			remove_node(current_node, export);
 			g_exit_status = EXIT_STATUS_ERROR;
 			return (1);

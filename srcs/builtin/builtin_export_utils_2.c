@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:43:50 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:43:51 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/24 12:58:46 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	*copy_ex_name(t_env *current_node, char *current_var)
 	i = 0;
 	while (current_var[i] && current_var[i] != '=')
 		i++;
+	if (ft_strncmp(current_var, "=", 1) == 0)
+		return (NULL);
 	name = malloc(i + 1);
 	if (!name)
 		ft_exit_error(ERR_ALLOC_NAME);

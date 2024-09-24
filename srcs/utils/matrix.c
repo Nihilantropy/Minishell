@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:45:40 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 13:45:41 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/24 15:06:02 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_matrix(char **matrix)
 	int	y;
 
 	y = 0;
-	if (!matrix[y])
+	if (!matrix)
 		return ;
 	while (matrix[y])
 		free(matrix[y++]);
