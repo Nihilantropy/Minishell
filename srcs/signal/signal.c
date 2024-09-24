@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:45:24 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 15:25:20 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/24 13:44:56 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	signal_handler(int signum)
 
 void	signal_ign(void)
 {
-	signal(SIGQUIT, ign);
 	signal(SIGINT, ign);
 	signal(SIGTERM, ign);
 }

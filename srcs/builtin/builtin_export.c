@@ -6,7 +6,7 @@
 /*   By: crea <crea@student.42roma.it>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:43:52 by crea              #+#    #+#             */
-/*   Updated: 2024/09/23 16:56:55 by crea             ###   ########.fr       */
+/*   Updated: 2024/09/24 12:59:04 by crea             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ static void	append_list_to_env(t_shell *shell, t_env *export)
 	while (current_node)
 	{
 		next_node = current_node->next;
-		if (ft_strcmp(current_node->name, "") != 0)	
+		if (ft_strcmp(current_node->name, "") != 0)
 			append_env_node(&shell->env, current_node);
 		current_node = next_node;
 	}
